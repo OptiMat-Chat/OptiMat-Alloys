@@ -1,0 +1,202 @@
+{
+  "metadata": {
+    "description": "Experimental QHA properties at 300 K for common elements",
+    "temperature": 300,
+    "units": {
+      "bulk_modulus": "GPa",
+      "thermal_expansion": "10^-6 K^-1",
+      "heat_capacity": "J/K/mol",
+      "lattice_constant": "Angstrom"
+    },
+    "notes": "Values compiled from various experimental sources and handbooks"
+  },
+  "elements": {
+    "Cu": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 142.0,
+      "thermal_expansion_1e6_per_K": 16.5,
+      "heat_capacity_J_K_mol": 24.4,
+      "lattice_constant_angstrom": 3.615,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Ag": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 109.0,
+      "thermal_expansion_1e6_per_K": 18.9,
+      "heat_capacity_J_K_mol": 25.4,
+      "lattice_constant_angstrom": 4.085,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Al": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 79.0,
+      "thermal_expansion_1e6_per_K": 23.1,
+      "heat_capacity_J_K_mol": 24.2,
+      "lattice_constant_angstrom": 4.050,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Au": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 180.0,
+      "thermal_expansion_1e6_per_K": 14.2,
+      "heat_capacity_J_K_mol": 25.4,
+      "lattice_constant_angstrom": 4.078,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Ni": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 186.0,
+      "thermal_expansion_1e6_per_K": 13.4,
+      "heat_capacity_J_K_mol": 26.1,
+      "lattice_constant_angstrom": 3.524,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Pt": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 230.0,
+      "thermal_expansion_1e6_per_K": 8.8,
+      "heat_capacity_J_K_mol": 25.9,
+      "lattice_constant_angstrom": 3.924,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Pd": {
+      "structure": "fcc",
+      "bulk_modulus_GPa": 195.0,
+      "thermal_expansion_1e6_per_K": 11.8,
+      "heat_capacity_J_K_mol": 25.9,
+      "lattice_constant_angstrom": 3.891,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Fe": {
+      "structure": "bcc",
+      "bulk_modulus_GPa": 170.0,
+      "thermal_expansion_1e6_per_K": 11.8,
+      "heat_capacity_J_K_mol": 25.1,
+      "lattice_constant_angstrom": 2.866,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Cr": {
+      "structure": "bcc",
+      "bulk_modulus_GPa": 160.0,
+      "thermal_expansion_1e6_per_K": 4.9,
+      "heat_capacity_J_K_mol": 23.4,
+      "lattice_constant_angstrom": 2.885,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "W": {
+      "structure": "bcc",
+      "bulk_modulus_GPa": 310.0,
+      "thermal_expansion_1e6_per_K": 4.5,
+      "heat_capacity_J_K_mol": 24.3,
+      "lattice_constant_angstrom": 3.165,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Mo": {
+      "structure": "bcc",
+      "bulk_modulus_GPa": 261.0,
+      "thermal_expansion_1e6_per_K": 4.8,
+      "heat_capacity_J_K_mol": 24.1,
+      "lattice_constant_angstrom": 3.147,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Si": {
+      "structure": "diamond",
+      "bulk_modulus_GPa": 100.0,
+      "thermal_expansion_1e6_per_K": 2.6,
+      "heat_capacity_J_K_mol": 20.0,
+      "lattice_constant_angstrom": 5.431,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Ge": {
+      "structure": "diamond",
+      "bulk_modulus_GPa": 75.0,
+      "thermal_expansion_1e6_per_K": 5.9,
+      "heat_capacity_J_K_mol": 23.4,
+      "lattice_constant_angstrom": 5.658,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "C": {
+      "structure": "diamond",
+      "bulk_modulus_GPa": 442.0,
+      "thermal_expansion_1e6_per_K": 1.0,
+      "heat_capacity_J_K_mol": 6.1,
+      "lattice_constant_angstrom": 3.567,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Mg": {
+      "structure": "hcp",
+      "bulk_modulus_GPa": 45.0,
+      "thermal_expansion_1e6_per_K": 24.8,
+      "heat_capacity_J_K_mol": 24.9,
+      "lattice_constant_angstrom": 3.209,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Zn": {
+      "structure": "hcp",
+      "bulk_modulus_GPa": 70.0,
+      "thermal_expansion_1e6_per_K": 30.2,
+      "heat_capacity_J_K_mol": 25.4,
+      "lattice_constant_angstrom": 2.665,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    },
+    "Ti": {
+      "structure": "hcp",
+      "bulk_modulus_GPa": 110.0,
+      "thermal_expansion_1e6_per_K": 8.6,
+      "heat_capacity_J_K_mol": 25.0,
+      "lattice_constant_angstrom": 2.951,
+      "sources": [
+        "Kittel, Introduction to Solid State Physics (8th ed.)",
+        "Touloukian et al., Thermophysical Properties of Matter"
+      ]
+    }
+  }
+}

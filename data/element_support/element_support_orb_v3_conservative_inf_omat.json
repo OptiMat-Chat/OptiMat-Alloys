@@ -1,0 +1,4494 @@
+{
+  "Ac": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ac",
+        "energy": -2.089526653289795,
+        "error": null,
+        "lattice_constant": 5.958254778036937,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ac",
+        "energy": -2.5200910568237305,
+        "error": null,
+        "lattice_constant": 7.29734198184517,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ac",
+        "energy": -1.8863654136657715,
+        "error": null,
+        "lattice_constant": 5.159999999999999,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ag": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ag",
+        "energy": -2.6835148334503174,
+        "error": null,
+        "lattice_constant": 3.3486315612998294,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ag",
+        "energy": -2.7093915939331055,
+        "error": null,
+        "lattice_constant": 4.1012193308819755,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ag",
+        "energy": -2.3021836280822754,
+        "error": null,
+        "lattice_constant": 2.9,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Al": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Al",
+        "energy": -2.7477359771728516,
+        "error": null,
+        "lattice_constant": 2.7943753028777887,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Al",
+        "energy": -2.4005661010742188,
+        "error": null,
+        "lattice_constant": 3.42239682094289,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Al",
+        "energy": -2.8751511573791504,
+        "error": null,
+        "lattice_constant": 2.42,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Am": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Am",
+        "energy": -1.6676363945007324,
+        "error": null,
+        "lattice_constant": 4.9883063257983675,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Am",
+        "energy": -1.9059579372406006,
+        "error": null,
+        "lattice_constant": 6.109402589451771,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Am",
+        "energy": -1.1450600624084473,
+        "error": null,
+        "lattice_constant": 4.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ar": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ar",
+        "energy": 4.664824962615967,
+        "error": null,
+        "lattice_constant": 2.9375581696368163,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ar",
+        "energy": 5.985287189483643,
+        "error": null,
+        "lattice_constant": 3.597759302677154,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ar",
+        "energy": 2.3929357528686523,
+        "error": null,
+        "lattice_constant": 2.544,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "As": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "As",
+        "energy": -4.213822364807129,
+        "error": null,
+        "lattice_constant": 3.2978247376111423,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "As",
+        "energy": -3.9927470684051514,
+        "error": null,
+        "lattice_constant": 4.03899393413756,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "As",
+        "energy": -4.480864524841309,
+        "error": null,
+        "lattice_constant": 2.856,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "At": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "At",
+        "energy": -5.217074871063232,
+        "error": null,
+        "lattice_constant": 4.156921938165305,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "At",
+        "energy": -5.402453422546387,
+        "error": null,
+        "lattice_constant": 5.091168824543142,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "At",
+        "energy": -4.659468650817871,
+        "error": null,
+        "lattice_constant": 3.5999999999999996,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Au": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Au",
+        "energy": -2.9725799560546875,
+        "error": null,
+        "lattice_constant": 3.1407854643915645,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Au",
+        "energy": -2.6893837451934814,
+        "error": null,
+        "lattice_constant": 3.846660889654819,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Au",
+        "energy": -3.01107120513916,
+        "error": null,
+        "lattice_constant": 2.72,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "B": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "B",
+        "energy": -4.940726280212402,
+        "error": null,
+        "lattice_constant": 2.327876285372571,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "B",
+        "energy": -5.314706325531006,
+        "error": null,
+        "lattice_constant": 2.8510545417441597,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "B",
+        "energy": -5.4721527099609375,
+        "error": null,
+        "lattice_constant": 2.016,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ba": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ba",
+        "energy": -1.9057912826538086,
+        "error": null,
+        "lattice_constant": 4.9883063257983675,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ba",
+        "energy": -1.8689556121826172,
+        "error": null,
+        "lattice_constant": 6.109402589451771,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ba",
+        "energy": -1.3889312744140625,
+        "error": null,
+        "lattice_constant": 4.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Be": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Be",
+        "energy": -3.1924550533294678,
+        "error": null,
+        "lattice_constant": 2.217025033688163,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Be",
+        "energy": -2.9561591148376465,
+        "error": null,
+        "lattice_constant": 2.7152900397563426,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Be",
+        "energy": -2.489168167114258,
+        "error": null,
+        "lattice_constant": 1.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Bh": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bh",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bh",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bh",
+        "energy": 34.458885192871094,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Bi": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bi",
+        "energy": -2.1816277503967285,
+        "error": null,
+        "lattice_constant": 3.417913593602585,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bi",
+        "energy": -1.3873100280761719,
+        "error": null,
+        "lattice_constant": 4.186072144624362,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bi",
+        "energy": -3.243100643157959,
+        "error": null,
+        "lattice_constant": 2.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Bk": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bk",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bk",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Bk",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Br": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Br",
+        "energy": -0.5143861770629883,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Br",
+        "energy": -0.1614232063293457,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Br",
+        "energy": -1.0223541259765625,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "C": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "C",
+        "energy": -4.161128044128418,
+        "error": null,
+        "lattice_constant": 2.1061737820037547,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "C",
+        "energy": -3.715068817138672,
+        "error": null,
+        "lattice_constant": 2.579525537768525,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "C",
+        "energy": -6.494525909423828,
+        "error": null,
+        "lattice_constant": 1.8239999999999998,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ca": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ca",
+        "energy": -1.80204439163208,
+        "error": null,
+        "lattice_constant": 4.064545895094966,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ca",
+        "energy": -1.6844182014465332,
+        "error": null,
+        "lattice_constant": 4.978031739553295,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ca",
+        "energy": -1.474245548248291,
+        "error": null,
+        "lattice_constant": 3.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cd": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cd",
+        "energy": -0.6090302467346191,
+        "error": null,
+        "lattice_constant": 3.417913593602585,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cd",
+        "energy": -0.5681710243225098,
+        "error": null,
+        "lattice_constant": 4.186072144624362,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cd",
+        "energy": -0.6115283966064453,
+        "error": null,
+        "lattice_constant": 2.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ce": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ce",
+        "energy": -3.519291400909424,
+        "error": null,
+        "lattice_constant": 5.653413835904816,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ce",
+        "energy": -3.8334133625030518,
+        "error": null,
+        "lattice_constant": 6.923989601378674,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ce",
+        "energy": -3.197512626647949,
+        "error": null,
+        "lattice_constant": 4.896,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cf": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cf",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cf",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cf",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cl": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cl",
+        "energy": 0.5294685363769531,
+        "error": null,
+        "lattice_constant": 2.826706917952408,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cl",
+        "energy": 1.165304183959961,
+        "error": null,
+        "lattice_constant": 3.461994800689337,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cl",
+        "energy": -0.38489675521850586,
+        "error": null,
+        "lattice_constant": 2.448,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cm": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cm",
+        "energy": -2.153217315673828,
+        "error": null,
+        "lattice_constant": 4.6834653836662445,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cm",
+        "energy": -2.3801002502441406,
+        "error": null,
+        "lattice_constant": 5.736050208985274,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cm",
+        "energy": -1.5631871223449707,
+        "error": null,
+        "lattice_constant": 4.056,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cn": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cn",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cn",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cn",
+        "energy": 34.45888137817383,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Co": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Co",
+        "energy": -6.866827011108398,
+        "error": null,
+        "lattice_constant": 2.909845356715714,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Co",
+        "energy": -7.008396148681641,
+        "error": null,
+        "lattice_constant": 3.5638181771801998,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Co",
+        "energy": -6.017078399658203,
+        "error": null,
+        "lattice_constant": 2.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cr",
+        "energy": -9.4747314453125,
+        "error": null,
+        "lattice_constant": 2.932939367483299,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cr",
+        "energy": -9.109426498413086,
+        "error": null,
+        "lattice_constant": 3.592102448427662,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cr",
+        "energy": -8.056475639343262,
+        "error": null,
+        "lattice_constant": 2.54,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cs": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cs",
+        "energy": -0.7321815490722656,
+        "error": null,
+        "lattice_constant": 5.427092530382483,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cs",
+        "energy": -0.6831216812133789,
+        "error": null,
+        "lattice_constant": 6.646803743153548,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cs",
+        "energy": -0.6979975700378418,
+        "error": null,
+        "lattice_constant": 4.7,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cu": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cu",
+        "energy": -3.5835657119750977,
+        "error": null,
+        "lattice_constant": 3.0484094213212245,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cu",
+        "energy": -3.698514699935913,
+        "error": null,
+        "lattice_constant": 3.7335238046649715,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Cu",
+        "energy": -3.0065388679504395,
+        "error": null,
+        "lattice_constant": 2.64,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Db": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Db",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Db",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Db",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ds": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ds",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ds",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ds",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Dy": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Dy",
+        "energy": -2.461331367492676,
+        "error": null,
+        "lattice_constant": 5.320860080851591,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Dy",
+        "energy": -2.840343952178955,
+        "error": null,
+        "lattice_constant": 6.516696095415222,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Dy",
+        "energy": -1.8004722595214844,
+        "error": null,
+        "lattice_constant": 4.608,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Er": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Er",
+        "energy": -2.4613592624664307,
+        "error": null,
+        "lattice_constant": 5.237721642088284,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Er",
+        "energy": -2.8440709114074707,
+        "error": null,
+        "lattice_constant": 6.414872718924359,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Er",
+        "energy": -1.7872142791748047,
+        "error": null,
+        "lattice_constant": 4.536,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Es": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Es",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Es",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Es",
+        "energy": 34.45888137817383,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Eu": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Eu",
+        "energy": -9.635224342346191,
+        "error": null,
+        "lattice_constant": 5.487136958378203,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Eu",
+        "energy": -9.813298225402832,
+        "error": null,
+        "lattice_constant": 6.720342848396948,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Eu",
+        "energy": -9.266700744628906,
+        "error": null,
+        "lattice_constant": 4.752,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "F": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "F",
+        "energy": 18.481075286865234,
+        "error": null,
+        "lattice_constant": 1.5796303365028161,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "F",
+        "energy": 24.493499755859375,
+        "error": null,
+        "lattice_constant": 1.934644153326394,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "F",
+        "energy": 11.896199226379395,
+        "error": null,
+        "lattice_constant": 1.3679999999999999,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Fe": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fe",
+        "energy": -8.068856239318848,
+        "error": null,
+        "lattice_constant": 3.0484094213212245,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fe",
+        "energy": -8.084010124206543,
+        "error": null,
+        "lattice_constant": 3.7335238046649715,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fe",
+        "energy": -7.153653621673584,
+        "error": null,
+        "lattice_constant": 2.64,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Fl": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fl",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fl",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fl",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Fm": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fm",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fm",
+        "energy": 34.26127243041992,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fm",
+        "energy": 34.458885192871094,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Fr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fr",
+        "energy": -7.832076549530029,
+        "error": null,
+        "lattice_constant": 7.2053313594865305,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fr",
+        "energy": -7.832077503204346,
+        "error": null,
+        "lattice_constant": 8.824692629208114,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Fr",
+        "energy": -7.832077503204346,
+        "error": null,
+        "lattice_constant": 6.24,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ga": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ga",
+        "energy": -2.1280410289764404,
+        "error": null,
+        "lattice_constant": 2.909845356715714,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ga",
+        "energy": -1.764622688293457,
+        "error": null,
+        "lattice_constant": 3.5638181771801998,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ga",
+        "energy": -2.6804089546203613,
+        "error": null,
+        "lattice_constant": 2.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Gd": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Gd",
+        "energy": -12.23283863067627,
+        "error": null,
+        "lattice_constant": 5.431711332536,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Gd",
+        "energy": -12.527782440185547,
+        "error": null,
+        "lattice_constant": 6.6524605974030395,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Gd",
+        "energy": -11.700681686401367,
+        "error": null,
+        "lattice_constant": 4.704,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ge": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ge",
+        "energy": -2.4774303436279297,
+        "error": null,
+        "lattice_constant": 2.8174693136453737,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ge",
+        "energy": -1.7540168762207031,
+        "error": null,
+        "lattice_constant": 3.450681092190352,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ge",
+        "energy": -3.772711992263794,
+        "error": null,
+        "lattice_constant": 2.44,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "H": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "H",
+        "energy": 6.121611595153809,
+        "error": null,
+        "lattice_constant": 0.8590972005541632,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "H",
+        "energy": 6.805889129638672,
+        "error": null,
+        "lattice_constant": 1.0521748904055828,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "H",
+        "energy": 4.755672454833984,
+        "error": null,
+        "lattice_constant": 0.744,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "He": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "He",
+        "energy": 47.94841766357422,
+        "error": null,
+        "lattice_constant": 0.7759587617908571,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "He",
+        "energy": 42.27655792236328,
+        "error": null,
+        "lattice_constant": 0.95035151391472,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "He",
+        "energy": 53.404937744140625,
+        "error": null,
+        "lattice_constant": 0.672,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Hf": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hf",
+        "energy": -9.521859169006348,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hf",
+        "energy": -9.331005096435547,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hf",
+        "energy": -8.894514083862305,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Hg": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hg",
+        "energy": 2.0693984031677246,
+        "error": null,
+        "lattice_constant": 3.0484094213212245,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hg",
+        "energy": 2.907989025115967,
+        "error": null,
+        "lattice_constant": 3.7335238046649715,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hg",
+        "energy": 0.721555233001709,
+        "error": null,
+        "lattice_constant": 2.64,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ho": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ho",
+        "energy": -2.368757486343384,
+        "error": null,
+        "lattice_constant": 5.320860080851591,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ho",
+        "energy": -2.75398588180542,
+        "error": null,
+        "lattice_constant": 6.516696095415222,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ho",
+        "energy": -1.7396788597106934,
+        "error": null,
+        "lattice_constant": 4.608,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Hs": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hs",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hs",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Hs",
+        "energy": 34.458885192871094,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "I": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "I",
+        "energy": -0.8696560859680176,
+        "error": null,
+        "lattice_constant": 3.852080996033183,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "I",
+        "energy": -0.6498560905456543,
+        "error": null,
+        "lattice_constant": 4.717816444076645,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "I",
+        "energy": -1.1195311546325684,
+        "error": null,
+        "lattice_constant": 3.336,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "In": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "In",
+        "energy": -1.870894432067871,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "In",
+        "energy": -1.512953281402588,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "In",
+        "energy": -2.351480007171631,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ir": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ir",
+        "energy": -8.20329475402832,
+        "error": null,
+        "lattice_constant": 3.1176914536239795,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ir",
+        "energy": -8.819307327270508,
+        "error": null,
+        "lattice_constant": 3.818376618407357,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ir",
+        "energy": -7.667754650115967,
+        "error": null,
+        "lattice_constant": 2.7,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "K": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "K",
+        "energy": -0.9251513481140137,
+        "error": null,
+        "lattice_constant": 4.688084185819761,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "K",
+        "energy": -0.8692851066589355,
+        "error": null,
+        "lattice_constant": 5.741707063234766,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "K",
+        "energy": -0.8970627784729004,
+        "error": null,
+        "lattice_constant": 4.06,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Kr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Kr",
+        "energy": 4.024430274963379,
+        "error": null,
+        "lattice_constant": 3.214686298847836,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Kr",
+        "energy": 5.100045204162598,
+        "error": null,
+        "lattice_constant": 3.9371705576466964,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Kr",
+        "energy": 2.6509885787963867,
+        "error": null,
+        "lattice_constant": 2.784,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "La": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "La",
+        "energy": -2.8007853031158447,
+        "error": null,
+        "lattice_constant": 5.736552274668121,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "La",
+        "energy": -3.3057639598846436,
+        "error": null,
+        "lattice_constant": 7.025812977869536,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "La",
+        "energy": -2.390422821044922,
+        "error": null,
+        "lattice_constant": 4.967999999999999,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Li": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Li",
+        "energy": -1.694969654083252,
+        "error": null,
+        "lattice_constant": 2.956033378250884,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Li",
+        "energy": -1.6194324493408203,
+        "error": null,
+        "lattice_constant": 3.620386719675124,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Li",
+        "energy": -1.7461977005004883,
+        "error": null,
+        "lattice_constant": 2.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Lr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lr",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lr",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lr",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Lu": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lu",
+        "energy": -2.3890085220336914,
+        "error": null,
+        "lattice_constant": 5.182296016246082,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lu",
+        "energy": -2.7711825370788574,
+        "error": null,
+        "lattice_constant": 6.346990467930452,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lu",
+        "energy": -1.7463583946228027,
+        "error": null,
+        "lattice_constant": 4.488,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Lv": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lv",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lv",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Lv",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mc": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mc",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mc",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mc",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Md": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Md",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Md",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Md",
+        "energy": 34.458885192871094,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mg": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mg",
+        "energy": -1.2621674537658691,
+        "error": null,
+        "lattice_constant": 3.2562555182294894,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mg",
+        "energy": -1.08607816696167,
+        "error": null,
+        "lattice_constant": 3.988082245892128,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mg",
+        "energy": -1.0693631172180176,
+        "error": null,
+        "lattice_constant": 2.82,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mn": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mn",
+        "energy": -8.41733169555664,
+        "error": null,
+        "lattice_constant": 3.210067496694319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mn",
+        "energy": -8.608794212341309,
+        "error": null,
+        "lattice_constant": 3.9315137033972043,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mn",
+        "energy": -7.591845512390137,
+        "error": null,
+        "lattice_constant": 2.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mo": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mo",
+        "energy": -10.636717796325684,
+        "error": null,
+        "lattice_constant": 3.002221399786054,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mo",
+        "energy": -9.67471694946289,
+        "error": null,
+        "lattice_constant": 3.6769552621700474,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mo",
+        "energy": -9.683327674865723,
+        "error": null,
+        "lattice_constant": 2.6,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mt": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mt",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mt",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Mt",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "N": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "N",
+        "energy": -1.6075162887573242,
+        "error": null,
+        "lattice_constant": 1.9676097173982448,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "N",
+        "energy": -0.26114511489868164,
+        "error": null,
+        "lattice_constant": 2.409819910283754,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "N",
+        "energy": -4.624269485473633,
+        "error": null,
+        "lattice_constant": 1.704,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Na": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Na",
+        "energy": -1.2297844886779785,
+        "error": null,
+        "lattice_constant": 3.833605787419115,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Na",
+        "energy": -1.171539306640625,
+        "error": null,
+        "lattice_constant": 4.695189027078675,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Na",
+        "energy": -1.160691261291504,
+        "error": null,
+        "lattice_constant": 3.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Nb": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nb",
+        "energy": -9.658134460449219,
+        "error": null,
+        "lattice_constant": 3.0945974428563945,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nb",
+        "energy": -8.66110610961914,
+        "error": null,
+        "lattice_constant": 3.790092347159895,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nb",
+        "energy": -9.123373985290527,
+        "error": null,
+        "lattice_constant": 2.68,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Nd": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nd",
+        "energy": -2.654811382293701,
+        "error": null,
+        "lattice_constant": 5.570275397141509,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nd",
+        "energy": -3.0266761779785156,
+        "error": null,
+        "lattice_constant": 6.82216622488781,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nd",
+        "energy": -2.133572578430176,
+        "error": null,
+        "lattice_constant": 4.823999999999999,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ne": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ne",
+        "energy": 37.204795837402344,
+        "error": null,
+        "lattice_constant": 1.607343149423918,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ne",
+        "energy": 37.00706481933594,
+        "error": null,
+        "lattice_constant": 1.9685852788233482,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ne",
+        "energy": 37.28361511230469,
+        "error": null,
+        "lattice_constant": 1.392,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Nh": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nh",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nh",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Nh",
+        "energy": 34.45888137817383,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ni": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ni",
+        "energy": -5.3634538650512695,
+        "error": null,
+        "lattice_constant": 2.863657335180544,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ni",
+        "energy": -5.494727611541748,
+        "error": null,
+        "lattice_constant": 3.5072496346852757,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ni",
+        "energy": -4.638629913330078,
+        "error": null,
+        "lattice_constant": 2.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "No": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "No",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "No",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "No",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Np": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Np",
+        "energy": -9.416572570800781,
+        "error": null,
+        "lattice_constant": 5.265434455009387,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Np",
+        "energy": -9.641322135925293,
+        "error": null,
+        "lattice_constant": 6.448813844421314,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Np",
+        "energy": -8.801229476928711,
+        "error": null,
+        "lattice_constant": 4.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "O": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "O",
+        "energy": 3.0861434936523438,
+        "error": null,
+        "lattice_constant": 1.8290456527927346,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "O",
+        "energy": 4.9180707931518555,
+        "error": null,
+        "lattice_constant": 2.2401142827989826,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "O",
+        "energy": 0.3166928291320801,
+        "error": null,
+        "lattice_constant": 1.584,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Og": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Og",
+        "energy": null,
+        "error": "Class values must be smaller than num_classes.",
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Og",
+        "energy": null,
+        "error": "Class values must be smaller than num_classes.",
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Og",
+        "energy": null,
+        "error": "Class values must be smaller than num_classes.",
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Os": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Os",
+        "energy": -9.996501922607422,
+        "error": null,
+        "lattice_constant": 2.956033378250884,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Os",
+        "energy": -10.364248275756836,
+        "error": null,
+        "lattice_constant": 3.620386719675124,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Os",
+        "energy": -9.742389678955078,
+        "error": null,
+        "lattice_constant": 2.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "P": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "P",
+        "energy": -4.624490261077881,
+        "error": null,
+        "lattice_constant": 2.965270982557918,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "P",
+        "energy": -4.359849452972412,
+        "error": null,
+        "lattice_constant": 3.6317004281741085,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "P",
+        "energy": -5.15755033493042,
+        "error": null,
+        "lattice_constant": 2.568,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pa": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pa",
+        "energy": -4.705297946929932,
+        "error": null,
+        "lattice_constant": 5.542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pa",
+        "energy": -5.180134296417236,
+        "error": null,
+        "lattice_constant": 6.788225099390856,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pa",
+        "energy": -4.050196170806885,
+        "error": null,
+        "lattice_constant": 4.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pb": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pb",
+        "energy": -1.9732012748718262,
+        "error": null,
+        "lattice_constant": 3.3717255720674144,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pb",
+        "energy": -1.292344570159912,
+        "error": null,
+        "lattice_constant": 4.129503602129438,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pb",
+        "energy": -2.8666272163391113,
+        "error": null,
+        "lattice_constant": 2.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pd": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pd",
+        "energy": -5.138797283172607,
+        "error": null,
+        "lattice_constant": 3.210067496694319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pd",
+        "energy": -5.220403671264648,
+        "error": null,
+        "lattice_constant": 3.9315137033972043,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pd",
+        "energy": -4.532215595245361,
+        "error": null,
+        "lattice_constant": 2.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pm": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pm",
+        "energy": -2.6247997283935547,
+        "error": null,
+        "lattice_constant": 5.514849771299305,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pm",
+        "energy": -2.9972171783447266,
+        "error": null,
+        "lattice_constant": 6.7542839738939024,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pm",
+        "energy": -2.048922061920166,
+        "error": null,
+        "lattice_constant": 4.776,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Po": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Po",
+        "energy": -4.310948848724365,
+        "error": null,
+        "lattice_constant": 3.879793808954285,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Po",
+        "energy": -4.386166572570801,
+        "error": null,
+        "lattice_constant": 4.751757569573599,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Po",
+        "energy": -3.780186653137207,
+        "error": null,
+        "lattice_constant": 3.36,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pr",
+        "energy": -2.6844534873962402,
+        "error": null,
+        "lattice_constant": 5.625701022983713,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pr",
+        "energy": -3.060995101928711,
+        "error": null,
+        "lattice_constant": 6.890048475881718,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pr",
+        "energy": -2.2132253646850586,
+        "error": null,
+        "lattice_constant": 4.871999999999999,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pt": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pt",
+        "energy": -6.012824058532715,
+        "error": null,
+        "lattice_constant": 3.1407854643915645,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pt",
+        "energy": -5.991343021392822,
+        "error": null,
+        "lattice_constant": 3.846660889654819,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pt",
+        "energy": -5.535867691040039,
+        "error": null,
+        "lattice_constant": 2.72,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pu": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pu",
+        "energy": -12.150761604309082,
+        "error": null,
+        "lattice_constant": 5.182296016246082,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pu",
+        "energy": -12.338367462158203,
+        "error": null,
+        "lattice_constant": 6.346990467930452,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Pu",
+        "energy": -11.7282133102417,
+        "error": null,
+        "lattice_constant": 4.488,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ra": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ra",
+        "energy": -10.954553604125977,
+        "error": null,
+        "lattice_constant": 6.124531655563549,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ra",
+        "energy": -11.117753028869629,
+        "error": null,
+        "lattice_constant": 7.500988734826896,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ra",
+        "energy": -10.874950408935547,
+        "error": null,
+        "lattice_constant": 5.303999999999999,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rb": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rb",
+        "energy": -0.7914786338806152,
+        "error": null,
+        "lattice_constant": 4.9883063257983675,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rb",
+        "energy": -0.7242822647094727,
+        "error": null,
+        "lattice_constant": 6.109402589451771,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rb",
+        "energy": -0.7711896896362305,
+        "error": null,
+        "lattice_constant": 4.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Re": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Re",
+        "energy": -12.025899887084961,
+        "error": null,
+        "lattice_constant": 3.1638794751591495,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Re",
+        "energy": -12.300552368164062,
+        "error": null,
+        "lattice_constant": 3.874945160902281,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Re",
+        "energy": -10.706609725952148,
+        "error": null,
+        "lattice_constant": 2.74,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rf": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rf",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rf",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rf",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rg": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rg",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rg",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rg",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rh": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rh",
+        "energy": -6.51252555847168,
+        "error": null,
+        "lattice_constant": 2.886751345948129,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rh",
+        "energy": -6.445324897766113,
+        "error": null,
+        "lattice_constant": 3.5355339059327378,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rh",
+        "energy": -6.4782514572143555,
+        "error": null,
+        "lattice_constant": 2.5,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rn": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rn",
+        "energy": -7.528364181518555,
+        "error": null,
+        "lattice_constant": 4.156921938165305,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rn",
+        "energy": -7.713743209838867,
+        "error": null,
+        "lattice_constant": 5.091168824543142,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Rn",
+        "energy": -6.970757961273193,
+        "error": null,
+        "lattice_constant": 3.5999999999999996,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ru": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ru",
+        "energy": -8.267602920532227,
+        "error": null,
+        "lattice_constant": 2.886751345948129,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ru",
+        "energy": -8.365189552307129,
+        "error": null,
+        "lattice_constant": 3.5355339059327378,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ru",
+        "energy": -8.083276748657227,
+        "error": null,
+        "lattice_constant": 2.5,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "S": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "S",
+        "energy": -2.786207437515259,
+        "error": null,
+        "lattice_constant": 2.909845356715714,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "S",
+        "energy": -2.3163537979125977,
+        "error": null,
+        "lattice_constant": 3.5638181771801998,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "S",
+        "energy": -3.476938247680664,
+        "error": null,
+        "lattice_constant": 2.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sb": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sb",
+        "energy": -3.8708362579345703,
+        "error": null,
+        "lattice_constant": 3.852080996033183,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sb",
+        "energy": -3.8145344257354736,
+        "error": null,
+        "lattice_constant": 4.717816444076645,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sb",
+        "energy": -3.9278695583343506,
+        "error": null,
+        "lattice_constant": 3.336,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sc": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sc",
+        "energy": -5.795968532562256,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sc",
+        "energy": -5.643943786621094,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sc",
+        "energy": -5.474109172821045,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Se": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Se",
+        "energy": -2.909229278564453,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Se",
+        "energy": -2.591179370880127,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Se",
+        "energy": -3.2986695766448975,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sg": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sg",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sg",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sg",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Si": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Si",
+        "energy": -2.9957542419433594,
+        "error": null,
+        "lattice_constant": 2.5634351952019387,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Si",
+        "energy": -2.279341697692871,
+        "error": null,
+        "lattice_constant": 3.1395541084682717,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Si",
+        "energy": -4.185830116271973,
+        "error": null,
+        "lattice_constant": 2.22,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sm": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sm",
+        "energy": -2.560671091079712,
+        "error": null,
+        "lattice_constant": 5.487136958378203,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sm",
+        "energy": -2.9305009841918945,
+        "error": null,
+        "lattice_constant": 6.720342848396948,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sm",
+        "energy": -1.9653258323669434,
+        "error": null,
+        "lattice_constant": 4.752,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sn": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sn",
+        "energy": -2.457339286804199,
+        "error": null,
+        "lattice_constant": 3.2562555182294894,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sn",
+        "energy": -1.8137035369873047,
+        "error": null,
+        "lattice_constant": 3.988082245892128,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sn",
+        "energy": -3.404431104660034,
+        "error": null,
+        "lattice_constant": 2.82,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sr",
+        "energy": -1.5324091911315918,
+        "error": null,
+        "lattice_constant": 4.410956056608741,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sr",
+        "energy": -1.4056143760681152,
+        "error": null,
+        "lattice_constant": 5.402295808265223,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Sr",
+        "energy": -1.2190656661987305,
+        "error": null,
+        "lattice_constant": 3.82,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ta": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ta",
+        "energy": -11.809263229370117,
+        "error": null,
+        "lattice_constant": 3.3024435397646594,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ta",
+        "energy": -11.373516082763672,
+        "error": null,
+        "lattice_constant": 4.0446507883870515,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ta",
+        "energy": -10.58029556274414,
+        "error": null,
+        "lattice_constant": 2.86,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tb": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tb",
+        "energy": -2.4512181282043457,
+        "error": null,
+        "lattice_constant": 5.376285706693795,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tb",
+        "energy": -2.826244354248047,
+        "error": null,
+        "lattice_constant": 6.58457834640913,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tb",
+        "energy": -1.8053669929504395,
+        "error": null,
+        "lattice_constant": 4.656,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tc": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tc",
+        "energy": -9.819302558898926,
+        "error": null,
+        "lattice_constant": 2.932939367483299,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tc",
+        "energy": -9.585556983947754,
+        "error": null,
+        "lattice_constant": 3.592102448427662,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tc",
+        "energy": -9.25265121459961,
+        "error": null,
+        "lattice_constant": 2.54,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Te": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Te",
+        "energy": -2.8505380153656006,
+        "error": null,
+        "lattice_constant": 3.8243681831120813,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Te",
+        "energy": -2.683570146560669,
+        "error": null,
+        "lattice_constant": 4.683875318579691,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Te",
+        "energy": -3.048989772796631,
+        "error": null,
+        "lattice_constant": 3.312,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Th": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Th",
+        "energy": -3.500948429107666,
+        "error": null,
+        "lattice_constant": 5.7088394617470195,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Th",
+        "energy": -4.088020324707031,
+        "error": null,
+        "lattice_constant": 6.991871852372582,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Th",
+        "energy": -3.0433261394500732,
+        "error": null,
+        "lattice_constant": 4.944,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ti": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ti",
+        "energy": -7.62850284576416,
+        "error": null,
+        "lattice_constant": 3.1407854643915645,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ti",
+        "energy": -7.550205230712891,
+        "error": null,
+        "lattice_constant": 3.846660889654819,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ti",
+        "energy": -7.023314952850342,
+        "error": null,
+        "lattice_constant": 2.72,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tl": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tl",
+        "energy": -1.4522724151611328,
+        "error": null,
+        "lattice_constant": 3.417913593602585,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tl",
+        "energy": -0.9948110580444336,
+        "error": null,
+        "lattice_constant": 4.186072144624362,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tl",
+        "energy": -1.8767566680908203,
+        "error": null,
+        "lattice_constant": 2.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tm": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tm",
+        "energy": -2.322384834289551,
+        "error": null,
+        "lattice_constant": 5.265434455009387,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tm",
+        "energy": -2.7151834964752197,
+        "error": null,
+        "lattice_constant": 6.448813844421314,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Tm",
+        "energy": -1.7056446075439453,
+        "error": null,
+        "lattice_constant": 4.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ts": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ts",
+        "energy": 34.28889846801758,
+        "error": null,
+        "lattice_constant": 0.5542562584220407,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ts",
+        "energy": 34.261268615722656,
+        "error": null,
+        "lattice_constant": 0.6788225099390857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Ts",
+        "energy": 34.45887756347656,
+        "error": null,
+        "lattice_constant": 0.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "U": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "U",
+        "energy": -6.628581523895264,
+        "error": null,
+        "lattice_constant": 5.431711332536,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "U",
+        "energy": -6.994124889373779,
+        "error": null,
+        "lattice_constant": 6.6524605974030395,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "U",
+        "energy": -6.147174835205078,
+        "error": null,
+        "lattice_constant": 4.704,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "V": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "V",
+        "energy": -8.898752212524414,
+        "error": null,
+        "lattice_constant": 3.0945974428563945,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "V",
+        "energy": -8.725899696350098,
+        "error": null,
+        "lattice_constant": 3.790092347159895,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "V",
+        "energy": -7.748631000518799,
+        "error": null,
+        "lattice_constant": 2.68,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "W": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "W",
+        "energy": -12.490639686584473,
+        "error": null,
+        "lattice_constant": 3.002221399786054,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "W",
+        "energy": -11.212991714477539,
+        "error": null,
+        "lattice_constant": 3.6769552621700474,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "W",
+        "energy": -11.430244445800781,
+        "error": null,
+        "lattice_constant": 2.6,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Xe": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Xe",
+        "energy": 1.1553568840026855,
+        "error": null,
+        "lattice_constant": 3.879793808954285,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Xe",
+        "energy": 1.6101603507995605,
+        "error": null,
+        "lattice_constant": 4.751757569573599,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Xe",
+        "energy": 0.820441722869873,
+        "error": null,
+        "lattice_constant": 3.36,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Y": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Y",
+        "energy": -6.11239767074585,
+        "error": null,
+        "lattice_constant": 4.387862045841156,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Y",
+        "energy": -6.302018642425537,
+        "error": null,
+        "lattice_constant": 5.374011537017761,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Y",
+        "energy": -5.1456499099731445,
+        "error": null,
+        "lattice_constant": 3.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Yb": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Yb",
+        "energy": -2.4169552326202393,
+        "error": null,
+        "lattice_constant": 5.182296016246082,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Yb",
+        "energy": -2.796076774597168,
+        "error": null,
+        "lattice_constant": 6.346990467930452,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Yb",
+        "energy": -1.7425527572631836,
+        "error": null,
+        "lattice_constant": 4.488,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Zn": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Zn",
+        "energy": -0.6352190971374512,
+        "error": null,
+        "lattice_constant": 2.8174693136453737,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Zn",
+        "energy": -0.4255409240722656,
+        "error": null,
+        "lattice_constant": 3.450681092190352,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Zn",
+        "energy": -0.7203845977783203,
+        "error": null,
+        "lattice_constant": 2.44,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Zr": {
+    "structures": {
+      "bcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Zr",
+        "energy": -8.249627113342285,
+        "error": null,
+        "lattice_constant": 3.3717255720674144,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Zr",
+        "energy": -8.015823364257812,
+        "error": null,
+        "lattice_constant": 4.129503602129438,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "orb-v3-conservative-inf-omat",
+        "device": "cuda",
+        "element": "Zr",
+        "energy": -7.657589435577393,
+        "error": null,
+        "lattice_constant": 2.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "_metadata": {
+    "calculator": "orb-v3-conservative-inf-omat",
+    "in_progress": false,
+    "supported_count": 117,
+    "tested_at": "2025-10-24T21:10:44.223648",
+    "total_elements": 118,
+    "version": "1.0"
+  }
+}

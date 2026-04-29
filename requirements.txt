@@ -1,0 +1,49 @@
+# OptiMat Alloys Requirements
+# Source of truth for the optimat-alloys conda env (Paths B/C non-Docker installs).
+# Kept aligned with the Dockerfile's inline pip install so Docker and local installs
+# end up with the same packages. NequIP lives in a separate optimat-nequip env
+# (see environment-nequip.yml) due to an irreconcilable e3nn version conflict with MACE.
+#
+# NOTE: torch is installed separately by setup_linux.sh with a CUDA-specific index URL
+# (https://download.pytorch.org/whl/cu124 for GPU, default PyPI for CPU). Do NOT add
+# torch here — listing it would override the CUDA wheel choice.
+
+# Core app
+chainlit>=2.2.0
+pyyaml
+
+# AutoGen AI framework
+autogen-agentchat
+autogen-ext[openai]
+autogen-ext[ollama]  # Local model support via Ollama
+
+# Scientific stack
+ase>=3.24.0
+numpy>=1.26.4
+scipy>=1.15.1
+tqdm>=4.66.5
+dm-tree==0.1.8
+
+# Universal ML potentials (ORB + MACE share the optimat-alloys env)
+orb-models
+e3nn==0.4.4  # Pinned for MACE compatibility — DO NOT bump (NequIP needs >=0.5.6 and lives in optimat-nequip)
+mace-torch>=0.3.14  # MACE universal potentials (MPA, OMAT)
+
+# Phonon and elastic property calculations
+phonopy
+phono3py
+sqsgenerator
+mechelastic>=1.2.0
+pyvista>=0.43.0
+
+# Visualization and rendering
+ovito  # Structural analysis and rendering (requires Xvfb for headless)
+plotly  # Interactive charts
+kaleido>=0.2.1  # Plotly static image export (PNG for PDF reports)
+pandas  # Data manipulation
+
+# Report generation
+reportlab>=4.0.0  # PDF report generation
+
+# PostgreSQL database support (optional — for future cloud database features)
+psycopg2-binary

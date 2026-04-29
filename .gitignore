@@ -1,0 +1,275 @@
+# ============================================
+# OptiMat Alloys .gitignore
+# Materials Science AI Tool with AutoGen + Chainlit
+# ============================================
+
+# === SECURITY: API Keys and Credentials ===
+.env
+.env.local
+.env.*.local
+model_config.yaml  # Contains OpenAI API key - use env vars instead
+*.pem
+*.key
+secrets.json
+
+# === Python ===
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# === IDEs and Editors ===
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# === Conda ===
+*.conda
+*.tar.bz2
+
+# === Materials Science / OptiMat Alloys Specific ===
+
+# Structure database (large, contains all simulation results)
+structures/
+structures/database.db
+structures/database.json
+
+# Structure trajectories (can be large)
+*.traj
+*.xyz
+
+# Data directory (reference data, radii, element support)
+# Uncomment below to ignore data files (they can be regenerated)
+# data/reference/
+# data/element_support/
+# Note: data/radii/ should be tracked (atomic_radii.json is source data)
+
+# Session data (old architecture, now using global database)
+sessions/
+
+# OVITO rendered images (regenerated from database)
+# Note: Keeping sample images in docs/ if added later
+*.png
+*.jpg
+*.jpeg
+!docs/**/*.png
+!docs/**/*.jpg
+
+# Large data files
+*.hdf5
+*.h5
+
+# === Chainlit ===
+.chainlit/
+.files/
+public/
+chainlit.md
+
+# === Operating System ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.Trash-*
+.nfs*
+
+# === Logs and Temporary Files ===
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# === Documentation Build ===
+docs/_build/
+docs/.doctrees/
+site/
+
+# === Git ===
+*.orig
+*.rej
+
+# === Keep Important Config Files ===
+# Explicitly track these despite patterns above
+!environment.yml
+!requirements.txt
+!.chainlit/config.toml
+!.chainlit/translations/
+!model_config.yaml.example
+!.git-users.json
+!public/favicon.png
+!public/logo_dark.png
+!public/logo_light.png
+!public/README.md
+!public/Agentic_new.png
+!public/Elements.png
+!public/Interaction_schema2.png
+!public/OMat24.png
+!public/custom.css
+!public/my-avatar.png
+!public/title_image.png
+
+# Chainlit UI description
+!chainlit.md
+
+# === Claude Code Local Settings ===
+.claude/settings.local.json
+
+# Windows/WSL metadata files
+*:Zone.Identifier
+phonon/
+
+# Backup/temp directories
+backup_temp/
+
+# === Test and Debug Files (QHA Development) ===
+# These are local development/validation files, not for production
+
+# Test output directories and files
+test_output/
+*_validation_output.txt
+
+# QHA test scripts (keep validation tests local)
+test_si_qha*.py
+test_qha*.py
+test_phonopy*.py
+test_primitive*.py
+test_symprec*.py
+
+# Thermal conductivity test directories
+test_tc_*/
+test_thermal_conductivity*.py
+
+# Phonon/PDOS test scripts
+test_pdos*.py
+test_band_structure*.py
+test_thermal_properties.py
+test_cu_alloys_phonopy_validation.py
+test_database_si_qha_full.py
+test_phonon_cli.py
+test_phonon_symmetry.py
+
+# Analysis and debugging markdown files
+*_analysis.md
+*_issue.md
+*_fix.md
+*_workflow.md
+*_results.md
+*_status.md
+*_commands.txt
+RESTART_SUMMARY*.md
+QHA_UPDATE_STATUS.md
+test_*_units.md
+
+# Downloaded PDF documentation
+*.pdf
+
+# Test structure files (development artifacts)
+*.data
+*.poscar
+*.lammps
+
+# Debug/utility scripts
+debug_*.py
+show_*.py
+extract_*.py
+analyze_*.py
+detailed_*.py
+trace_*.py
+trace_*.md
+compare_*.py
+compare_*.md
+resume_*.py
+list_*.py
+plot_*.py
+
+# Monitoring scripts
+monitor_*.sh
+check_*.sh
+
+# Literature notes
+*_literature.txt
+
+# Compiled NequIP models (device-specific)
+data/models/
+
+# Test artifacts and one-time migration scripts
+tests/model_evaluation/
+scripts/migrate_*.py

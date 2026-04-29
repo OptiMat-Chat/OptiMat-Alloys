@@ -1,0 +1,4494 @@
+{
+  "Ac": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ac",
+        "energy": -3.7752108573913574,
+        "error": null,
+        "lattice_constant": 4.965212315030782,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ac",
+        "energy": -3.9095330238342285,
+        "error": null,
+        "lattice_constant": 6.081118318204309,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ac",
+        "energy": -2.9425809383392334,
+        "error": null,
+        "lattice_constant": 4.3,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ag": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ag",
+        "energy": -2.8000917434692383,
+        "error": null,
+        "lattice_constant": 3.3486315612998294,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ag",
+        "energy": -2.8180999755859375,
+        "error": null,
+        "lattice_constant": 4.1012193308819755,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ag",
+        "energy": -2.4337024688720703,
+        "error": null,
+        "lattice_constant": 2.9,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Al": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Al",
+        "energy": -2.618995428085327,
+        "error": null,
+        "lattice_constant": 2.7943753028777887,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Al",
+        "energy": -2.1047556400299072,
+        "error": null,
+        "lattice_constant": 3.42239682094289,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Al",
+        "energy": -2.894578695297241,
+        "error": null,
+        "lattice_constant": 2.42,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Am": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Am",
+        "energy": null,
+        "error": "np.int64(95) is not in list",
+        "lattice_constant": 4.156921938165306,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Am",
+        "energy": null,
+        "error": "np.int64(95) is not in list",
+        "lattice_constant": 5.091168824543143,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Am",
+        "energy": null,
+        "error": "np.int64(95) is not in list",
+        "lattice_constant": 3.6,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Ar": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ar",
+        "energy": -0.047831617295742035,
+        "error": null,
+        "lattice_constant": 2.4479651413640133,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ar",
+        "energy": -0.04779968783259392,
+        "error": null,
+        "lattice_constant": 2.998132752230962,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ar",
+        "energy": -0.04717141017317772,
+        "error": null,
+        "lattice_constant": 2.12,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "As": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "As",
+        "energy": -7.875603199005127,
+        "error": null,
+        "lattice_constant": 2.7481872813426187,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "As",
+        "energy": -3.266913890838623,
+        "error": null,
+        "lattice_constant": 3.3658282784479665,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "As",
+        "energy": -3.0439178943634033,
+        "error": null,
+        "lattice_constant": 2.38,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "At": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "At",
+        "energy": null,
+        "error": "np.int64(85) is not in list",
+        "lattice_constant": 3.464101615137755,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "At",
+        "energy": null,
+        "error": "np.int64(85) is not in list",
+        "lattice_constant": 4.242640687119286,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "At",
+        "energy": null,
+        "error": "np.int64(85) is not in list",
+        "lattice_constant": 3.0,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Au": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Au",
+        "energy": -2.9866626262664795,
+        "error": null,
+        "lattice_constant": 3.1407854643915645,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Au",
+        "energy": -2.6477224826812744,
+        "error": null,
+        "lattice_constant": 3.846660889654819,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Au",
+        "energy": -3.066528081893921,
+        "error": null,
+        "lattice_constant": 2.72,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "B": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "B",
+        "energy": -4.43299674987793,
+        "error": null,
+        "lattice_constant": 1.9398969044771426,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "B",
+        "energy": -5.037020683288574,
+        "error": null,
+        "lattice_constant": 2.3758787847867997,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "B",
+        "energy": -4.40286922454834,
+        "error": null,
+        "lattice_constant": 1.68,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ba": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ba",
+        "energy": -1.9239798784255981,
+        "error": null,
+        "lattice_constant": 4.9883063257983675,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ba",
+        "energy": -1.891826868057251,
+        "error": null,
+        "lattice_constant": 6.109402589451771,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ba",
+        "energy": -1.5165746212005615,
+        "error": null,
+        "lattice_constant": 4.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Be": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Be",
+        "energy": -3.358597755432129,
+        "error": null,
+        "lattice_constant": 2.217025033688163,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Be",
+        "energy": -3.036343812942505,
+        "error": null,
+        "lattice_constant": 2.7152900397563426,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Be",
+        "energy": -2.311753034591675,
+        "error": null,
+        "lattice_constant": 1.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Bh": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bh",
+        "energy": null,
+        "error": "np.int64(107) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bh",
+        "energy": null,
+        "error": "np.int64(107) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bh",
+        "energy": null,
+        "error": "np.int64(107) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Bi": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bi",
+        "energy": -2.0256848335266113,
+        "error": null,
+        "lattice_constant": 3.417913593602585,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bi",
+        "energy": -1.1288059949874878,
+        "error": null,
+        "lattice_constant": 4.186072144624362,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bi",
+        "energy": -3.2385263442993164,
+        "error": null,
+        "lattice_constant": 2.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Bk": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bk",
+        "energy": null,
+        "error": "np.int64(97) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bk",
+        "energy": null,
+        "error": "np.int64(97) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Bk",
+        "energy": null,
+        "error": "np.int64(97) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Br": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Br",
+        "energy": -5.9525909423828125,
+        "error": null,
+        "lattice_constant": 2.7712812921102037,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Br",
+        "energy": -6.048544406890869,
+        "error": null,
+        "lattice_constant": 3.394112549695428,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Br",
+        "energy": 1.7740654945373535,
+        "error": null,
+        "lattice_constant": 2.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "C": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "C",
+        "energy": -7.0726799964904785,
+        "error": null,
+        "lattice_constant": 1.7551448183364624,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "C",
+        "energy": -10.044224739074707,
+        "error": null,
+        "lattice_constant": 2.149604614807105,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "C",
+        "energy": -4.9082746505737305,
+        "error": null,
+        "lattice_constant": 1.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ca": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ca",
+        "energy": -1.8691662549972534,
+        "error": null,
+        "lattice_constant": 4.064545895094966,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ca",
+        "energy": -1.7446918487548828,
+        "error": null,
+        "lattice_constant": 4.978031739553295,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ca",
+        "energy": -1.6072771549224854,
+        "error": null,
+        "lattice_constant": 3.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cd": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cd",
+        "energy": -0.7900533080101013,
+        "error": null,
+        "lattice_constant": 3.417913593602585,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cd",
+        "energy": -0.7412548065185547,
+        "error": null,
+        "lattice_constant": 4.186072144624362,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cd",
+        "energy": -0.7728445529937744,
+        "error": null,
+        "lattice_constant": 2.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ce": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ce",
+        "energy": -4.997384548187256,
+        "error": null,
+        "lattice_constant": 4.711178196587347,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ce",
+        "energy": -5.193089962005615,
+        "error": null,
+        "lattice_constant": 5.769991334482229,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ce",
+        "energy": -4.098724842071533,
+        "error": null,
+        "lattice_constant": 4.08,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cf": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cf",
+        "energy": null,
+        "error": "np.int64(98) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cf",
+        "energy": null,
+        "error": "np.int64(98) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cf",
+        "energy": null,
+        "error": "np.int64(98) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Cl": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cl",
+        "energy": 8.74092960357666,
+        "error": null,
+        "lattice_constant": 2.3555890982936734,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cl",
+        "energy": 79.52184295654297,
+        "error": null,
+        "lattice_constant": 2.8849956672411143,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cl",
+        "energy": 3.127913236618042,
+        "error": null,
+        "lattice_constant": 2.04,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cm": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cm",
+        "energy": null,
+        "error": "np.int64(96) is not in list",
+        "lattice_constant": 3.90288781972187,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cm",
+        "energy": null,
+        "error": "np.int64(96) is not in list",
+        "lattice_constant": 4.780041840821061,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cm",
+        "energy": null,
+        "error": "np.int64(96) is not in list",
+        "lattice_constant": 3.38,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Cn": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cn",
+        "energy": null,
+        "error": "np.int64(112) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cn",
+        "energy": null,
+        "error": "np.int64(112) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cn",
+        "energy": null,
+        "error": "np.int64(112) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Co": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Co",
+        "energy": -6.953729152679443,
+        "error": null,
+        "lattice_constant": 2.909845356715714,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Co",
+        "energy": -7.090766429901123,
+        "error": null,
+        "lattice_constant": 3.5638181771801998,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Co",
+        "energy": -6.054079532623291,
+        "error": null,
+        "lattice_constant": 2.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cr",
+        "energy": -9.610391616821289,
+        "error": null,
+        "lattice_constant": 2.932939367483299,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cr",
+        "energy": -9.261430740356445,
+        "error": null,
+        "lattice_constant": 3.592102448427662,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cr",
+        "energy": -8.303443908691406,
+        "error": null,
+        "lattice_constant": 2.54,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cs": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cs",
+        "energy": -0.7205947637557983,
+        "error": null,
+        "lattice_constant": 5.427092530382483,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cs",
+        "energy": -0.679233193397522,
+        "error": null,
+        "lattice_constant": 6.646803743153548,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cs",
+        "energy": -0.7713052034378052,
+        "error": null,
+        "lattice_constant": 4.7,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Cu": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cu",
+        "energy": -3.96531343460083,
+        "error": null,
+        "lattice_constant": 3.0484094213212245,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cu",
+        "energy": -4.074167728424072,
+        "error": null,
+        "lattice_constant": 3.7335238046649715,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Cu",
+        "energy": -3.4232969284057617,
+        "error": null,
+        "lattice_constant": 2.64,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Db": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Db",
+        "energy": null,
+        "error": "np.int64(105) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Db",
+        "energy": null,
+        "error": "np.int64(105) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Db",
+        "energy": null,
+        "error": "np.int64(105) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Ds": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ds",
+        "energy": null,
+        "error": "np.int64(110) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ds",
+        "energy": null,
+        "error": "np.int64(110) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ds",
+        "energy": null,
+        "error": "np.int64(110) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Dy": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Dy",
+        "energy": -4.157268047332764,
+        "error": null,
+        "lattice_constant": 4.434050067376326,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Dy",
+        "energy": -4.382236480712891,
+        "error": null,
+        "lattice_constant": 5.430580079512685,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Dy",
+        "energy": -3.233139753341675,
+        "error": null,
+        "lattice_constant": 3.84,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Er": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Er",
+        "energy": -4.133184909820557,
+        "error": null,
+        "lattice_constant": 4.3647680350735705,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Er",
+        "energy": -4.3362345695495605,
+        "error": null,
+        "lattice_constant": 5.345727265770299,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Er",
+        "energy": -3.213015556335449,
+        "error": null,
+        "lattice_constant": 3.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Es": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Es",
+        "energy": null,
+        "error": "np.int64(99) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Es",
+        "energy": null,
+        "error": "np.int64(99) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Es",
+        "energy": null,
+        "error": "np.int64(99) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Eu": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Eu",
+        "energy": -10.228361129760742,
+        "error": null,
+        "lattice_constant": 4.572614131981836,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Eu",
+        "energy": -10.255837440490723,
+        "error": null,
+        "lattice_constant": 5.6002857069974565,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Eu",
+        "energy": -9.765756607055664,
+        "error": null,
+        "lattice_constant": 3.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "F": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "F",
+        "energy": 645899.0,
+        "error": null,
+        "lattice_constant": 1.3163586137523466,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "F",
+        "energy": 673234.0625,
+        "error": null,
+        "lattice_constant": 1.6122034611053284,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "F",
+        "energy": 208527.734375,
+        "error": null,
+        "lattice_constant": 1.14,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Fe": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fe",
+        "energy": -8.261370658874512,
+        "error": null,
+        "lattice_constant": 3.0484094213212245,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fe",
+        "energy": -8.304390907287598,
+        "error": null,
+        "lattice_constant": 3.7335238046649715,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fe",
+        "energy": -7.264464378356934,
+        "error": null,
+        "lattice_constant": 2.64,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Fl": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fl",
+        "energy": null,
+        "error": "np.int64(114) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fl",
+        "energy": null,
+        "error": "np.int64(114) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fl",
+        "energy": null,
+        "error": "np.int64(114) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Fm": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fm",
+        "energy": null,
+        "error": "np.int64(100) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fm",
+        "energy": null,
+        "error": "np.int64(100) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fm",
+        "energy": null,
+        "error": "np.int64(100) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Fr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fr",
+        "energy": null,
+        "error": "np.int64(87) is not in list",
+        "lattice_constant": 6.004442799572108,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fr",
+        "energy": null,
+        "error": "np.int64(87) is not in list",
+        "lattice_constant": 7.353910524340095,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Fr",
+        "energy": null,
+        "error": "np.int64(87) is not in list",
+        "lattice_constant": 5.2,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Ga": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ga",
+        "energy": -2.0887465476989746,
+        "error": null,
+        "lattice_constant": 2.909845356715714,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ga",
+        "energy": -1.7272040843963623,
+        "error": null,
+        "lattice_constant": 3.5638181771801998,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ga",
+        "energy": -2.756000280380249,
+        "error": null,
+        "lattice_constant": 2.52,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Gd": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Gd",
+        "energy": -13.651426315307617,
+        "error": null,
+        "lattice_constant": 4.526426110446666,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Gd",
+        "energy": -13.835947036743164,
+        "error": null,
+        "lattice_constant": 5.5437171645025325,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Gd",
+        "energy": -12.833261489868164,
+        "error": null,
+        "lattice_constant": 3.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ge": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ge",
+        "energy": -2.1987924575805664,
+        "error": null,
+        "lattice_constant": 2.8174693136453737,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ge",
+        "energy": -1.4517664909362793,
+        "error": null,
+        "lattice_constant": 3.450681092190352,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ge",
+        "energy": -3.7997846603393555,
+        "error": null,
+        "lattice_constant": 2.44,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "H": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "H",
+        "energy": 114048.0625,
+        "error": null,
+        "lattice_constant": 0.715914333795136,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "H",
+        "energy": 129968.7578125,
+        "error": null,
+        "lattice_constant": 0.8768124086713189,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "H",
+        "energy": 72753.71875,
+        "error": null,
+        "lattice_constant": 0.62,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "He": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "He",
+        "energy": -0.4037870764732361,
+        "error": null,
+        "lattice_constant": 0.6466323014923809,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "He",
+        "energy": -0.41091272234916687,
+        "error": null,
+        "lattice_constant": 0.7919595949289333,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "He",
+        "energy": -0.37451353669166565,
+        "error": null,
+        "lattice_constant": 0.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Hf": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hf",
+        "energy": -9.463558197021484,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hf",
+        "energy": -9.186856269836426,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hf",
+        "energy": -8.940533638000488,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Hg": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hg",
+        "energy": 1.990210771560669,
+        "error": null,
+        "lattice_constant": 3.0484094213212245,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hg",
+        "energy": 2.9490652084350586,
+        "error": null,
+        "lattice_constant": 3.7335238046649715,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hg",
+        "energy": 0.6781418323516846,
+        "error": null,
+        "lattice_constant": 2.64,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ho": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ho",
+        "energy": -4.098838806152344,
+        "error": null,
+        "lattice_constant": 4.434050067376326,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ho",
+        "energy": -4.314413547515869,
+        "error": null,
+        "lattice_constant": 5.430580079512685,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ho",
+        "energy": -3.1628475189208984,
+        "error": null,
+        "lattice_constant": 3.84,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Hs": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hs",
+        "energy": null,
+        "error": "np.int64(108) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hs",
+        "energy": null,
+        "error": "np.int64(108) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Hs",
+        "energy": null,
+        "error": "np.int64(108) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "I": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "I",
+        "energy": 1.4694910049438477,
+        "error": null,
+        "lattice_constant": 3.210067496694319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "I",
+        "energy": 13.8073091506958,
+        "error": null,
+        "lattice_constant": 3.9315137033972043,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "I",
+        "energy": 1.1515955924987793,
+        "error": null,
+        "lattice_constant": 2.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "In": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "In",
+        "energy": -1.919187068939209,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "In",
+        "energy": -1.4420831203460693,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "In",
+        "energy": -2.47920298576355,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ir": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ir",
+        "energy": -8.235851287841797,
+        "error": null,
+        "lattice_constant": 3.1176914536239795,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ir",
+        "energy": -8.840932846069336,
+        "error": null,
+        "lattice_constant": 3.818376618407357,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ir",
+        "energy": -7.617216110229492,
+        "error": null,
+        "lattice_constant": 2.7,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "K": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "K",
+        "energy": -0.9578635096549988,
+        "error": null,
+        "lattice_constant": 4.688084185819761,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "K",
+        "energy": -0.8869637250900269,
+        "error": null,
+        "lattice_constant": 5.741707063234766,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "K",
+        "energy": -0.9583250284194946,
+        "error": null,
+        "lattice_constant": 4.06,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Kr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Kr",
+        "energy": 10.627533912658691,
+        "error": null,
+        "lattice_constant": 2.6789052490398637,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Kr",
+        "energy": 21.885482788085938,
+        "error": null,
+        "lattice_constant": 3.2809754647055804,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Kr",
+        "energy": 3.099963665008545,
+        "error": null,
+        "lattice_constant": 2.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "La": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "La",
+        "energy": -4.465501308441162,
+        "error": null,
+        "lattice_constant": 4.780460228890101,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "La",
+        "energy": -4.633467674255371,
+        "error": null,
+        "lattice_constant": 5.854844148224614,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "La",
+        "energy": -3.579772472381592,
+        "error": null,
+        "lattice_constant": 4.14,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Li": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Li",
+        "energy": -1.6834625005722046,
+        "error": null,
+        "lattice_constant": 2.956033378250884,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Li",
+        "energy": -1.5752391815185547,
+        "error": null,
+        "lattice_constant": 3.620386719675124,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Li",
+        "energy": -1.7234479188919067,
+        "error": null,
+        "lattice_constant": 2.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Lr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lr",
+        "energy": null,
+        "error": "np.int64(103) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lr",
+        "energy": null,
+        "error": "np.int64(103) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lr",
+        "energy": null,
+        "error": "np.int64(103) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Lu": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lu",
+        "energy": -4.090778350830078,
+        "error": null,
+        "lattice_constant": 4.318580013538401,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lu",
+        "energy": -4.292606353759766,
+        "error": null,
+        "lattice_constant": 5.289158723275376,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lu",
+        "energy": -3.145029306411743,
+        "error": null,
+        "lattice_constant": 3.74,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Lv": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lv",
+        "energy": null,
+        "error": "np.int64(116) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lv",
+        "energy": null,
+        "error": "np.int64(116) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Lv",
+        "energy": null,
+        "error": "np.int64(116) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Mc": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mc",
+        "energy": null,
+        "error": "np.int64(115) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mc",
+        "energy": null,
+        "error": "np.int64(115) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mc",
+        "energy": null,
+        "error": "np.int64(115) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Md": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Md",
+        "energy": null,
+        "error": "np.int64(101) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Md",
+        "energy": null,
+        "error": "np.int64(101) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Md",
+        "energy": null,
+        "error": "np.int64(101) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Mg": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mg",
+        "energy": -1.3332895040512085,
+        "error": null,
+        "lattice_constant": 3.2562555182294894,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mg",
+        "energy": -1.1365265846252441,
+        "error": null,
+        "lattice_constant": 3.988082245892128,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mg",
+        "energy": -1.1297966241836548,
+        "error": null,
+        "lattice_constant": 2.82,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mn": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mn",
+        "energy": -8.558971405029297,
+        "error": null,
+        "lattice_constant": 3.210067496694319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mn",
+        "energy": -8.769420623779297,
+        "error": null,
+        "lattice_constant": 3.9315137033972043,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mn",
+        "energy": -7.745382308959961,
+        "error": null,
+        "lattice_constant": 2.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mo": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mo",
+        "energy": -10.464506149291992,
+        "error": null,
+        "lattice_constant": 3.002221399786054,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mo",
+        "energy": -9.609077453613281,
+        "error": null,
+        "lattice_constant": 3.6769552621700474,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mo",
+        "energy": -9.772872924804688,
+        "error": null,
+        "lattice_constant": 2.6,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Mt": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mt",
+        "energy": null,
+        "error": "np.int64(109) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mt",
+        "energy": null,
+        "error": "np.int64(109) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Mt",
+        "energy": null,
+        "error": "np.int64(109) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "N": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "N",
+        "energy": 131.28927612304688,
+        "error": null,
+        "lattice_constant": 1.6396747644985372,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "N",
+        "energy": 350.67425537109375,
+        "error": null,
+        "lattice_constant": 2.008183258569795,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "N",
+        "energy": 89.37090301513672,
+        "error": null,
+        "lattice_constant": 1.42,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Na": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Na",
+        "energy": -1.237936019897461,
+        "error": null,
+        "lattice_constant": 3.833605787419115,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Na",
+        "energy": -1.1751267910003662,
+        "error": null,
+        "lattice_constant": 4.695189027078675,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Na",
+        "energy": -1.190895438194275,
+        "error": null,
+        "lattice_constant": 3.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Nb": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nb",
+        "energy": -9.53525447845459,
+        "error": null,
+        "lattice_constant": 3.0945974428563945,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nb",
+        "energy": -8.705812454223633,
+        "error": null,
+        "lattice_constant": 3.790092347159895,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nb",
+        "energy": -9.238974571228027,
+        "error": null,
+        "lattice_constant": 2.68,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Nd": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nd",
+        "energy": -4.322874069213867,
+        "error": null,
+        "lattice_constant": 4.641896164284591,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nd",
+        "energy": -4.53354549407959,
+        "error": null,
+        "lattice_constant": 5.685138520739842,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nd",
+        "energy": -3.44816255569458,
+        "error": null,
+        "lattice_constant": 4.02,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ne": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ne",
+        "energy": -0.01880505681037903,
+        "error": null,
+        "lattice_constant": 1.3394526245199319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ne",
+        "energy": -0.01890815794467926,
+        "error": null,
+        "lattice_constant": 1.6404877323527902,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ne",
+        "energy": -0.018529517576098442,
+        "error": null,
+        "lattice_constant": 1.16,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Nh": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nh",
+        "energy": null,
+        "error": "np.int64(113) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nh",
+        "energy": null,
+        "error": "np.int64(113) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Nh",
+        "energy": null,
+        "error": "np.int64(113) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Ni": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ni",
+        "energy": -5.666839599609375,
+        "error": null,
+        "lattice_constant": 2.863657335180544,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ni",
+        "energy": -5.785584449768066,
+        "error": null,
+        "lattice_constant": 3.5072496346852757,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ni",
+        "energy": -4.926080703735352,
+        "error": null,
+        "lattice_constant": 2.48,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "No": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "No",
+        "energy": null,
+        "error": "np.int64(102) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "No",
+        "energy": null,
+        "error": "np.int64(102) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "No",
+        "energy": null,
+        "error": "np.int64(102) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Np": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Np",
+        "energy": -10.960527420043945,
+        "error": null,
+        "lattice_constant": 4.387862045841156,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Np",
+        "energy": -11.226112365722656,
+        "error": null,
+        "lattice_constant": 5.374011537017761,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Np",
+        "energy": -10.01860523223877,
+        "error": null,
+        "lattice_constant": 3.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "O": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "O",
+        "energy": 19364.431640625,
+        "error": null,
+        "lattice_constant": 1.5242047106606122,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "O",
+        "energy": 32811.09375,
+        "error": null,
+        "lattice_constant": 1.8667619023324857,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "O",
+        "energy": 14871.638671875,
+        "error": null,
+        "lattice_constant": 1.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Og": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Og",
+        "energy": null,
+        "error": "np.int64(118) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Og",
+        "energy": null,
+        "error": "np.int64(118) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Og",
+        "energy": null,
+        "error": "np.int64(118) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Os": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Os",
+        "energy": -10.01668930053711,
+        "error": null,
+        "lattice_constant": 2.956033378250884,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Os",
+        "energy": -10.177273750305176,
+        "error": null,
+        "lattice_constant": 3.620386719675124,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Os",
+        "energy": -9.676437377929688,
+        "error": null,
+        "lattice_constant": 2.56,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "P": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "P",
+        "energy": 8.171689987182617,
+        "error": null,
+        "lattice_constant": 2.4710591521315988,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "P",
+        "energy": 31.448808670043945,
+        "error": null,
+        "lattice_constant": 3.026417023478424,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "P",
+        "energy": -4.058791637420654,
+        "error": null,
+        "lattice_constant": 2.14,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pa": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pa",
+        "energy": -7.279656887054443,
+        "error": null,
+        "lattice_constant": 4.618802153517007,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pa",
+        "energy": -7.663754463195801,
+        "error": null,
+        "lattice_constant": 5.656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pa",
+        "energy": -6.104738235473633,
+        "error": null,
+        "lattice_constant": 4.0,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pb": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pb",
+        "energy": -1.9581462144851685,
+        "error": null,
+        "lattice_constant": 3.3717255720674144,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pb",
+        "energy": -1.1853212118148804,
+        "error": null,
+        "lattice_constant": 4.129503602129438,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pb",
+        "energy": -2.992586135864258,
+        "error": null,
+        "lattice_constant": 2.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pd": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pd",
+        "energy": -5.121925354003906,
+        "error": null,
+        "lattice_constant": 3.210067496694319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pd",
+        "energy": -5.180283069610596,
+        "error": null,
+        "lattice_constant": 3.9315137033972043,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pd",
+        "energy": -4.515569686889648,
+        "error": null,
+        "lattice_constant": 2.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pm": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pm",
+        "energy": -4.313954830169678,
+        "error": null,
+        "lattice_constant": 4.595708142749421,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pm",
+        "energy": -4.523381233215332,
+        "error": null,
+        "lattice_constant": 5.628569978244919,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pm",
+        "energy": -3.4186935424804688,
+        "error": null,
+        "lattice_constant": 3.98,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Po": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Po",
+        "energy": null,
+        "error": "np.int64(84) is not in list",
+        "lattice_constant": 3.2331615074619044,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Po",
+        "energy": null,
+        "error": "np.int64(84) is not in list",
+        "lattice_constant": 3.9597979746446663,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Po",
+        "energy": null,
+        "error": "np.int64(84) is not in list",
+        "lattice_constant": 2.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Pr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pr",
+        "energy": -4.342713832855225,
+        "error": null,
+        "lattice_constant": 4.688084185819761,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pr",
+        "energy": -4.530552387237549,
+        "error": null,
+        "lattice_constant": 5.741707063234766,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pr",
+        "energy": -3.479912757873535,
+        "error": null,
+        "lattice_constant": 4.06,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pt": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pt",
+        "energy": -5.933060169219971,
+        "error": null,
+        "lattice_constant": 3.1407854643915645,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pt",
+        "energy": -5.917372703552246,
+        "error": null,
+        "lattice_constant": 3.846660889654819,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pt",
+        "energy": -5.515063285827637,
+        "error": null,
+        "lattice_constant": 2.72,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Pu": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pu",
+        "energy": -13.5885591506958,
+        "error": null,
+        "lattice_constant": 4.318580013538401,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pu",
+        "energy": -13.743945121765137,
+        "error": null,
+        "lattice_constant": 5.289158723275376,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Pu",
+        "energy": -12.683062553405762,
+        "error": null,
+        "lattice_constant": 3.74,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ra": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ra",
+        "energy": null,
+        "error": "np.int64(88) is not in list",
+        "lattice_constant": 5.103776379636292,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ra",
+        "energy": null,
+        "error": "np.int64(88) is not in list",
+        "lattice_constant": 6.25082394568908,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ra",
+        "energy": null,
+        "error": "np.int64(88) is not in list",
+        "lattice_constant": 4.42,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Rb": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rb",
+        "energy": -0.8096135854721069,
+        "error": null,
+        "lattice_constant": 4.9883063257983675,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rb",
+        "energy": -0.7566720247268677,
+        "error": null,
+        "lattice_constant": 6.109402589451771,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rb",
+        "energy": -0.8310053944587708,
+        "error": null,
+        "lattice_constant": 4.32,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Re": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Re",
+        "energy": -12.074987411499023,
+        "error": null,
+        "lattice_constant": 3.1638794751591495,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Re",
+        "energy": -12.328075408935547,
+        "error": null,
+        "lattice_constant": 3.874945160902281,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Re",
+        "energy": -10.631580352783203,
+        "error": null,
+        "lattice_constant": 2.74,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rf": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rf",
+        "energy": null,
+        "error": "np.int64(104) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rf",
+        "energy": null,
+        "error": "np.int64(104) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rf",
+        "energy": null,
+        "error": "np.int64(104) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Rg": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rg",
+        "energy": null,
+        "error": "np.int64(111) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rg",
+        "energy": null,
+        "error": "np.int64(111) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rg",
+        "energy": null,
+        "error": "np.int64(111) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Rh": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rh",
+        "energy": -6.507126808166504,
+        "error": null,
+        "lattice_constant": 2.886751345948129,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rh",
+        "energy": -6.271918773651123,
+        "error": null,
+        "lattice_constant": 3.5355339059327378,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rh",
+        "energy": -6.532321929931641,
+        "error": null,
+        "lattice_constant": 2.5,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Rn": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rn",
+        "energy": null,
+        "error": "np.int64(86) is not in list",
+        "lattice_constant": 3.464101615137755,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rn",
+        "energy": null,
+        "error": "np.int64(86) is not in list",
+        "lattice_constant": 4.242640687119286,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Rn",
+        "energy": null,
+        "error": "np.int64(86) is not in list",
+        "lattice_constant": 3.0,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Ru": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ru",
+        "energy": -8.305100440979004,
+        "error": null,
+        "lattice_constant": 2.886751345948129,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ru",
+        "energy": -8.114347457885742,
+        "error": null,
+        "lattice_constant": 3.5355339059327378,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ru",
+        "energy": -8.140340805053711,
+        "error": null,
+        "lattice_constant": 2.5,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "S": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "S",
+        "energy": 2.4218013286590576,
+        "error": null,
+        "lattice_constant": 2.4248711305964283,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "S",
+        "energy": 4.801584243774414,
+        "error": null,
+        "lattice_constant": 2.9698484809835,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "S",
+        "energy": -1.4822065830230713,
+        "error": null,
+        "lattice_constant": 2.1,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sb": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sb",
+        "energy": -2.0177857875823975,
+        "error": null,
+        "lattice_constant": 3.210067496694319,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sb",
+        "energy": -0.7564236521720886,
+        "error": null,
+        "lattice_constant": 3.9315137033972043,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sb",
+        "energy": -3.2792816162109375,
+        "error": null,
+        "lattice_constant": 2.78,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sc": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sc",
+        "energy": -5.819609642028809,
+        "error": null,
+        "lattice_constant": 3.3255375505322444,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sc",
+        "energy": -5.601314544677734,
+        "error": null,
+        "lattice_constant": 4.0729350596345135,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sc",
+        "energy": -5.531067848205566,
+        "error": null,
+        "lattice_constant": 2.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Se": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Se",
+        "energy": 0.19502651691436768,
+        "error": null,
+        "lattice_constant": 2.7712812921102037,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Se",
+        "energy": 1.2749521732330322,
+        "error": null,
+        "lattice_constant": 3.394112549695428,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Se",
+        "energy": -1.3387092351913452,
+        "error": null,
+        "lattice_constant": 2.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sg": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sg",
+        "energy": null,
+        "error": "np.int64(106) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sg",
+        "energy": null,
+        "error": "np.int64(106) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sg",
+        "energy": null,
+        "error": "np.int64(106) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "Si": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Si",
+        "energy": -6.478908538818359,
+        "error": null,
+        "lattice_constant": 2.5634351952019387,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Si",
+        "energy": -8.677241325378418,
+        "error": null,
+        "lattice_constant": 3.1395541084682717,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Si",
+        "energy": -4.1392059326171875,
+        "error": null,
+        "lattice_constant": 2.22,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sm": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sm",
+        "energy": -4.256535530090332,
+        "error": null,
+        "lattice_constant": 4.572614131981836,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sm",
+        "energy": -4.490567684173584,
+        "error": null,
+        "lattice_constant": 5.6002857069974565,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sm",
+        "energy": -3.386740207672119,
+        "error": null,
+        "lattice_constant": 3.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sn": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sn",
+        "energy": -2.6410775184631348,
+        "error": null,
+        "lattice_constant": 3.2562555182294894,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sn",
+        "energy": -2.0127739906311035,
+        "error": null,
+        "lattice_constant": 3.988082245892128,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sn",
+        "energy": -3.587344169616699,
+        "error": null,
+        "lattice_constant": 2.82,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Sr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sr",
+        "energy": -1.552362322807312,
+        "error": null,
+        "lattice_constant": 4.410956056608741,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sr",
+        "energy": -1.4226644039154053,
+        "error": null,
+        "lattice_constant": 5.402295808265223,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Sr",
+        "energy": -1.3176448345184326,
+        "error": null,
+        "lattice_constant": 3.82,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ta": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ta",
+        "energy": -11.844524383544922,
+        "error": null,
+        "lattice_constant": 3.3024435397646594,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ta",
+        "energy": -11.411870002746582,
+        "error": null,
+        "lattice_constant": 4.0446507883870515,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ta",
+        "energy": -10.581711769104004,
+        "error": null,
+        "lattice_constant": 2.86,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tb": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tb",
+        "energy": -4.169498443603516,
+        "error": null,
+        "lattice_constant": 4.480238088911496,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tb",
+        "energy": -4.380678653717041,
+        "error": null,
+        "lattice_constant": 5.487148622007609,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tb",
+        "energy": -3.233029365539551,
+        "error": null,
+        "lattice_constant": 3.88,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tc": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tc",
+        "energy": -9.734770774841309,
+        "error": null,
+        "lattice_constant": 2.932939367483299,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tc",
+        "energy": -9.292215347290039,
+        "error": null,
+        "lattice_constant": 3.592102448427662,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tc",
+        "energy": -9.310975074768066,
+        "error": null,
+        "lattice_constant": 2.54,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Te": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Te",
+        "energy": -0.49753573536872864,
+        "error": null,
+        "lattice_constant": 3.186973485926734,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Te",
+        "energy": -0.495161235332489,
+        "error": null,
+        "lattice_constant": 3.9032294321497423,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Te",
+        "energy": -1.6003299951553345,
+        "error": null,
+        "lattice_constant": 2.76,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Th": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Th",
+        "energy": -6.1476850509643555,
+        "error": null,
+        "lattice_constant": 4.757366218122517,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Th",
+        "energy": -6.482969284057617,
+        "error": null,
+        "lattice_constant": 5.826559876977152,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Th",
+        "energy": -4.880382537841797,
+        "error": null,
+        "lattice_constant": 4.12,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ti": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ti",
+        "energy": -7.750452995300293,
+        "error": null,
+        "lattice_constant": 3.1407854643915645,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ti",
+        "energy": -7.514273643493652,
+        "error": null,
+        "lattice_constant": 3.846660889654819,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ti",
+        "energy": -7.191300392150879,
+        "error": null,
+        "lattice_constant": 2.72,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tl": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tl",
+        "energy": -1.4599148035049438,
+        "error": null,
+        "lattice_constant": 3.417913593602585,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tl",
+        "energy": -0.9677103757858276,
+        "error": null,
+        "lattice_constant": 4.186072144624362,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tl",
+        "energy": -1.9794286489486694,
+        "error": null,
+        "lattice_constant": 2.96,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Tm": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tm",
+        "energy": -4.005927085876465,
+        "error": null,
+        "lattice_constant": 4.387862045841156,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tm",
+        "energy": -4.208010196685791,
+        "error": null,
+        "lattice_constant": 5.374011537017761,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Tm",
+        "energy": -3.0498626232147217,
+        "error": null,
+        "lattice_constant": 3.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Ts": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ts",
+        "energy": null,
+        "error": "np.int64(117) is not in list",
+        "lattice_constant": 0.46188021535170065,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": false
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ts",
+        "energy": null,
+        "error": "np.int64(117) is not in list",
+        "lattice_constant": 0.5656854249492381,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": false
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Ts",
+        "energy": null,
+        "error": "np.int64(117) is not in list",
+        "lattice_constant": 0.4,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": false
+      }
+    },
+    "supported": false
+  },
+  "U": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "U",
+        "energy": -8.83597469329834,
+        "error": null,
+        "lattice_constant": 4.526426110446666,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "U",
+        "energy": -9.182697296142578,
+        "error": null,
+        "lattice_constant": 5.5437171645025325,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "U",
+        "energy": -7.904757499694824,
+        "error": null,
+        "lattice_constant": 3.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "V": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "V",
+        "energy": -9.028005599975586,
+        "error": null,
+        "lattice_constant": 3.0945974428563945,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "V",
+        "energy": -8.901342391967773,
+        "error": null,
+        "lattice_constant": 3.790092347159895,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "V",
+        "energy": -7.953746795654297,
+        "error": null,
+        "lattice_constant": 2.68,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "W": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "W",
+        "energy": -12.290445327758789,
+        "error": null,
+        "lattice_constant": 3.002221399786054,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "W",
+        "energy": -11.284542083740234,
+        "error": null,
+        "lattice_constant": 3.6769552621700474,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "W",
+        "energy": -11.622108459472656,
+        "error": null,
+        "lattice_constant": 2.6,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Xe": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Xe",
+        "energy": 0.08113827556371689,
+        "error": null,
+        "lattice_constant": 3.2331615074619044,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Xe",
+        "energy": -0.015567360445857048,
+        "error": null,
+        "lattice_constant": 3.9597979746446663,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Xe",
+        "energy": 1.0408397912979126,
+        "error": null,
+        "lattice_constant": 2.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Y": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Y",
+        "energy": -6.143594741821289,
+        "error": null,
+        "lattice_constant": 4.387862045841156,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Y",
+        "energy": -6.323934078216553,
+        "error": null,
+        "lattice_constant": 5.374011537017761,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Y",
+        "energy": -5.218718528747559,
+        "error": null,
+        "lattice_constant": 3.8,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Yb": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Yb",
+        "energy": -1.5237104892730713,
+        "error": null,
+        "lattice_constant": 4.318580013538401,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Yb",
+        "energy": -1.5131464004516602,
+        "error": null,
+        "lattice_constant": 5.289158723275376,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Yb",
+        "energy": -1.135637879371643,
+        "error": null,
+        "lattice_constant": 3.74,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Zn": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Zn",
+        "energy": -0.8422467112541199,
+        "error": null,
+        "lattice_constant": 2.8174693136453737,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Zn",
+        "energy": -0.6063566207885742,
+        "error": null,
+        "lattice_constant": 3.450681092190352,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Zn",
+        "energy": -0.8650246858596802,
+        "error": null,
+        "lattice_constant": 2.44,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "Zr": {
+    "structures": {
+      "bcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Zr",
+        "energy": -8.186986923217773,
+        "error": null,
+        "lattice_constant": 3.3717255720674144,
+        "num_atoms": 2,
+        "structure": "bcc",
+        "supported": true
+      },
+      "fcc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Zr",
+        "energy": -7.895035743713379,
+        "error": null,
+        "lattice_constant": 4.129503602129438,
+        "num_atoms": 4,
+        "structure": "fcc",
+        "supported": true
+      },
+      "sc": {
+        "calculator": "mace-mpa-0-medium",
+        "device": "cuda",
+        "element": "Zr",
+        "energy": -7.750110626220703,
+        "error": null,
+        "lattice_constant": 2.92,
+        "num_atoms": 1,
+        "structure": "sc",
+        "supported": true
+      }
+    },
+    "supported": true
+  },
+  "_metadata": {
+    "calculator": "mace-mpa-0-medium",
+    "in_progress": false,
+    "supported_count": 89,
+    "tested_at": "2026-01-21T13:54:56.229852",
+    "total_elements": 118,
+    "version": "1.0"
+  }
+}

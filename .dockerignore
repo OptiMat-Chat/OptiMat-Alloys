@@ -1,0 +1,112 @@
+# Git
+.git/
+.gitignore
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# Secrets (inject at runtime)
+.env
+.env.local
+.env.*.local
+model_config.yaml
+*.pem
+*.key
+secrets.json
+
+# Structure database (volume-mount at runtime)
+structures/
+
+# Large data directories (volume-mount at runtime)
+data/models/
+data/classification_datasets/
+data/elastic_results/
+data/generation_results/
+data/jarvis_cache/
+data/matkg/
+data/ner_datasets/
+data/qha_results/
+
+# Test files
+tests/
+test_output/
+test_tc_*/
+test_*.py
+
+# Debug/analysis scripts
+debug_*.py
+show_*.py
+extract_*.py
+analyze_*.py
+detailed_*.py
+trace_*.py
+compare_*.py
+resume_*.py
+list_*.py
+plot_*.py
+
+# Batch/migration scripts
+scripts/migrate_*.py
+scripts/npt_checkpoints/
+
+# Analysis markdown
+*_analysis.md
+*_issue.md
+*_fix.md
+*_workflow.md
+*_results.md
+*_status.md
+
+# Simulation artifacts
+*.traj
+*.xyz
+*.data
+*.poscar
+*.lammps
+*.hdf5
+*.h5
+
+# Images (regenerated)
+*.png
+*.jpg
+*.jpeg
+
+# Keep public assets (override above)
+!public/favicon.png
+!public/logo_dark.png
+!public/logo_light.png
+!public/Agentic_new.png
+!public/Elements.png
+!public/Interaction_schema2.png
+!public/OMat24.png
+!public/my-avatar.png
+!public/title_image.png
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+*.tmp
+*.temp
+*.bak
+backup_temp/
+
+# Misc
+*.pdf
+phonon/
+mcmd/
+=2024.1.0
+
+# Claude Code
+.claude/

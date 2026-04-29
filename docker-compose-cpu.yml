@@ -1,0 +1,32 @@
+# OptiMat Alloys — CPU version (no GPU required)
+# Works on any machine. Cloud models (Ollama Cloud, OpenRouter) need no GPU.
+# Local calculations will run on CPU (slower but functional).
+#
+# Usage (Windows PowerShell, macOS/Linux terminal):
+#   1. Place this file in any folder (e.g. C:\OptiMat-Alloys)
+#   2. Open PowerShell in that folder:
+#        cd C:\OptiMat-Alloys
+#   3. Pull the image and start the container:
+#        docker compose -f docker-compose-cpu.yml up
+#   4. Open http://localhost:8000 in your browser
+#   5. To stop: press Ctrl-C, or run `docker compose -f docker-compose-cpu.yml down`
+#
+# Note: The Docker Desktop GUI's "Run" dialog launches single images and
+# does not read compose files at all. To use this file you MUST use the
+# `docker compose -f docker-compose-cpu.yml ...` CLI. The running container
+# will then appear in Docker Desktop's Containers tab for stop/restart.
+#
+services:
+  optimat-alloys:
+    image: yhu1991/optimat-alloys:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_CONTEXT_LENGTH=32768  # 32K context — supports long multi-turn agent conversations. May stress low-VRAM systems (see SETUP_GUIDE for hardware notes).
+    volumes:
+      - alloy-data:/app/structures
+      - ollama-models:/root/.ollama
+
+volumes:
+  alloy-data:
+  ollama-models:

@@ -1,0 +1,13 @@
+/* Hide Chainlit branding footer/watermark */
+.watermark {
+    display: none !important;
+}
+
+/* Additional fallback selectors for older versions */
+a[href*='https://github.com/Chainlit/chainlit'] {
+    visibility: hidden !important;
+}
+
+footer {
+    display: none !important;
+}

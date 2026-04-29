@@ -1,0 +1,32 @@
+name: optimat-alloys
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11  # ORB models requires Python >=3.10, <3.13
+  - pip
+  - pip:
+    - chainlit>=2.2.0
+    - pyyaml
+    - autogen-agentchat
+    - autogen-ext[openai]
+    - autogen-ext[ollama]  # Local model support via Ollama
+    - ase>=3.24.0
+    - numpy>=1.26.4
+    - scipy>=1.15.1
+    - torch>=2.6.0
+    - dm-tree==0.1.8
+    - tqdm>=4.66.5
+    - orb-models
+    - e3nn==0.4.4  # Required for MACE compatibility (NequIP uses separate env)
+    - mace-torch>=0.3.14  # MACE universal potentials (MPA, OMAT)
+    - ovito
+    - phonopy
+    - phono3py
+    - sqsgenerator
+    - plotly
+    - pandas
+    - mechelastic>=1.2.0
+    - pyvista>=0.43.0
+    - kaleido>=0.2.1  # Plotly static image export (PNG for PDF reports)
+    - reportlab>=4.0.0  # PDF report generation
