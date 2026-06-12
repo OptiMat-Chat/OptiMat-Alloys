@@ -18,11 +18,17 @@
 #
 services:
   optimat-alloys:
-    image: yhu1991/optimat-alloys:latest
+    image: ghcr.io/optimat-chat/optimat-alloys:latest
     ports:
       - "8000:8000"
     environment:
       - OLLAMA_CONTEXT_LENGTH=32768  # 32K context — supports long multi-turn agent conversations. May stress low-VRAM systems (see SETUP_GUIDE for hardware notes).
+      # API keys — picked up from your shell environment or a .env file placed
+      # next to this compose file (all optional; keys can also be entered in the
+      # chat UI at startup):
+      - OLLAMA_API_KEY=${OLLAMA_API_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     deploy:
       resources:
         reservations:

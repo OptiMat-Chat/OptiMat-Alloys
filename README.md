@@ -1,34 +1,130 @@
 # OptiMat Alloys
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/vladturlo/OptiMat-Chat/releases/tag/v1.0.0)
-[![Status](https://img.shields.io/badge/status-production-green.svg)]()
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/releases/tag/v1.0.0)
+[![Docker image](https://github.com/OptiMat-Chat/OptiMat-Alloys/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/actions/workflows/docker-publish.yml)
+[![arXiv](https://img.shields.io/badge/arXiv-2604.21850-b31b1b.svg)](https://arxiv.org/abs/2604.21850)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-early%20access-brightgreen.svg)]()
 
-An AI-powered materials science research tool that combines OpenAI LLMs with universal neural network potentials (ORB models) to perform atomistic simulations with near-DFT accuracy.
+An AI-powered materials science research tool that combines LLMs with universal neural network potentials (ORB, MACE, NequIP) to perform atomistic simulations with near-DFT accuracy.
 
-**Focus**: Multi-principal element alloy design with structural stability analysis, elastic property prediction, and comprehensive materials characterization at 0K.
+**Focus**: Multi-principal element alloy design with structural stability analysis, elastic property prediction, and comprehensive materials characterization.
+
+**Preprint**: [OptiMat Alloys: a FAIR, living database of multi-principal element alloys enabled by a conversational agent](https://arxiv.org/abs/2604.21850) (Hu & Turlo, arXiv:2604.21850).
+
+## 🚀 Quick Start — Docker (recommended)
+
+The fastest way to run OptiMat Alloys on **Windows, macOS, or Linux** is the official Docker image, built automatically from this repository:
+
+```
+ghcr.io/optimat-chat/optimat-alloys
+```
+
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows/macOS) or Docker Engine (Linux). No clone, no conda, no Python setup required.
+
+### 1. Get a compose file
+
+Download the compose file for your hardware into any folder:
+
+```bash
+# CPU only (works everywhere)
+curl -LO https://raw.githubusercontent.com/OptiMat-Chat/OptiMat-Alloys/main/docker-compose-cpu.yml
+
+# NVIDIA GPU (5-10x faster simulations)
+curl -LO https://raw.githubusercontent.com/OptiMat-Chat/OptiMat-Alloys/main/docker-compose-gpu.yml
+```
+
+(Or simply copy the file contents from this repo via your browser.)
+
+### 2. Start the container
+
+```bash
+docker compose -f docker-compose-cpu.yml up    # CPU
+docker compose -f docker-compose-gpu.yml up    # NVIDIA GPU
+```
+
+### 3. Open the app
+
+Go to **http://localhost:8000** in your browser. Enter your API key in the chat UI at startup (it is saved for next time), or create a `.env` file next to the compose file before starting (works the same on Windows, macOS, and Linux):
+
+```bash
+# .env — in the same folder as the compose file
+OLLAMA_API_KEY=your-key-here
+```
+
+Supported providers: `OLLAMA_API_KEY` (cloud models, default), `OPENROUTER_API_KEY` (free models available), `OPENAI_API_KEY`. See [Configuration](#%EF%B8%8F-configuration).
+
+> **Pinning a version:** the compose files track `:latest`. For a reproducible install, edit the `image:` line to a release tag, e.g. `ghcr.io/optimat-chat/optimat-alloys:1.0.0`.
+
+### Alternative: plain `docker run`
+
+```bash
+docker run --gpus all -p 8000:8000 \
+  -v alloy-data:/app/structures -v ollama-models:/root/.ollama \
+  ghcr.io/optimat-chat/optimat-alloys:latest
+```
+
+(Drop `--gpus all` on machines without an NVIDIA GPU.)
+
+### Good to know
+
+- **First run**: the system precomputes reference data for 117 elements on first launch — this takes **several hours** (faster with GPU) and happens **once per calculator**; subsequent launches are instant.
+- **Your data persists** in named Docker volumes (`alloy-data` for structures, `ollama-models` for local LLM weights) and survives container restarts and updates.
+- **Update**: `docker compose -f docker-compose-cpu.yml pull` then `up`.
+- **Remove**: `docker compose -f docker-compose-cpu.yml down` (add `-v` to also delete your data volumes).
+- **Step-by-step Windows walkthrough** (Docker Desktop, WSL2 backend, GPU passthrough): [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md).
+
+## ☁️ Cloud Version
+
+A read-only cloud deployment for exploring 1000+ pre-computed community structures — no installation, no GPU, any device.
+
+**Access:** Coming soon at `https://app.optimat.chat`
+
+## 🔧 Install from Source (for developers)
+
+For developers who want full control or need to modify the code. Requires **Linux or WSL2** (Windows Subsystem for Linux 2) — see the [WSL2 setup guide](docs/SETUP_GUIDE.md#path-b-wsl2--conda-windows-developers).
+
+```bash
+# 1. Clone the repository (use the WSL2 native filesystem for best performance)
+cd ~
+git clone https://github.com/OptiMat-Chat/OptiMat-Alloys.git
+cd OptiMat-Alloys
+
+# 2. Run the setup script
+bash scripts/setup_linux.sh
+
+# The script will:
+# - Create the optimat-alloys conda environment with Python 3.11
+# - Install all dependencies
+# - Optionally configure CUDA support
+# - Optionally install cuML for large systems (5k+ atoms)
+# (NequIP calculators need a second env — see docs/SETUP_GUIDE.md#nequip-support-optional)
+
+# 3. Set your API key
+cp .env.example .env
+nano .env   # add OLLAMA_API_KEY, OPENROUTER_API_KEY, or OPENAI_API_KEY
+
+# 4. Launch OptiMat Alloys
+bash scripts/launch_optimat_alloys.sh
+```
+
+The application will open in your browser at `http://localhost:8000`.
+
+Details, hardware notes, and troubleshooting: [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md).
 
 ## 🖥️ Platform Support
 
-**OptiMat Alloys runs on Linux and WSL2 (Windows Subsystem for Linux 2).**
+| Install method | Windows | macOS | Linux |
+|---|---|---|---|
+| **Docker** (recommended) | ✅ Docker Desktop | ✅ Docker Desktop | ✅ Docker Engine |
+| **From source** | ✅ via WSL2 | ❌ | ✅ native |
 
-### For Windows Users
-**You must install WSL2** to use OptiMat Alloys. This provides:
-- ✅ **10-100x faster** file I/O performance
-- ✅ Full CUDA support (including GPU multiprocessing)
-- ✅ Native compatibility with all scientific computing tools
-- ✅ Simplified installation process
-
-**➡️ [WSL2 Setup Guide for Windows](docs/SETUP_GUIDE.md#path-b-wsl2--conda-windows-developers)**
-
-### For Linux Users
-Native Linux (Ubuntu, Debian, Fedora, etc.) is fully supported.
-
-**➡️ [Linux Setup Guide](docs/SETUP_GUIDE.md#path-c-native-linux--conda)**
+**System requirements:** 16 GB+ RAM recommended; NVIDIA GPU with 6 GB+ VRAM optional but recommended (5-10x faster simulations); one API key (Ollama cloud, OpenRouter free tier, or OpenAI).
 
 ## ✨ Features
 
 ### Core Capabilities
-- **Agentic AI System**: Built on AutoGen for autonomous task execution with 7 specialized tools
+- **Agentic AI System**: Autonomous task execution with 7 specialized tools
 - **Interactive Web Interface**: Powered by Chainlit for real-time collaboration
 - **High-Accuracy Simulations**: ORB universal potentials trained on 100M+ DFT calculations
 - **Multi-Principal Alloys**: Design and analyze complex alloy systems
@@ -46,170 +142,14 @@ Native Linux (Ubuntu, Debian, Fedora, etc.) is fully supported.
 - **Precise Database Search**: `exact_elements_only` filter for composition matching
 - **Enhanced Agent Intelligence**: Tools return rich metadata for data-driven recommendations
 
-## 🚀 Quick Start
-
-### Deployment Options
-
-OptiMat Alloys offers two deployment modes to fit different use cases:
-
-<details open>
-<summary><strong>🖥️ Local Deployment (Full Computational Version)</strong></summary>
-
-**For computational users who want to generate new structures and run calculations.**
-
-**Capabilities:**
-- ✅ GPU-accelerated structure generation and relaxation
-- ✅ ML potential calculations (ORB, MACE, NequIP) with near-DFT accuracy
-- ✅ Elastic property calculations
-- ✅ Formation energy and mixing energy
-- ✅ Custom alloy composition and structure design
-- ✅ Private local database
-- ✅ All 117 supported elements
-
-**Requirements:**
-- WSL2 (Windows) or Linux
-- 16GB+ RAM recommended
-- NVIDIA GPU with 6GB+ VRAM (optional but recommended)
-- OpenAI API key
-
-**➡️ Continue reading below for local installation instructions**
-
-</details>
-
-<details>
-<summary><strong>☁️ Cloud Deployment (Read-Only Community Database)</strong></summary>
-
-**For users who want to explore pre-computed structures without local setup.**
-
-**Capabilities:**
-- ✅ Search 1000+ community-contributed structures
-- ✅ Visualize existing structures (OVITO renderings)
-- ✅ Analyze formation energies and elastic properties
-- ✅ Export structures for local calculations
-- ✅ No GPU or installation required
-- ✅ Accessible from any device
-
-**Limitations:**
-- ❌ Cannot generate new structures
-- ❌ Cannot run new calculations
-- ❌ Read-only access to database
-
-**Access:** Coming soon at `https://app.optimat.chat`
-
-</details>
-
----
-
-### Prerequisites (Local Deployment)
-
-- **WSL2** (Windows users) - [Setup Guide](docs/SETUP_GUIDE.md#path-b-wsl2--conda-windows-developers)
-- **Linux** (Ubuntu 20.04+, Debian, Fedora, etc.)
-- **RAM**: 16GB+ recommended
-- **GPU** (optional): NVIDIA GPU with 6GB+ VRAM for faster simulations
-- **API Key**: One of the following:
-  - OpenAI API Key (paid) - https://platform.openai.com/api-keys
-  - OpenRouter API Key (FREE models available) - https://openrouter.ai/keys
-
-### Installation
-
-**Choose your installation method:**
-
-<details open>
-<summary><strong>📦 Option A: Standalone Installer (Recommended for End-Users)</strong></summary>
-
-**Perfect for non-technical users** - No conda, pip, or git knowledge required!
-
-1. **Download the installer** for your platform:
-   - 🐧 [Linux (Ubuntu/Debian)](https://github.com/vladturlo/OptiMat-Chat/releases/latest) - `.sh` file
-   - 🪟 [Windows](https://github.com/vladturlo/OptiMat-Chat/releases/latest) - `.exe` file
-
-2. **Run the installer**:
-   - **Linux**: `bash OptiMat-Alloys-X.X.X-Linux-x86_64.sh`
-   - **Windows**: Double-click the `.exe` file
-
-3. **Follow the installation wizard** (accepts license, chooses location, downloads models)
-
-4. **Launch from**:
-   - Linux: Application menu → "OptiMat Alloys"
-   - Windows: Start Menu or Desktop shortcut
-
-**📖 Windows users without a developer setup:** see **[Docker Desktop Guide](docs/SETUP_GUIDE.md#path-a-docker-desktop-windows-non-developers)** for a click-through install.
-
-**File size**: ~4-5GB (includes all dependencies and Python environment)
-
-</details>
-
-<details>
-<summary><strong>🔧 Option B: Manual Installation (For Developers)</strong></summary>
-
-For developers who want full control or need to modify the code:
-
-```bash
-# 1. Clone the repository (use WSL2 native filesystem for best performance)
-cd ~
-git clone https://github.com/vladturlo/OptiMat-Chat.git OptiMat-Alloys
-cd OptiMat-Alloys
-
-# 2. Run the setup script
-chmod +x setup_linux.sh
-./setup_linux.sh
-
-# The script will:
-# - Create conda environment with Python 3.11
-# - Install all dependencies
-# - Optionally configure CUDA support
-# - Optionally install cuML for large systems (5k+ atoms)
-
-# 3. Set your OpenAI API key
-cp .env.example .env
-# Edit .env and add your API key
-nano .env
-
-# Or export directly:
-export OPENAI_API_KEY='your-api-key-here'
-
-# 4. Launch OptiMat Alloys
-chmod +x run_chat.sh
-./run_chat.sh
-```
-
-The application will open in your browser at `http://localhost:8000`
-
-</details>
-
-<details>
-<summary><strong>🐳 Option C: Docker (Recommended for Windows non-developers)</strong></summary>
-
-For containerized deployments with guaranteed reproducibility. Works on Windows, macOS, and Linux.
-
-```bash
-docker pull yhu1991/optimat-alloys:latest
-docker run --gpus all -p 8000:8000 -v ~/optimat-data:/app/structures yhu1991/optimat-alloys
-```
-
-Or use the included compose files at the repo root — `docker-compose-cpu.yml` (no GPU) or `docker-compose-gpu.yml` (NVIDIA GPU):
-
-```powershell
-# Windows PowerShell (or macOS/Linux terminal)
-docker compose -f docker-compose-gpu.yml up    # GPU
-docker compose -f docker-compose-cpu.yml up    # CPU only
-```
-
-**📖 [Full Windows Docker Walkthrough](docs/SETUP_GUIDE.md#path-a-docker-desktop-windows-non-developers)** — step-by-step, no programming experience required.
-
-</details>
-
-### First Run
-
-⏳ **Initial Startup**: The system will precompute reference data for 117 supported elements on first launch:
-- Calculates lattice constants and reference energies
-- Takes **several hours** (faster with GPU)
-- Creates calculator-specific files (e.g., `lattice_constants_orb_v3_direct_20_omat.json`)
-- **Only happens once per calculator** - subsequent launches are instant
-
 ## 📚 Documentation
 
-- **[Setup Guide](docs/SETUP_GUIDE.md)** - Unified install guide: Docker (Windows non-devs), WSL2, and native Linux
+The install instructions above are the canonical ones. For deep-dives:
+
+- **[Setup Guide](docs/SETUP_GUIDE.md)** — appendix: WSL2 setup, GPU enablement, hardware notes, verification, troubleshooting
+- **[Configuration](docs/CONFIGURATION.md)** — models, calculators, settings
+- **[Element Support](docs/ELEMENT_SUPPORT.md)** — per-calculator element coverage
+- **[Maintenance](docs/MAINTENANCE.md)** — database and cache management
 
 ## 🏗️ Architecture
 
@@ -345,20 +285,24 @@ See [`docs/ELEMENT_SUPPORT.md`](docs/ELEMENT_SUPPORT.md) for detailed testing re
 
 OptiMat Alloys supports multiple API providers:
 
-**OpenAI (Paid Cloud Models)**
+**Ollama Cloud (default)**
 ```bash
-export OPENAI_API_KEY='sk-...'
-# Or add to .env file
+export OLLAMA_API_KEY='...'
+# Sign up at https://ollama.com/ — cloud models need no local GPU
 ```
 
-**OpenRouter (FREE Cloud Models)** - Recommended for getting started
+**OpenRouter (FREE cloud models)** - Recommended for getting started
 ```bash
 export OPENROUTER_API_KEY='sk-or-...'
 # Free signup at https://openrouter.ai/keys
-# Includes models like xiaomi/mimo-v2-flash:free, openai/gpt-oss-120b:free
 ```
 
-**Ollama (Local Models)** - No API key required
+**OpenAI (paid cloud models)**
+```bash
+export OPENAI_API_KEY='sk-...'
+```
+
+**Ollama (local models)** - No API key required
 ```bash
 # Just install Ollama and run: ollama serve
 # Models auto-detected in settings dropdown
@@ -374,7 +318,7 @@ You can also enter API keys via the Chainlit UI at startup (automatically saved 
 
 **Local Models (Ollama)**:
 - gpt-oss:20b (preferred), qwen2.5:14b, mistral-small:24b
-- Requires Ollama installed locally
+- Requires Ollama installed locally (bundled in the Docker image)
 
 Select via unified dropdown in Chainlit settings. Models can be switched mid-session.
 
@@ -429,7 +373,7 @@ Simulations are **5-10x faster** with GPU.
 
 ### Large Systems (5k+ atoms)
 
-For systems with ≥5000 atoms (PBC) or ≥30000 atoms (non-PBC), install cuML:
+For systems with ≥5000 atoms (PBC) or ≥30000 atoms (non-PBC), install cuML (source installs):
 
 ```bash
 conda activate optimat-alloys
@@ -445,7 +389,7 @@ Benefits: 2-10x faster graph creation, 2-100x better GPU memory efficiency
 
 ### File Performance (WSL2)
 
-**Always use WSL2 native filesystem**:
+**Always use the WSL2 native filesystem** (source installs):
 
 ```bash
 # FAST ✅
@@ -473,6 +417,8 @@ structures/
 ```
 
 **Example**: `structures/f1f24f2b5e584926ab47cb49ac2591d6/`
+
+In Docker, this directory lives in the `alloy-data` volume mounted at `/app/structures`.
 
 ### Reference Data
 
@@ -507,7 +453,11 @@ The `generate_report` tool produces comprehensive, publication-ready outputs:
 
 ### Port Already in Use
 ```bash
-./run_chat.sh --port 8001
+# Docker: map a different host port
+docker run -p 8001:8000 ghcr.io/optimat-chat/optimat-alloys:latest
+
+# Source install:
+bash scripts/launch_optimat_alloys.sh --port 8001
 ```
 
 ### CUDA Out of Memory
@@ -518,16 +468,25 @@ The `generate_report` tool produces comprehensive, publication-ready outputs:
 ### Slow Performance
 - Verify you're on WSL2 native filesystem (`pwd` shows `/home/...`)
 - Check GPU usage: `nvidia-smi`
-- Ensure conda environment is activated
+- Ensure conda environment is activated (source installs)
 
-### Import Errors
+### Import Errors (source installs)
 ```bash
 conda activate optimat-alloys
 pip install --upgrade -r requirements.txt
 ```
 
+More: [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md).
+
 ## 🔄 Updating
 
+**Docker:**
+```bash
+docker compose -f docker-compose-cpu.yml pull
+docker compose -f docker-compose-cpu.yml up
+```
+
+**Source install:**
 ```bash
 cd ~/OptiMat-Alloys
 git pull
@@ -537,27 +496,50 @@ pip install --upgrade -r requirements.txt
 
 ## 🧹 Uninstalling
 
+**Docker:**
 ```bash
-# Remove conda environment
+docker compose -f docker-compose-cpu.yml down        # keep your data
+docker compose -f docker-compose-cpu.yml down -v     # delete data volumes too
+docker rmi ghcr.io/optimat-chat/optimat-alloys:latest
+```
+
+**Source install:**
+```bash
 conda deactivate
 conda env remove -n optimat-alloys
-
-# Remove project
 rm -rf ~/OptiMat-Alloys
 ```
 
 ## 🤝 Contributing
 
-Contributions welcome! This is a research tool under active development.
+Contributions welcome! This is a research tool in early access.
+
+## 📄 Citation
+
+If you use OptiMat Alloys in your research, please cite the preprint:
+
+```bibtex
+@misc{hu2026optimatalloys,
+  title         = {OptiMat Alloys: a FAIR, living database of multi-principal
+                   element alloys enabled by a conversational agent},
+  author        = {Hu, Yang and Turlo, Vladyslav},
+  year          = {2026},
+  eprint        = {2604.21850},
+  archivePrefix = {arXiv},
+  primaryClass  = {cond-mat.mtrl-sci},
+  url           = {https://arxiv.org/abs/2604.21850}
+}
+```
 
 ## 📜 License
 
-[Add your license here]
+[MIT](LICENSE)
 
 ## 📧 Support
 
-- **Issues**: [GitHub Issues](https://github.com/vladturlo/OptiMat-Chat/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/vladturlo/OptiMat-Chat/discussions)
+- **Issues**: [GitHub Issues](https://github.com/OptiMat-Chat/OptiMat-Alloys/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/OptiMat-Chat/OptiMat-Alloys/discussions)
+- **Website**: [optimat.chat](https://optimat.chat/agents/optimat-alloys)
 
 ## 🙏 Acknowledgments
 

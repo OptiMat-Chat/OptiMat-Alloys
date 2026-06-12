@@ -111,7 +111,7 @@ def _create_openrouter_client(
             family="unknown",
         ),
         extra_headers={
-            "HTTP-Referer": "https://github.com/vladturlo/OptiMat-Chat",
+            "HTTP-Referer": "https://github.com/OptiMat-Chat/OptiMat-Alloys",
             "X-Title": "OptiMat Alloys",
         }
     )
