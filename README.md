@@ -24,6 +24,12 @@ ghcr.io/optimat-chat/optimat-alloys
 
 ### 1. Get a compose file
 
+> **Which file?**
+> - **NVIDIA GPU** → `docker-compose-gpu.yml` — simulations run **5–10× faster** and local LLMs become usable. Requires the NVIDIA container toolkit (Linux) or a current WSL2-aware driver + Docker Desktop WSL2 backend (Windows) — see the [Setup Guide](docs/SETUP_GUIDE.md#a2-enable-nvidia-gpu-access-required-for-gpu-users).
+> - **No NVIDIA GPU** (or unsure) → `docker-compose-cpu.yml` — works everywhere; cloud AI models need no GPU.
+>
+> Both files run the **same image**. If you pick wrong, switching later takes seconds — the download is cached and your data persists.
+
 Download the compose file for your hardware into any folder:
 
 ```bash
