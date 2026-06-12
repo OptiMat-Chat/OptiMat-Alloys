@@ -1,16 +1,17 @@
-# OptiMat Alloys — Setup Guide
+# OptiMat Alloys — Setup Guide (deep-dive appendix)
 
-Install OptiMat Alloys on Windows, macOS, or Linux. Three install paths are supported — pick the one that matches your environment and skill level.
+> **Start with the [README](../README.md#-quick-start--docker-recommended)** — it is the canonical install instruction (Docker quick start + source install).
+> This guide is the companion appendix: detailed Windows/Docker Desktop walkthroughs, GPU enablement, WSL2 setup, data-volume locations, verification, and troubleshooting.
 
 ---
 
-## Choose Your Install Path
+## Guide Map
 
-| Path | Best For | Skill Required | GPU Support |
-|------|----------|----------------|-------------|
-| **[A. Docker Desktop](#path-a-docker-desktop-windows-clickable-install)** | Windows users who don't code | None — clickable installer | ✅ (with NVIDIA driver) |
-| **[B. WSL2 + conda](#path-b-wsl2--conda-windows-developers)** | Windows developers who want full control | Comfortable with terminal/git/conda | ✅ Native |
-| **[C. Native Linux + conda](#path-c-native-linux--conda)** | Linux users (Ubuntu, Debian, Fedora, …) | Comfortable with terminal/git/conda | ✅ Native |
+| Path | Covers | GPU Support |
+|------|--------|-------------|
+| **[A. Docker Desktop](#path-a-docker-desktop-windows-clickable-install)** | Windows/macOS Docker details: GPU passthrough, compose walkthrough, volumes | ✅ (with NVIDIA driver) |
+| **[B. WSL2 + conda](#path-b-wsl2--conda-windows-developers)** | WSL2 details for source installs on Windows | ✅ Native |
+| **[C. Native Linux + conda](#path-c-native-linux--conda)** | Source-install details for Linux | ✅ Native |
 
 After installing, all three paths share the same:
 - **[First-Time Configuration](#first-time-configuration)** (API keys, Ollama)
@@ -65,18 +66,22 @@ Docker Desktop GPU passthrough is **Windows + WSL2 backend only**. If you have a
 
 ### A.3. Get the App
 
-#### Option 1: Quick Start via Docker Desktop GUI (No GPU)
+#### Option 1: Docker Desktop GUI (No GPU)
 
 > ⚠️ This path **does not enable GPU access** — the Docker Desktop "Run" dialog has no NVIDIA toggle. Use Option 2 below if you have an NVIDIA GPU and want to use it.
+>
+> ℹ️ Docker Desktop's search bar only finds Docker Hub images. The official OptiMat Alloys image lives on GitHub Container Registry (GHCR), so it must be pulled once from a terminal — after that, everything works from the GUI.
 
-1. Open **Docker Desktop**
-2. Click the **search bar** at the top
-3. Search for `yhu1991/optimat-alloys`
-4. Click **Pull** to download the image (~12 GB)
-5. Once downloaded, go to the **Images** tab
-6. Find `yhu1991/optimat-alloys` and click **Run**
-7. In the run dialog, set **Port** to `8000` and click **Run**
-8. Open your browser and go to **http://localhost:8000**
+1. Open **Docker Desktop** and wait for the green "Running" status
+2. Open a terminal (PowerShell on Windows — see Option 2, Step 1 if unsure) and run:
+   ```powershell
+   docker pull ghcr.io/optimat-chat/optimat-alloys:latest
+   ```
+   This downloads the image (~12 GB) — give it a few minutes.
+3. In Docker Desktop, go to the **Images** tab
+4. Find `ghcr.io/optimat-chat/optimat-alloys` and click **Run**
+5. In the run dialog, set **Port** to `8000` and click **Run**
+6. Open your browser and go to **http://localhost:8000**
 
 #### Option 2: Docker Compose via PowerShell (Required for GPU)
 
@@ -515,7 +520,7 @@ For Path A: stop other apps using port 8000, or change the port mapping in Docke
 ### `failed to connect to the docker API` / `dockerDesktopLinuxEngine` not found (Windows)
 
 ```
-unable to get image 'yhu1991/optimat-alloys:latest': failed to connect to the
+unable to get image 'ghcr.io/optimat-chat/optimat-alloys:latest': failed to connect to the
 docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is
 correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine:
 The system cannot find the file specified.
@@ -548,7 +553,8 @@ This is normal on CPU-only systems. The app works fully on CPU. To install CUDA:
 # Check current CUDA version
 nvidia-smi
 
-# If not installed, see scripts/cuda/install_cuda_12.4.sh
+# If not installed, follow NVIDIA's official guide:
+# https://docs.nvidia.com/cuda/cuda-installation-guide-linux/
 ```
 
 ### "401 Unauthorized" Error
@@ -623,7 +629,7 @@ chainlit run run_chat.py
 
 In Docker Desktop:
 1. **Containers** tab → Stop the container → Delete
-2. **Images** tab → Delete `yhu1991/optimat-alloys`
+2. **Images** tab → Delete `ghcr.io/optimat-chat/optimat-alloys`
 3. **Volumes** tab → Delete `alloy-data` and `ollama-models` (this erases your structures)
 
 ### Paths B/C: Conda

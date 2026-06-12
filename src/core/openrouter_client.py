@@ -352,7 +352,7 @@ def create_openrouter_client(model_id: str, api_key: str) -> AsyncOpenAI:
         base_url=OPENROUTER_BASE_URL,
         api_key=api_key,
         default_headers={
-            "HTTP-Referer": "https://github.com/vladturlo/OptiMat-Chat",  # Optional: for rankings
+            "HTTP-Referer": "https://github.com/OptiMat-Chat/OptiMat-Alloys",  # Optional: for rankings
             "X-Title": "OptiMat Alloys",  # Optional: for rankings
         }
     )
