@@ -2,12 +2,15 @@
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/releases/tag/v1.0.0)
 [![Docker image](https://github.com/OptiMat-Chat/OptiMat-Alloys/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/actions/workflows/docker-publish.yml)
+[![arXiv](https://img.shields.io/badge/arXiv-2604.21850-b31b1b.svg)](https://arxiv.org/abs/2604.21850)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-early%20access-brightgreen.svg)]()
 
 An AI-powered materials science research tool that combines LLMs with universal neural network potentials (ORB, MACE, NequIP) to perform atomistic simulations with near-DFT accuracy.
 
 **Focus**: Multi-principal element alloy design with structural stability analysis, elastic property prediction, and comprehensive materials characterization.
+
+**Preprint**: [OptiMat Alloys: a FAIR, living database of multi-principal element alloys enabled by a conversational agent](https://arxiv.org/abs/2604.21850) (Hu & Turlo, arXiv:2604.21850).
 
 ## 🚀 Quick Start — Docker (recommended)
 
@@ -510,6 +513,23 @@ rm -rf ~/OptiMat-Alloys
 ## 🤝 Contributing
 
 Contributions welcome! This is a research tool in early access.
+
+## 📄 Citation
+
+If you use OptiMat Alloys in your research, please cite the preprint:
+
+```bibtex
+@misc{hu2026optimatalloys,
+  title         = {OptiMat Alloys: a FAIR, living database of multi-principal
+                   element alloys enabled by a conversational agent},
+  author        = {Hu, Yang and Turlo, Vladyslav},
+  year          = {2026},
+  eprint        = {2604.21850},
+  archivePrefix = {arXiv},
+  primaryClass  = {cond-mat.mtrl-sci},
+  url           = {https://arxiv.org/abs/2604.21850}
+}
+```
 
 ## 📜 License
 
