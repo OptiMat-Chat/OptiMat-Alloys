@@ -282,6 +282,35 @@ def save_results(
         json.dump(output_data, f, indent=2, sort_keys=True)
 
 
+def _element_support_path(
+    calculator: str,
+    base_dir: str = "data/element_support"
+) -> Path:
+    """
+    Resolve the element support file for a calculator.
+
+    Shared by load_element_support and print_support_summary so both report the
+    same actionable error instead of a bare "No such file or directory".
+
+    Raises:
+        FileNotFoundError: If the file does not exist, naming the command that
+            creates it.
+    """
+    safe_calc_name = calculator.replace("-", "_")
+    file_path = Path(base_dir) / f"element_support_{safe_calc_name}.json"
+
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"Element support file not found: {file_path}\n"
+            f"Generate it with:\n"
+            f"  python scripts/test_element_support.py --calculator {calculator}\n"
+            f"Sweeps 118 elements (2-4 h on GPU). Saves incrementally, so "
+            f"interrupting and rerunning is safe."
+        )
+
+    return file_path
+
+
 def load_element_support(
     calculator: str,
     base_dir: str = "data/element_support"
@@ -306,14 +335,7 @@ def load_element_support(
         >>> support['He']
         False
     """
-    safe_calc_name = calculator.replace("-", "_")
-    file_path = Path(base_dir) / f"element_support_{safe_calc_name}.json"
-
-    if not file_path.exists():
-        raise FileNotFoundError(
-            f"Element support file not found: {file_path}\n"
-            f"Run element testing first: python scripts/test_element_support.py"
-        )
+    file_path = _element_support_path(calculator, base_dir)
 
     with file_path.open('r') as f:
         data = json.load(f)
@@ -363,8 +385,7 @@ def print_support_summary(
         calculator: Calculator name
         base_dir: Directory containing element support files (default: data/element_support)
     """
-    safe_calc_name = calculator.replace("-", "_")
-    file_path = Path(base_dir) / f"element_support_{safe_calc_name}.json"
+    file_path = _element_support_path(calculator, base_dir)
 
     with file_path.open('r') as f:
         data = json.load(f)

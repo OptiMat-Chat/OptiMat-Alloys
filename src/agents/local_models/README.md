@@ -44,8 +44,11 @@ ollama pull qwen2.5:14b          # ~8GB VRAM, good balance
 ### 4. Install Python Dependencies
 
 ```bash
-pip install 'autogen-ext[ollama]'
+pip install 'agent-framework-openai>=1.8.1'
 ```
+
+The client talks to the Ollama daemon's OpenAI-compatible endpoint
+(`{host}/v1`); no Ollama-specific SDK is needed.
 
 ## Usage
 
@@ -132,7 +135,7 @@ Models use Q4_K_M quantization by default. Actual VRAM usage may vary.
 
 1. Use a smaller model
 2. Close other GPU applications
-3. Try lower context window: `options={"num_ctx": 4096}`
+3. Try a lower context window: set `OLLAMA_CONTEXT_LENGTH` on the daemon
 
 ### Slow Inference
 
@@ -146,25 +149,35 @@ Models use Q4_K_M quantization by default. Actual VRAM usage may vary.
 client = create_ollama_client(
     model_name="qwen2.5:14b",
     host="http://localhost:11434",  # Custom host
-    temperature=0.0,                 # Deterministic output
-    options={
-        "num_ctx": 8192,            # Context window size
-        "num_gpu": 1,               # Number of GPUs
-        "num_thread": 8,            # CPU threads
-    }
 )
 ```
 
+Sampling temperature is configured on the agent (default 0.0 via
+`AgentFactory`), not the client. Runtime options such as context window,
+GPU count, and threads are configured daemon-side (e.g.
+`OLLAMA_CONTEXT_LENGTH`, `OLLAMA_NUM_PARALLEL` environment variables).
+
 ## Testing
 
-Run the integration tests:
+```bash
+pytest tests/unit/test_model_factory.py -k Ollama -v
+```
+
+14 offline unit tests — no daemon, no API key, no network. They cover client
+construction and routing: which endpoint a model resolves to, host
+normalization, how the API key reaches the auth header, that OpenRouter's
+rate-limit pacing is not applied here, and cloud-vs-local dispatch.
+
+There is no integration suite. `tests/test_ollama_integration.py` — which
+checked the `ollama_config` helpers and probed a live daemon — was deleted in
+`d11d023`. To read it:
 
 ```bash
-pytest tests/test_ollama_integration.py -v
+git show d11d023^:tests/test_ollama_integration.py
 ```
 
 ## References
 
 - [Ollama Documentation](https://github.com/ollama/ollama)
 - [Ollama Tool Calling](https://ollama.com/blog/tool-support)
-- [AutoGen Ollama Integration](https://microsoft.github.io/autogen/docs/tutorial/models)
+- [Agent Framework Ollama Provider](https://learn.microsoft.com/en-us/agent-framework/agents/providers/ollama)

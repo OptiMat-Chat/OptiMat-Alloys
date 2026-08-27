@@ -363,16 +363,51 @@ ls data/reference/energies_per_atom*.json | sed 's|.*/energies_per_atom_||;s|\.j
 
 ### Regenerate Reference Data
 
+Reference data is produced by a two-stage pipeline. Stage 1 finds out which
+elements a calculator can handle at all; stage 2 relaxes those elements properly
+to produce the numbers used for formation energies. Both scripts take
+`--calculator` and refuse to run without it, because both are expensive.
+
 ```bash
-# Delete the reference files for the calculator you want to regenerate
+# Stage 1 — element support sweep (2-4 h on GPU)
+# 118 elements x 3 structures, single-point energies at radii-estimated lattice
+# constants. Writes data/element_support/element_support_<calculator>.json.
+# Saves incrementally, so interrupting and rerunning is safe.
+python scripts/test_element_support.py --calculator mace-mpa-0-medium
+
+# Inspect an existing sweep without rerunning it
+python scripts/test_element_support.py --calculator mace-mpa-0-medium --summary
+
+# Stage 2 — reference data (8-16 h per calculator)
+# Relaxes each supported element in 5 structures (sc, bcc, fcc, hcp, diamond).
+# Writes data/reference/{energies_per_atom,lattice_constants}_<calculator>.json.
+python scripts/run_precompute.py --calculator mace-mpa-0-medium
+
+# Several calculators in one run
+python scripts/run_precompute.py --calculator orb-v3-direct-20-omat mace-mpa-0-medium
+```
+
+Stage 1 is optional. If its results are missing, stage 2 falls back to the 48
+elements that already have reference data — safe, but possibly narrower than the
+calculator supports. Running stage 1 first is what widens that set: for
+`mace-mpa-0-medium` the sweep finds 89 supported elements against that 48.
+
+The app also regenerates stage 2 on demand: delete a calculator's reference
+files and start Chainlit, and it precomputes them at startup.
+
+```bash
 rm data/reference/energies_per_atom_orb_v3_conservative_inf_omat.json
 rm data/reference/lattice_constants_orb_v3_conservative_inf_omat.json
-
-# Start Chainlit — missing reference data is regenerated on demand
 chainlit run run_chat.py
 ```
 
-**Warning**: Regeneration is expensive — order of magnitude 117 elements × 5 structures, ~8–16 hours per calculator on a single GPU. If you have a backup, restore it instead.
+**Warning**: Regeneration is expensive — ~8–16 hours per calculator on a single
+GPU for stage 2, plus 2–4 hours for stage 1. If you have a backup, restore it
+instead.
+
+**NequIP is not covered by either script.** Both load calculators through
+`load_calculator()`, which serves the main environment only; NequIP models run
+in a separate environment via `calculator_service`.
 
 ### Backup Reference Data
 

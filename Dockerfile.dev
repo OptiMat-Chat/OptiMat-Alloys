@@ -1,0 +1,22 @@
+# Development image for the AutoGen → Agent Framework migration.
+# Layers the Agent Framework SDK and the test toolchain on top of the
+# prebuilt production image. Source is bind-mounted at /app at run time,
+# so this image never bakes in code.
+#
+# Build:  docker build -f Dockerfile.dev -t optimat-alloys:af-dev .
+# Tests:  docker run --rm -v "$PWD":/app -w /app optimat-alloys:af-dev \
+#           python -m pytest tests/unit -x -q
+# App:    docker run --rm -v "$PWD":/app -p 8000:8000 \
+#           -e OLLAMA_API_KEY -e OPENROUTER_API_KEY optimat-alloys:af-dev
+FROM yhu1991/optimat-alloys:latest
+
+# Uninstall AutoGen from the prebuilt base so the test suite PROVES the
+# runtime is autogen-free (an accidental leftover import would fail here,
+# exactly as it will in the rebuilt production image).
+RUN conda run -n optimat-alloys pip uninstall -y \
+        autogen-agentchat autogen-core autogen-ext \
+    && conda run -n optimat-alloys pip install --no-cache-dir \
+        "agent-framework-openai>=1.8.1" \
+        pytest \
+        pytest-asyncio \
+    && conda clean -afy

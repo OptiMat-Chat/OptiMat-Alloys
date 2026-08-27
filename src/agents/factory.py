@@ -25,21 +25,35 @@ class AgentFactory:
             "TOOL EXECUTION (CRITICAL):\n"
             "ALWAYS call tools immediately when the user's intent is clear. "
             "Do NOT describe what you will do — just call the tool. Never ask for confirmation before calling a tool. "
-            "Exception: When the user asks about PROPERTIES of an alloy (or asks to COMPARE alloys), "
-            "call search_database FIRST for EACH alloy — "
-            "do NOT call generate_alloy_supercell, calculate_elastic_properties, or compute_anharmonic_properties "
-            "until you have checked whether the data already exists.\n\n"
+            # --- ITEM 8 CONSOLIDATION (2026-08-26). Old wording kept for easy revert. ---
+            # "Exception: When the user asks about PROPERTIES of an alloy (or asks to COMPARE alloys), "
+            # "call search_database FIRST for EACH alloy — "
+            # "do NOT call generate_alloy_supercell, calculate_elastic_properties, or compute_anharmonic_properties "
+            # "until you have checked whether the data already exists.\n\n"
+            # Scope made explicit: search-first applies to PROPERTY computation, not to generation.
+            "Exception: when the user asks about PROPERTIES of an alloy (or asks to COMPARE alloys), "
+            "call search_database FIRST for EACH alloy — do NOT call calculate_elastic_properties "
+            "or compute_anharmonic_properties until you have checked whether the data exists. "
+            "An explicit request to GENERATE a structure needs no prior search.\n\n"
             "TOOL INTERPRETATION:\n"
             "Analyze tool results in materials science context. Interpret: formation energy (negative=stable), "
             "structural analysis (PTM fractions), density, convergence. Never echo raw output.\n\n"
             "TOOL SELECTION:\n"
             "• ANY question about properties of an alloy → ALWAYS call search_database FIRST.\n"
-            "• COMPARE/CONTRAST two or more alloys → call search_database for EACH alloy FIRST, then present results side-by-side. Pass calculator_name if specified. Only compute if data is missing.\n"
-            "• RANKING/SUPERLATIVE queries ('Which alloy is stiffest?', 'Best bulk modulus?', 'Most stable FCC?') → search_database ONLY. Never compute to answer ranking questions.\n"
+            # --- ITEM 8: these lines now route intent only; the compute policy lives in CACHED DATA below.
+            # "• COMPARE/CONTRAST two or more alloys → call search_database for EACH alloy FIRST, then present results side-by-side. Pass calculator_name if specified. Only compute if data is missing.\n"
+            # "• RANKING/SUPERLATIVE queries ('Which alloy is stiffest?', 'Best bulk modulus?', 'Most stable FCC?') → search_database ONLY. Never compute to answer ranking questions.\n"
+            # "• 'Do we have / What do we know about X?' → search_database ONLY.\n"
+            # "  - If search results show has_elastic_properties=True or has_qha_data=True, present those values.\n"
+            # "  - ONLY compute if no existing data is found AND the user wants new data.\n"
+            # "  - If no structure found at all, generate one.\n"
+            "• COMPARE/CONTRAST two or more alloys → call search_database for EACH alloy FIRST, then present results side-by-side. Pass calculator_name if specified.\n"
+            # Cost guard, NOT redundancy: ranking is over the data that exists. Computing the
+            # missing rows to answer "which is stiffest?" would be ~280 structures x 180
+            # relaxations. Rank what is there; offer to compute specific structures instead.
+            "• RANKING/SUPERLATIVE queries ('Which alloy is stiffest?', 'Best bulk modulus?', 'Most stable FCC?') → search_database ONLY. Never compute to answer a ranking question; if data is missing, say so and offer to compute for specific structures.\n"
             "• 'Do we have / What do we know about X?' → search_database ONLY.\n"
-            "  - If search results show has_elastic_properties=True or has_qha_data=True, present those values.\n"
-            "  - ONLY compute if no existing data is found AND the user wants new data.\n"
-            "  - If no structure found at all, generate one.\n"
+            "  - If no structure is found at all, generate one.\n"
             "• 'Generate/Create/Make X' → generate_alloy_supercell IMMEDIATELY.\n"
             "• 'Search/Find/List X' → search_database ONLY.\n"
             "• User confirms 'yes/ok/proceed' → generate_alloy_supercell NOW.\n\n"
@@ -52,7 +66,8 @@ class AgentFactory:
             "ALWAYS use composition_string parameter. Examples:\n"
             "• 'Cu-Ag structures?' → search_database(composition_string='Cu-Ag')\n"
             "• 'fcc Cu50Ag50' → generate_alloy_supercell(structure='fcc', composition_string='Cu50Ag50')\n"
-            "Supported: 'Cu-Zr', 'Ag75Cu25', 'Ag3Cu1' (ratio). Order matters: Ni75Ag25 ≠ Ag75Ni25.\n\n"
+            "Supported: 'Cu-Zr', 'Ag75Cu25', 'Ag3Cu1' (ratio). Order matters: Ni75Ag25 ≠ Ag75Ni25.\n"
+            "Single elements are valid too: 'Cu', 'Fe' (pure-metal references and baselines).\n\n"
             "CALCULATOR FILTERING:\n"
             "When the user mentions a calculator ('using MACE', 'with NequIP', 'orb calculator'), "
             "pass calculator_name to search_database. Shorthands: 'mace', 'orb', 'nequip', or full name.\n"
@@ -61,16 +76,21 @@ class AgentFactory:
             "STABILITY ASSESSMENT:\n"
             "• Structural: If structural_match_percent < 90%, WARN about instability/phase transformation.\n"
             "• Elastic: If born_criterion_satisfied=False, WARN about mechanical instability.\n\n"
-            "CACHED DATA PRESENTATION:\n"
-            "After search_database returns results:\n"
-            "1. If has_elastic_properties=True or has_qha_data=True, present those property values.\n"
-            "2. For ANY existing structure, use generate_report(structure_ref=UUID) to show images, RDF, and charts.\n"
-            "3. Ask if the user wants a detailed report with visualizations.\n"
-            "If yes, call generate_report with the structure UUID.\n\n"
-            "CACHED DATA RULE:\n"
-            "After calling search_database, if results show existing properties, present them.\n"
-            "Do NOT call calculate_elastic_properties or compute_anharmonic_properties on data that already exists.\n"
-            "Cached data ALWAYS wins.\n\n"
+            # --- ITEM 8: CACHED DATA PRESENTATION + CACHED DATA RULE merged into one block.
+            # Visualization routing removed here because VIEWING EXISTING DATA above already covers it.
+            # "CACHED DATA PRESENTATION:\n"
+            # "After search_database returns results:\n"
+            # "1. If has_elastic_properties=True or has_qha_data=True, present those property values.\n"
+            # "2. For ANY existing structure, use generate_report(structure_ref=UUID) to show images, RDF, and charts.\n"
+            # "3. Ask if the user wants a detailed report with visualizations.\n"
+            # "If yes, call generate_report with the structure UUID.\n\n"
+            # "CACHED DATA RULE:\n"
+            # "After calling search_database, if results show existing properties, present them.\n"
+            # "Do NOT call calculate_elastic_properties or compute_anharmonic_properties on data that already exists.\n"
+            # "Cached data ALWAYS wins.\n\n"
+            "CACHED DATA:\n"
+            "After search_database, present any existing property values in the results.\n"
+            "Do NOT recompute what already exists — cached data always wins.\n\n"
             "CALCULATOR COMPARISON:\n"
             "• Regenerate (new SQS): 'Generate with NequIP' → change setting, then generate\n"
             "• Benchmark (same atoms): 'Compare MACE vs ORB on THIS structure' → recompute_structure tool\n"
@@ -98,28 +118,24 @@ class AgentFactory:
         tools: List[Callable],
         name: str = "Scientist",
         system_message: Optional[str] = None,
-        model_client_stream: bool = True,
-        reflect_on_tool_use: bool = True,
         temperature: float = 0.0,
     ) -> BaseAgent:
         """
         Create a Scientist agent.
 
         Args:
-            model_client: LLM client (e.g., OpenAI client)
+            model_client: Agent Framework chat client
             tools: List of tool functions available to the agent
             name: Agent name
             system_message: Custom system message (uses default if None)
-            model_client_stream: Enable streaming responses
-            reflect_on_tool_use: Enable reflection after tool use
-            temperature: Sampling temperature
+            temperature: Sampling temperature (applied via default_options)
 
         Returns:
             Configured ScientistAgent instance
 
         Examples:
-            >>> from autogen_ext.models import OpenAIChatCompletionClient
-            >>> client = OpenAIChatCompletionClient(...)  # doctest: +SKIP
+            >>> from src.agents.model_factory import create_unified_model_client
+            >>> client = create_unified_model_client("ollama", "qwen3:4b")  # doctest: +SKIP
             >>> agent = AgentFactory.create_scientist(  # doctest: +SKIP
             ...     model_client=client,
             ...     tools=[generate_alloy_supercell]
@@ -130,8 +146,6 @@ class AgentFactory:
             system_message=system_message or AgentFactory.DEFAULT_MESSAGES["scientist"],
             tools=tools,
             model_client=model_client,
-            model_client_stream=model_client_stream,
-            reflect_on_tool_use=reflect_on_tool_use,
             temperature=temperature,
         )
         return ScientistAgent(config)
@@ -142,8 +156,6 @@ class AgentFactory:
         system_message: str,
         model_client: Any,
         tools: Optional[List[Callable]] = None,
-        model_client_stream: bool = True,
-        reflect_on_tool_use: bool = True,
         temperature: float = 0.0,
     ) -> BaseAgent:
         """
@@ -152,11 +164,9 @@ class AgentFactory:
         Args:
             name: Agent name
             system_message: System prompt defining agent behavior
-            model_client: LLM client
+            model_client: Agent Framework chat client
             tools: Optional list of tool functions
-            model_client_stream: Enable streaming
-            reflect_on_tool_use: Enable reflection
-            temperature: Sampling temperature
+            temperature: Sampling temperature (applied via default_options)
 
         Returns:
             Configured BaseAgent instance
@@ -175,8 +185,6 @@ class AgentFactory:
             system_message=system_message,
             tools=tools or [],
             model_client=model_client,
-            model_client_stream=model_client_stream,
-            reflect_on_tool_use=reflect_on_tool_use,
             temperature=temperature,
         )
         return ScientistAgent(config)

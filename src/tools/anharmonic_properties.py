@@ -11,6 +11,7 @@ from pathlib import Path
 
 from src.storage.database import create_structure_database
 from src.core.calculator_service import get_calculator_service
+from src.core.calculators import get_checkpoint_identifier
 from src.core.cancellation import ComputationCancelledException
 from src.core.qha_wrapper import (
     compute_qha_properties,
@@ -111,7 +112,7 @@ async def compute_anharmonic_properties(
     compute_thermal_conductivity_flag: Annotated[bool, "Enable κ(T) calculation (expensive)"] = False,
     mesh_qha: Annotated[Optional[List[int]], "QHA phonon mesh [nx,ny,nz] (default [20,20,20])"] = None,
     mesh_phono3py: Annotated[Optional[List[int]], "Thermal conductivity mesh [nx,ny,nz] (default [20,20,20])"] = None,
-    temperature_range: Annotated[Optional[List[float]], "[Tmin,Tmax,Tstep] in K (default [0,610,10])"] = None
+    temperature_range: Annotated[Optional[List[float]], "[Tmin, Tmax, Tstep] in K, Tmax INCLUSIVE — you get exactly the range you ask for. OMIT this argument unless the user gave explicit temperatures; the tool applies a safe default."] = None
 ) -> Annotated[Dict, "QHA properties, optional κ(T), and plots."]:
     """
     Compute temperature-dependent properties (B(T), V(T), α(T), Cp(T), γ(T)) via QHA; optionally κ(T) via phono3py.
@@ -146,9 +147,24 @@ async def compute_anharmonic_properties(
     if mesh_phono3py is None:
         mesh_phono3py = [20, 20, 20]
     if temperature_range is None:
-        temperature_range = [0, 610, 10]
+        temperature_range = [0, 600, 10]
 
     t_min, t_max, t_step = temperature_range
+
+    # Deliver the range the caller actually asked for, inclusive of t_max.
+    #
+    # Two behaviours stack here:
+    #   1. phonopy's ThermalProperties builds np.arange(t_min, t_max + t_step/2, t_step),
+    #      so t_max IS included (the half-step is the standard endpoint trick).
+    #   2. PhonopyQHA then drops the LAST temperature point when computing
+    #      derivative-based properties (thermal expansion = dV/dT, Cp), see
+    #      qha_wrapper.py where arrays are sliced to len(bulk_modulus).
+    # Net effect: without padding, a caller asking for [0, 600, 10] gets 0-590.
+    # Padding by exactly one t_step makes the dropped point the padding itself,
+    # so the caller gets 0-600 as requested. The previously hardcoded default of
+    # [0, 610, 10] was this padding baked into the default by hand — which only
+    # worked when the caller omitted the argument entirely.
+    t_max_internal = t_max + t_step if t_step > 0 else t_max
 
     # Create cancellation event for cooperative cancellation
     cancellation_event = threading.Event()
@@ -219,7 +235,7 @@ async def compute_anharmonic_properties(
 
         composition = metadata.get("composition_string", "Unknown")
         structure_type = metadata.get("target_structure", "unknown")
-        calculator_name = metadata.get("calculator_name", "orb-v3-direct-20-omat")
+        calculator_name = metadata.get("calculator_name", "orb-v3-conservative-inf-omat")
 
         await cl.Message(
             content=f"✓ Loaded structure: {composition} ({structure_type})\n"
@@ -247,11 +263,26 @@ async def compute_anharmonic_properties(
         relax_task.status = cl.TaskStatus.RUNNING
         await task_list.send()
 
-        # Get calculator from Chainlit UI settings
-        model_name = cl.user_session.get("default_calculator")
+        # Resolve calculator: the structure's own DB record wins, so QHA matches the
+        # force field the structure was generated/relaxed with. Falls back to the
+        # Chainlit dropdown only when the record has none.
+        # (calculate_elastic_properties uses the same "DB record wins" rule.)
+        session_calculator = cl.user_session.get("default_calculator")
+        model_name = metadata.get("calculator_name") or session_calculator or "orb-v3-conservative-inf-omat"
 
-        # Display actual temperature range (t_max is set to 1010 to include 1000 K with step=10)
-        t_max_display = t_max - t_step if t_step > 0 else t_max
+        if session_calculator and model_name != session_calculator:
+            await cl.Message(
+                content=(
+                    f"ℹ️ Using **{model_name}** (recorded on this structure) rather than "
+                    f"**{session_calculator}** from the dropdown, so the QHA result stays "
+                    f"consistent with how this structure was built.\n\n"
+                    f"To compute with a different force field, use `recompute_structure` first."
+                )
+            ).send()
+
+        # t_max is what the caller receives: the internal padding above is consumed
+        # by PhonopyQHA's dropped derivative point.
+        t_max_display = t_max
 
         await cl.Message(
             content=f"Computing finite temperature properties...\n"
@@ -298,7 +329,7 @@ async def compute_anharmonic_properties(
                 strain_range=0.10,  # ±10%
                 mesh=tuple(mesh_qha),
                 t_min=t_min,
-                t_max=t_max,
+                t_max=t_max_internal,
                 t_step=t_step,
                 cancellation_event=cancellation_event,
                 relaxation_callback=relaxation_callback,
@@ -427,10 +458,10 @@ async def compute_anharmonic_properties(
 
                 kappa_data = await cl.make_async(compute_thermal_conductivity)(
                     atoms=atoms,
-                    calculator=calc,
+                    calculator=gpu_calc,
                     mesh=tuple(mesh_phono3py),
                     t_min=t_min,
-                    t_max=t_max,
+                    t_max=t_max,  # phono3py does not drop a point; no padding needed
                     t_step=t_step,
                     structure_dir=db.get_structure_directory(structure_uuid),
                     cancellation_event=cancellation_event,
@@ -598,6 +629,8 @@ async def compute_anharmonic_properties(
             "qha_thermal_expansion_300K_per_K": float(qha_data['thermal_expansion'][idx_300K_safe]),
             "qha_heat_capacity_p_300K_J_K_mol": float(qha_data['heat_capacity_p'][idx_300K_safe]),
             "qha_gruneisen_300K": float(qha_data['gruneisen'][idx_300K_safe]),
+            "qha_calculator_used": model_name,
+            "qha_calculator_checkpoint": get_checkpoint_identifier(model_name),
             "qha_num_volumes": num_volumes,
             "qha_mesh": mesh_qha,
             "qha_temperature_range": temperature_range,
@@ -655,6 +688,8 @@ async def compute_anharmonic_properties(
         # Store searchable QHA fields in key_value_pairs
         qha_kvp = {
             "has_qha_data": True,
+            "qha_calculator_used": model_name,
+            "qha_calculator_checkpoint": get_checkpoint_identifier(model_name),
             "qha_gibbs_free_energy_300K_kJ_mol": float(qha_data['gibbs_free_energy'][idx_300K_safe]),
             "qha_bulk_modulus_300K_GPa": float(qha_data['bulk_modulus'][idx_300K_safe]),
             "qha_thermal_expansion_300K_1e6_per_K": float(qha_data['thermal_expansion'][idx_300K_safe] * 1e6),
@@ -743,6 +778,14 @@ async def compute_anharmonic_properties(
                 "structure_uuid": structure_uuid
             }
         }
+
+        # Record calculation in session state (memory layer)
+        session_state = cl.user_session.get("session_state")  # type: ignore
+        if session_state:
+            session_state.record_calculation(
+                calculator=model_name,
+                supercell_size=num_atoms
+            )
 
         return results
 

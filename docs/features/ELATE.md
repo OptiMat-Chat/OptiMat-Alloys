@@ -286,7 +286,12 @@ Manual validation of the ELATE pipeline can be done end-to-end through the Chain
 4. Render the visualizations: *"Generate visual report for structure 1"* — produces 5 tables and 24 directional plots.
 5. Spot-check the stored fields against the **Key Properties Computed** section above by inspecting the row in `structures/database.db` (see `docs/MAINTENANCE.md` → "Query Database Stats" for the ASE/Python recipe).
 
-There is currently no automated unit/integration suite for ELATE in this repository; the standalone test report at `tests/ELATE_AUTONOMOUS_TEST_REPORT.md` and the autonomous-test driver at `tests/run_elate_autonomous.py` are the closest historical artifacts.
+There is currently no automated unit/integration suite for ELATE in this repository. The closest historical artifacts — a standalone test report, and a driver that exercised the UI through Playwright MCP rather than pytest — were removed in `8b892f4` when the repo was prepared for public release. To read them:
+
+```bash
+git show 8b892f4^:tests/ELATE_AUTONOMOUS_TEST_REPORT.md
+git show 8b892f4^:tests/run_elate_autonomous.py
+```
 
 ## Code References
 

@@ -12,10 +12,15 @@
 chainlit>=2.2.0
 pyyaml
 
-# AutoGen AI framework
-autogen-agentchat
-autogen-ext[openai]
-autogen-ext[ollama]  # Local model support via Ollama
+# Microsoft Agent Framework (AutoGen's successor)
+# One OpenAI-compatible client covers OpenRouter AND Ollama (the Ollama
+# daemon's /v1 endpoint proxies both local and cloud models).
+agent-framework-openai>=1.8.1
+
+# Testing (dev-only: not installed in the production Docker image;
+# Dockerfile.dev layers these for the containerized test suite)
+pytest
+pytest-asyncio
 
 # Scientific stack
 ase>=3.24.0
@@ -45,5 +50,3 @@ pandas  # Data manipulation
 # Report generation
 reportlab>=4.0.0  # PDF report generation
 
-# PostgreSQL database support (optional — for future cloud database features)
-psycopg2-binary

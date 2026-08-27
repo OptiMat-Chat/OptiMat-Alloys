@@ -14,6 +14,7 @@ Use calculator_service.get_calculator() which runs NequIP in a separate
 conda environment (optimat-nequip) due to e3nn version conflicts.
 """
 
+from pathlib import Path
 from typing import Literal, Optional, Union
 from ase.calculators.calculator import Calculator
 import os
@@ -100,6 +101,81 @@ def _load_mace_calculator(model: str, device: str) -> Calculator:
 # e3nn version conflicts. Use calculator_service.get_calculator() instead.
 
 
+def get_checkpoint_identifier(model: str, device: str = "cuda") -> Optional[str]:
+    """
+    Identify the model WEIGHTS behind a calculator name, without loading it.
+
+    A library version does not identify the weights: orb-models v0.5.5 alone
+    ships 19 distinct checkpoint URLs, so only the pair (library version, model
+    name) pins them — and a later release can repoint the same model name at a
+    new checkpoint. Recording the checkpoint per structure makes the row
+    self-describing instead of requiring a version-to-weights lookup.
+
+    Args:
+        model: Calculator name, e.g. 'orb-v3-conservative-inf-omat'
+        device: Device, only used for NequIP (its cache is per-device)
+
+    Returns:
+        A string identifying the weights (checkpoint filename, hub reference,
+        or compiled-artifact name), or None if it cannot be determined.
+
+    Examples:
+        >>> get_checkpoint_identifier('orb-v3-conservative-inf-omat')  # doctest: +SKIP
+        'orb-v3-conservative-inf-omat-20250404.ckpt'
+    """
+    try:
+        if model.startswith("orb-"):
+            # The checkpoint URL is the loader's `weights_path` default, so it can
+            # be read from the signature without downloading or instantiating.
+            import inspect
+            from orb_models.forcefield import pretrained
+            loaders = {
+                "orb-v3-direct-20-omat": "orb_v3_direct_20_omat",
+                "orb-v3-conservative-inf-omat": "orb_v3_conservative_inf_omat",
+            }
+            fn_name = loaders.get(model)
+            if not fn_name:
+                return None
+            fn = getattr(pretrained, fn_name)
+            url = inspect.signature(fn).parameters["weights_path"].default
+            return str(url).rsplit("/", 1)[-1] if url else None
+
+        if model.startswith("mace-"):
+            # mace_mp() resolves a short tag to a file under ~/.cache/mace.
+            mapping = {
+                "mace-mpa-0-medium": "medium-mpa-0",
+                "mace-omat-0-small": "small-omat-0",
+                "mace-omat-0-medium": "medium-omat-0",
+            }
+            tag = mapping.get(model)
+            if not tag:
+                return None
+            cache = Path(os.environ.get("MACE_CACHE_DIR", Path.home() / ".cache" / "mace"))
+            if cache.is_dir():
+                # The cached filename reorders the tag components
+                # ('medium-mpa-0' -> 'macempa0mediummodel'), so match on all
+                # parts being present rather than on the concatenated tag.
+                parts = [p for p in tag.split("-") if p]
+                for f in sorted(cache.iterdir()):
+                    name = f.name.lower()
+                    if all(part in name for part in parts):
+                        return f.name
+            return f"mace_mp:{tag}"
+
+        if model.startswith("nequip-"):
+            # NequIP caches a compiled artifact per model AND per device.
+            hub = {
+                "nequip-oam-l": "mir-group/NequIP-OAM-L:0.1",
+                "nequip-oam-xl": "mir-group/NequIP-OAM-XL:0.1",
+                "nequip-mp-l": "mir-group/NequIP-MP-L:0.1",
+            }.get(model)
+            return f"{hub} -> {model}_{device}.nequip.pth" if hub else None
+    except Exception:
+        # Provenance is best-effort: never break a calculation over it.
+        return None
+    return None
+
+
 class CalculatorManager:
     """
     Manages ASE calculator lifecycle with caching and auto-fallback.
@@ -115,7 +191,7 @@ class CalculatorManager:
 
     def load(
         self,
-        model: SupportedModel = 'orb-v3-direct-20-omat',
+        model: SupportedModel = 'orb-v3-conservative-inf-omat',
         device: Literal['cpu', 'cuda'] = 'cuda',
         precision: Optional[str] = None,
         use_cache: bool = True
@@ -294,7 +370,7 @@ class CalculatorManager:
 
 # Convenience function for backward compatibility
 def load_calculator(
-    model: SupportedModel = "orb-v3-direct-20-omat",
+    model: SupportedModel = "orb-v3-conservative-inf-omat",
     device: str = "cuda"
 ) -> Calculator:
     """

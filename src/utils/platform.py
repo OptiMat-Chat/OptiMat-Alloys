@@ -232,7 +232,7 @@ def check_dependencies() -> Dict[str, bool]:
         "orb_models",
         "ovito",
         "chainlit",
-        "autogen_agentchat",
+        "agent_framework",
         "numpy",
         "scipy",
         "plotly",

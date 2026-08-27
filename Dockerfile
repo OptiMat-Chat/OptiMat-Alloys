@@ -49,7 +49,7 @@ RUN conda create -n optimat-alloys python=3.11 -y \
         torch>=2.6.0 --index-url https://download.pytorch.org/whl/cu124 \
     && conda run -n optimat-alloys pip install --no-cache-dir \
         chainlit>=2.2.0 pyyaml \
-        autogen-agentchat "autogen-ext[openai]" "autogen-ext[ollama]" \
+        "agent-framework-openai>=1.8.1" \
         ase>=3.24.0 numpy>=1.26.4 scipy>=1.15.1 \
         dm-tree==0.1.8 tqdm>=4.66.5 \
         orb-models "e3nn==0.4.4" "mace-torch>=0.3.14" \

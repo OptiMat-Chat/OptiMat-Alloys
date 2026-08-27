@@ -199,36 +199,32 @@ To inspect or tweak the prompt, read or edit `src/agents/factory.py` directly. `
 
 ### Settings
 
-```python
-# run_chat.py:633 (and line 905 for the secondary agent)
-reflect_on_tool_use=False  # Disabled to avoid AutoGen bug #6328
-```
+The agent runs on Microsoft Agent Framework (`agent_framework.Agent`), which
+loops tool calls natively: after each tool result the model is re-invoked
+with the result in context until it produces a final text answer (capped at
+`MAX_TOOL_ITERATIONS = 10` model roundtrips per round —
+`src/agents/scientist.py`). No reflection flag is needed; the AutoGen-era
+`reflect_on_tool_use=False` workaround for AutoGen bug #6328 is obsolete.
 
-The rationale comment is at `run_chat.py:610`. `parallel_tool_calls` is **not** set on the model client — sequential tool execution is achieved by the agent's system message ("Execute tools sequentially") and the RoundRobinGroupChat loop, not by an explicit OpenAI flag.
-
-### Why This Approach
-
-Instead of using AutoGen's built-in `reflect_on_tool_use=True` parameter, we achieve tool result interpretation through enhanced system message prompt engineering.
-
-**Reason**: Avoids AutoGen issue #6328, where AutoGen's built-in `reflect_on_tool_use=True` reflection path fails against current OpenAI-compatible servers.
+`parallel_tool_calls` is **not** set on the model client — sequential tool
+execution is achieved by the agent's system message ("Execute tools
+sequentially"), not by an explicit OpenAI flag.
 
 ### How It Works
 
 1. **Tool Execution**: Agent calls a tool; the system message instructs sequential, one-at-a-time execution.
-2. **Result Return**: Tool returns `ToolCallSummaryMessage` to the agent.
-3. **RoundRobinGroupChat**: Continues because no "?" termination marker is detected.
-4. **Natural Interpretation**: Agent makes next inference with tool results in conversation history.
-5. **Guided Analysis**: The system message instructs the agent to interpret results scientifically.
-6. **Termination**: Agent ends its final response with "?" to signal task completion.
+2. **Result Return**: The framework feeds the tool result back into the conversation.
+3. **Natural Interpretation**: The agent's next inference sees the tool results in conversation history.
+4. **Guided Analysis**: The system message instructs the agent to interpret results scientifically.
+5. **Termination**: The runner (`src/agents/runner.py`) re-invokes the agent until its final response contains "?" (max 10 rounds), signalling a question back to the user.
 
 ### Benefits
 
-- ✅ Avoids AutoGen framework bugs (no buggy reflection code path)
+- ✅ Framework-native tool loop (no workaround code paths)
 - ✅ More natural, conversational interpretation
 - ✅ Full control over interpretation depth and style
 - ✅ Customizable per tool type via system message
 - ✅ Sequential tool execution maintained (no parallel calls)
-- ✅ Future-proof against AutoGen version changes
 
 ### System Message Example
 
@@ -246,7 +242,7 @@ From `src/agents/factory.py:23-44`:
 
 ### Reference
 
-See AutoGen GitHub issue #6328 for details on the upstream bug.
+Historical: AutoGen GitHub issue #6328 motivated the prompt-engineering reflection approach that this app retains (now by choice, not necessity).
 
 ## Environment Variables
 

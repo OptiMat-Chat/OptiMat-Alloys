@@ -24,7 +24,7 @@ class GlobalStructureDatabase:
 
     Directory structure:
         structures/
-        ├── database.db                        # Global ASE database (SQLite/PostgreSQL)
+        ├── database.db                        # Global ASE database (SQLite)
         └── a1b2c3d4e5f6.../                  # Structure UUID folders (32-char hex)
             ├── structure_elements.png
             ├── structure_analysis.png

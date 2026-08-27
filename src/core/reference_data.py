@@ -103,9 +103,11 @@ def get_supported_elements(calculator: str, use_fallback: bool = True) -> List[s
     except FileNotFoundError:
         if use_fallback:
             # Fall back to original 48 core elements (for backwards compatibility)
-            print(f"⚠️  Element testing results not found for {calculator}")
-            print(f"   Using fallback list of 48 core elements (118 tracked in database, 117 ORB-supported)")
-            print(f"   Run: python scripts/test_element_support.py --calculator {calculator}")
+            print(f"⚠️  Element support results not found for {calculator}")
+            print(f"   Using the 48 elements that have reference data. This is safe,")
+            print(f"   but may be narrower than the calculator actually supports.")
+            print(f"   To measure its full coverage (2-4 h on GPU):")
+            print(f"     python scripts/test_element_support.py --calculator {calculator}")
             return [
                 "Li", "Be", "Na", "Mg", "Al", "K", "Ca", "Rb", "Sr", "Cs", "Ba", "Sc", "Ti", "V", "Cr", "Mn",
                 "Fe", "Co", "Ni", "Cu", "Zn", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "Hf",
@@ -119,7 +121,7 @@ def precompute_and_save(
     hydrostatic_cell_relaxation: bool = True,
     optimizer: str = "FIRE",
     fmax: float = 0.01,
-    calculator: str = "orb-v3-direct-20-omat",
+    calculator: str = "orb-v3-conservative-inf-omat",
     cache: Optional['ReferenceDataCache'] = None,
     elements: Optional[List[str]] = None
 ) -> None:

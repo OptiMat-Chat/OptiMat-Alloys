@@ -254,7 +254,7 @@ def export_qha_properties_csv(
 
     Args:
         temperatures: Temperature array (K)
-        gibbs_energies: Gibbs free energy (eV)
+        gibbs_energies: Gibbs free energy (kJ/mol per formula unit)
         bulk_moduli: Bulk modulus (GPa)
         volumes: Volume (Å³)
         thermal_expansion: Thermal expansion coefficient (1/K)
@@ -271,7 +271,7 @@ def export_qha_properties_csv(
         # Build header based on available data
         headers = ['Temperature_K']
         if gibbs_energies is not None:
-            headers.append('Gibbs_energy_eV')
+            headers.append('Gibbs_energy_kJ_per_mol')
         if bulk_moduli is not None:
             headers.append('Bulk_modulus_GPa')
         if volumes is not None:

@@ -6,8 +6,16 @@ materials science simulations and analysis.
 """
 
 from typing import Any, List, Callable, Optional
-from autogen_agentchat.agents import AssistantAgent
+
+from agent_framework import Agent
+
 from .base import BaseAgent, AgentConfig
+
+# Cap on model roundtrips within one run's tool-calling loop. Parity with
+# the AutoGen-era RoundRobinGroupChat(max_turns=10): one round-robin turn
+# was one model call, so a single user message was bounded by 10 calls.
+# On exhaustion the framework forces a final text answer (tool_choice="none").
+MAX_TOOL_ITERATIONS = 10
 
 
 class ScientistAgent(BaseAgent):
@@ -18,12 +26,17 @@ class ScientistAgent(BaseAgent):
     computing properties, and visualizing results.
     """
 
-    def create_agent(self) -> AssistantAgent:
+    def create_agent(self) -> Agent:
         """
-        Create an AutoGen AssistantAgent configured as a Scientist.
+        Create an Agent Framework Agent configured as a Scientist.
+
+        The agent is built WITHOUT constructor instructions: run_chat
+        delivers config.system_message per run (optionally prefixed with
+        session context), which keeps the run-level value the sole system
+        message. Conversation history lives in the AgentSession.
 
         Returns:
-            Configured AssistantAgent instance
+            Configured agent_framework.Agent instance
 
         Examples:
             >>> config = AgentConfig(
@@ -34,17 +47,18 @@ class ScientistAgent(BaseAgent):
             >>> agent = ScientistAgent(config)  # doctest: +SKIP
             >>> instance = agent.create_agent()  # doctest: +SKIP
         """
-        kwargs = dict(
-            name=self.config.name,
-            model_client=self.config.model_client,
-            system_message=self.config.system_message,
-            tools=self.config.tools,
-            model_client_stream=self.config.model_client_stream,
-            reflect_on_tool_use=self.config.reflect_on_tool_use,
+        client = self.config.model_client
+        # Official AF idiom for configuring the tool loop on an existing
+        # client (see agent_framework._tools docs): mutate the config dict.
+        client.function_invocation_configuration["max_iterations"] = (
+            MAX_TOOL_ITERATIONS
         )
-        if self.config.model_context is not None:
-            kwargs["model_context"] = self.config.model_context
-        return AssistantAgent(**kwargs)
+        return Agent(
+            client=client,
+            name=self.config.name,
+            tools=self.config.tools,
+            default_options={"temperature": self.config.temperature},
+        )
 
 
 def create_scientist_agent(
@@ -52,19 +66,17 @@ def create_scientist_agent(
     tools: List[Callable],
     name: str = "Scientist",
     system_message: Optional[str] = None,
-    model_client_stream: bool = True,
-    reflect_on_tool_use: bool = True,
+    temperature: float = 0.0,
 ) -> ScientistAgent:
     """
     Convenience function to create a Scientist agent.
 
     Args:
-        model_client: LLM client for the agent
+        model_client: Agent Framework chat client for the agent
         tools: List of tool functions
         name: Agent name
         system_message: Custom system message (uses default if None)
-        model_client_stream: Enable streaming
-        reflect_on_tool_use: Enable reflection
+        temperature: Sampling temperature
 
     Returns:
         Configured ScientistAgent
@@ -84,8 +96,7 @@ def create_scientist_agent(
         system_message=system_message or default_message,
         tools=tools,
         model_client=model_client,
-        model_client_stream=model_client_stream,
-        reflect_on_tool_use=reflect_on_tool_use,
+        temperature=temperature,
     )
 
     return ScientistAgent(config)

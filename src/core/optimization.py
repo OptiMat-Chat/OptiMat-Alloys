@@ -164,7 +164,7 @@ def relax_atoms(
     optimizer: Literal['FIRE', 'LBFGS'] = 'FIRE',
     fmax: float = 0.001,
     max_steps: int = 1000,
-    calculator: Literal['orb-v3-direct-20-omat', 'orb-v3-conservative-inf-omat'] = 'orb-v3-direct-20-omat',
+    calculator: Literal['orb-v3-conservative-inf-omat', 'orb-v3-direct-20-omat'] = 'orb-v3-conservative-inf-omat',
     device: Literal['cpu', 'cuda'] = 'cuda'
 ) -> Atoms:
     """

@@ -84,6 +84,7 @@ def parse_composition_string(comp: str) -> Optional[ParsedComposition]:
     - "AgCu" or "Ag-Cu" -> 50% each (equal parts)
     - "Ag3Cu1" -> 75% Ag, 25% Cu (ratio notation)
     - "Ag0.75Cu0.25" -> 75% Ag, 25% Cu (decimal fractions)
+    - "Cu" or "Cu100" -> 100% Cu (unary / pure element)
 
     Args:
         comp: Composition string to parse
@@ -111,7 +112,9 @@ def parse_composition_string(comp: str) -> Optional[ParsedComposition]:
     pattern1 = r'([A-Z][a-z]?)(\d+(?:\.\d+)?)'
     matches = re.findall(pattern1, comp)
 
-    if len(matches) >= 2:
+    # >= 1, not >= 2: a unary system ("Cu100", "Fe100") is a legitimate
+    # composition — pure-metal references and baselines depend on it.
+    if len(matches) >= 1:
         elements = [m[0] for m in matches]
         values = [float(m[1]) for m in matches]
 
@@ -152,7 +155,7 @@ def parse_composition_string(comp: str) -> Optional[ParsedComposition]:
     elem_matches = [m for m in re.findall(elem_pattern, comp) if m in VALID_ELEMENTS]
     num_matches = [float(m) for m in re.findall(num_pattern, comp)]
 
-    if len(elem_matches) >= 2 and len(num_matches) >= 2:
+    if len(elem_matches) >= 1 and len(num_matches) >= 1:
         # Take only as many numbers as elements
         n = min(len(elem_matches), len(num_matches))
         elements = elem_matches[:n]
@@ -175,7 +178,7 @@ def parse_composition_string(comp: str) -> Optional[ParsedComposition]:
     # Filter to valid elements only
     elements = [p for p in parts if p in VALID_ELEMENTS]
 
-    if len(elements) >= 2:
+    if len(elements) >= 1:
         # Equal parts for all elements
         n = len(elements)
         fractions = [1.0 / n] * n

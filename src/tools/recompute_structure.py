@@ -13,6 +13,7 @@ import torch
 from src.core.optimization import StructureOptimizer
 from src.core.calculator_service import get_calculator_service
 from src.core.analysis import structural_analysis, compute_density
+from src.core.calculators import get_checkpoint_identifier
 from src.core.formation_energy import formation_energy_per_atom
 from src.core.reference_data import precompute_and_save, load_reference_energies
 from src.core.structure_builder import lattice_constant_from_atomic_volume
@@ -163,6 +164,7 @@ async def recompute_structure(
         "recomputed_from_calculator": source_calculator,
         # Calculator info
         "calculator_name": new_calculator,
+        "calculator_checkpoint": get_checkpoint_identifier(new_calculator),
         "device_type": device_type,
         # Structure
         "target_structure": target_structure,
@@ -259,6 +261,7 @@ async def recompute_structure(
         # Structure
         "target_structure": target_structure,
         "lattice_constant": float(lattice_constant),
+        "volume_per_atom_A3": float(volume_per_atom),
         "optimized_num_atoms": int(num_atoms),
 
         # Composition
@@ -350,6 +353,37 @@ async def recompute_structure(
         stability_interpretation = f"STABLE: {structural_match_percent:.1f}% {target_structure.upper()} (threshold: {STRUCTURAL_STABILITY_THRESHOLD:.0f}%)"
     else:
         stability_interpretation = f"UNSTABLE: Only {structural_match_percent:.1f}% {target_structure.upper()} (threshold: {STRUCTURAL_STABILITY_THRESHOLD:.0f}%). Dominant: {dominant_structure.upper()}"
+
+    # Print the comparison ourselves. This tool exists to benchmark two calculators
+    # on the same atoms, so the deltas ARE the result — they must not depend on the
+    # agent transcribing them (rounding a 0.0004 eV/atom delta to 0.000 erases it).
+    def _delta(new_v, old_v, fmt="{:+.4f}"):
+        # `is None`, not truthiness: a source value of exactly 0.0 is a real
+        # measurement (common for pure-element formation energies), not a
+        # missing one, and its delta must still be shown.
+        if old_v is None or new_v is None:
+            return "n/a"
+        return fmt.format(new_v - old_v)
+
+    await cl.Message(
+        content=(
+            f"📊 **Calculator comparison — same atoms, two force fields**\n\n"
+            f"| Quantity | {source_calculator} | {new_calculator} | Δ |\n"
+            f"|---|---|---|---|\n"
+            f"| Energy (eV/atom) | {source_energy:.4f} | {energy_per_atom:.4f} | "
+            f"{_delta(energy_per_atom, source_energy)} |\n"
+            f"| Formation energy (eV/atom) | {source_formation:.4f} | {formation_energy:.4f} | "
+            f"{_delta(formation_energy, source_formation)} |\n"
+            f"| Density (g/cm³) | {source_density:.3f} | {density:.3f} | "
+            f"{_delta(density, source_density, '{:+.3f}')} |\n"
+            f"| Structure match (%) | {source_structural_match:.1f} | {structural_match_percent:.1f} | "
+            f"{_delta(structural_match_percent, source_structural_match, '{:+.1f}')} |\n"
+            f"| Lattice constant (Å) | — | {lattice_constant:.4f} | — |\n"
+            f"| Max residual force (eV/Å) | — | {max_force_magnitude:.4f} "
+            f"({'converged' if max_force_magnitude <= fmax else 'NOT converged'}) | — |\n\n"
+            f"**New structure ID:** `{new_id}`  ·  **UUID:** `{new_uuid}`"
+        )
+    ).send()
 
     # Record calculation in session state (memory layer)
     session_state = cl.user_session.get("session_state")  # type: ignore

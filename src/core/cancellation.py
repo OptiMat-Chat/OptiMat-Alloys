@@ -50,7 +50,16 @@ except ComputationCancelledException as e:
     ).send()
 ```
 
-For detailed documentation, see: docs/LONG_RUNNING_TASKS.md
+A longer developer guide — architecture, code templates for adding cancellation
+to a new tool, checkpoint placement, troubleshooting — was removed in d11d023 and
+remains in git history:
+
+    git show d11d023^:docs/LONG_RUNNING_TASKS.md
+
+It predates the Agent Framework migration: its stop-button section quotes an
+older run_chat.py on_stop() that reasoned "per AutoGen docs". The behaviour is
+unchanged (signal the computation, never cancel the agent) but the reasoning is
+not — see the live on_stop() docstring in run_chat.py for the current rationale.
 """
 
 import threading

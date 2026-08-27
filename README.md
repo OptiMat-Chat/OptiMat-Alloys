@@ -1,6 +1,6 @@
 # OptiMat Alloys
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/releases/tag/v1.0.0)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/releases/tag/v1.1.0)
 [![Docker image](https://github.com/OptiMat-Chat/OptiMat-Alloys/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/OptiMat-Chat/OptiMat-Alloys/actions/workflows/docker-publish.yml)
 [![arXiv](https://img.shields.io/badge/arXiv-2604.21850-b31b1b.svg)](https://arxiv.org/abs/2604.21850)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -58,9 +58,9 @@ Go to **http://localhost:8000** in your browser. Enter your API key in the chat 
 OLLAMA_API_KEY=your-key-here
 ```
 
-Supported providers: `OLLAMA_API_KEY` (cloud models, default), `OPENROUTER_API_KEY` (free models available), `OPENAI_API_KEY`. See [Configuration](#%EF%B8%8F-configuration).
+Supported providers: `OLLAMA_API_KEY` (cloud models, default) and `OPENROUTER_API_KEY` (free models available). See [Configuration](#%EF%B8%8F-configuration).
 
-> **Pinning a version:** the compose files track `:latest`. For a reproducible install, edit the `image:` line to a release tag, e.g. `ghcr.io/optimat-chat/optimat-alloys:1.0.0`.
+> **Pinning a version:** the compose files track `:latest`. For a reproducible install, edit the `image:` line to a release tag, e.g. `ghcr.io/optimat-chat/optimat-alloys:1.1.0`.
 
 ### Alternative: plain `docker run`
 
@@ -108,7 +108,7 @@ bash scripts/setup_linux.sh
 
 # 3. Set your API key
 cp .env.example .env
-nano .env   # add OLLAMA_API_KEY, OPENROUTER_API_KEY, or OPENAI_API_KEY
+nano .env   # add OLLAMA_API_KEY or OPENROUTER_API_KEY
 
 # 4. Launch OptiMat Alloys
 bash scripts/launch_optimat_alloys.sh
@@ -138,6 +138,15 @@ Details, hardware notes, and troubleshooting: [docs/SETUP_GUIDE.md](docs/SETUP_G
 - **Elastic Property Prediction**: Full elastic tensor calculation with ELATE anisotropy analysis
 - **Visualization**: OVITO-rendered images and interactive Plotly charts
 - **Global Structure Database**: SQLite database with searchable composition metadata
+
+### v1.1.0 Enhancements
+- **Agent framework migration**: ported from AutoGen to Microsoft Agent Framework; behaviour preserved, covered by a 100-test offline suite
+- **Polycrystalline elastic moduli**: Voigt, Reuss and Hill averages reported together, with a positive-definiteness gate so non-physical tensors no longer yield negative moduli
+- **Calculator provenance**: results record the model checkpoint that produced them, not just the library version
+- **QHA curves reach the agent**: stored temperature curves are returned on search instead of only 300 K scalars, so the agent reads them rather than recomputing or estimating
+- **Direct-force model guard**: ORB direct variants are flagged for elastic work, where a non-conservative force field gives invalid constants
+- **Unary compositions**: pure metals are accepted where previously two elements were required
+- **Element-support sweep CLI**: `scripts/test_element_support.py` restored; it and `scripts/run_precompute.py` both take `--calculator` and refuse to run without it
 
 ### v1.0.0 Enhancements
 - **ELATE Integration**: Comprehensive elastic anisotropy analysis with directional property visualizations
@@ -301,11 +310,8 @@ export OLLAMA_API_KEY='...'
 ```bash
 export OPENROUTER_API_KEY='sk-or-...'
 # Free signup at https://openrouter.ai/keys
-```
-
-**OpenAI (paid cloud models)**
-```bash
-export OPENAI_API_KEY='sk-...'
+# OpenAI models (openai/gpt-oss-*) are served through OpenRouter — there is no
+# separate OpenAI provider, and OPENAI_API_KEY is not read.
 ```
 
 **Ollama (local models)** - No API key required

@@ -22,7 +22,7 @@ class ReferenceDataCache:
 
     def __init__(
         self,
-        calculator: str = "orb-v3-direct-20-omat",
+        calculator: str = "orb-v3-conservative-inf-omat",
         base_dir: str = "data/reference"
     ):
         """
@@ -303,7 +303,7 @@ _reference_caches: Dict[str, ReferenceDataCache] = {}
 
 
 def get_reference_cache(
-    calculator: str = "orb-v3-direct-20-omat",
+    calculator: str = "orb-v3-conservative-inf-omat",
     base_dir: str = "data/reference"
 ) -> ReferenceDataCache:
     """

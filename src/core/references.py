@@ -771,14 +771,27 @@ def get_software_versions() -> Dict[str, str]:
         versions["MACE"] = "not installed"
 
     try:
+        # NOTE: this imports nequip from whichever environment runs the app, NOT
+        # from the optimat-nequip worker subprocess where NequIP calculations
+        # actually execute. The two can differ — e3nn already does (0.4.4 in the
+        # main env vs 0.5.9 in the worker) — so the value is labelled rather than
+        # presented as the version that produced the numbers.
         import nequip
-        versions["NequIP"] = getattr(nequip, "__version__", "installed")
+        versions["NequIP (main env)"] = getattr(nequip, "__version__", "installed")
     except (ImportError, AttributeError):
         try:
             import fairchem
-            versions["NequIP"] = f"via fairchem {getattr(fairchem, '__version__', 'installed')}"
+            versions["NequIP (main env)"] = f"via fairchem {getattr(fairchem, '__version__', 'installed')}"
         except (ImportError, AttributeError):
-            versions["NequIP"] = "not installed"
+            versions["NequIP (main env)"] = "not installed"
+
+    try:
+        # e3nn is the pin that forces the two-environment split (MACE needs
+        # 0.4.4, NequIP needs >=0.5.6), so it belongs in the provenance record.
+        import e3nn
+        versions["e3nn (main env)"] = getattr(e3nn, "__version__", "installed")
+    except (ImportError, AttributeError):
+        versions["e3nn (main env)"] = "not installed"
 
     try:
         import phono3py

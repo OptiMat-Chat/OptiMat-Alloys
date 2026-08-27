@@ -14,6 +14,16 @@ from ase.units import GPa
 from .optimization import StructureOptimizer
 from .cancellation import check_cancellation, ProgressCallback, format_progress_message
 
+# Valid range for the finite-difference strain magnitude, as a FRACTION (0.01 = 1%).
+# Single source of truth — src/tools/elastic_properties.py imports these so the tool
+# guard, the parameter annotation and this core check cannot drift apart.
+#   Lower bound: below 1% the strain energies are comparable to the noise floor of an
+#   fmax=0.005 eV/A relaxation, so the least-squares fit degrades.
+#   Upper bound: the energy-strain fit truncates at 4th order, so beyond ~2% anharmonic
+#   contributions start contaminating the harmonic constants.
+EPSILON_MIN = 0.01
+EPSILON_MAX = 0.02
+
 
 def compute_elastic_stiffness_tensor(
     atoms: Atoms,
@@ -45,7 +55,7 @@ def compute_elastic_stiffness_tensor(
         The calculator is used for all energy evaluations.
     epsilon
         Magnitude of applied strain (default: 1e-2 = 1%).
-        Must be >= 0.01 to avoid numerical noise with fmax=0.005 relaxation.
+        Must lie in [EPSILON_MIN, EPSILON_MAX] = [0.01, 0.02]; see those constants.
     relax_kwargs
         Keyword arguments for StructureOptimizer.relax().
         Default: {'fmax': 0.005, 'optimizer': 'FIRE', 'max_steps': 100}
@@ -95,11 +105,16 @@ def compute_elastic_stiffness_tensor(
     if atoms.calc is None:
         raise ValueError("Atoms object must have a calculator attached")
 
-    # Validate epsilon
-    if epsilon < 0.01:
+    # Validate epsilon. This is the backstop for direct callers (batch scripts);
+    # calculate_elastic_properties applies the same bounds earlier with a friendlier
+    # message so bad LLM calls fail before a calculator is loaded.
+    if not (EPSILON_MIN <= epsilon <= EPSILON_MAX):
         raise ValueError(
-            f"Strain magnitude epsilon={epsilon:.0e} is too small. "
-            f"Must be >= 0.01 (1%) to avoid numerical noise with fmax=0.005 relaxation."
+            f"Strain magnitude epsilon={epsilon:g} is outside the valid range "
+            f"[{EPSILON_MIN}, {EPSILON_MAX}]. epsilon is a FRACTION, not a percentage "
+            f"({EPSILON_MIN} = {EPSILON_MIN * 100:g}%). Below {EPSILON_MIN} the strain "
+            f"energies approach the noise floor of an fmax=0.005 eV/A relaxation; above "
+            f"{EPSILON_MAX} anharmonic terms contaminate the harmonic fit."
         )
 
     # Default relaxation parameters
@@ -195,12 +210,28 @@ def compute_elastic_stiffness_tensor(
     return C_voigt
 
 
-def compute_elastic_moduli(C_voigt: np.ndarray) -> Dict[str, float]:
-    """
-    Compute elastic moduli from stiffness tensor using Voigt averaging.
+def _moduli_from_K_G(K: float, G: float) -> Dict[str, float]:
+    """Derive Young's modulus and Poisson's ratio from bulk and shear moduli."""
+    denom_E = 3.0 * K + G
+    denom_nu = 6.0 * K + 2.0 * G
+    E = 9.0 * K * G / denom_E if denom_E != 0 else float('nan')
+    nu = (3.0 * K - 2.0 * G) / denom_nu if denom_nu != 0 else float('nan')
+    return {'youngs': float(E), 'poisson': float(nu)}
 
-    Voigt averaging assumes uniform strain throughout the material and
-    provides an upper bound on polycrystalline elastic constants.
+
+def compute_elastic_moduli(C_voigt: np.ndarray) -> Dict[str, Any]:
+    """
+    Compute polycrystalline elastic moduli from the stiffness tensor.
+
+    Returns all three standard averaging conventions:
+
+    - **Voigt** — assumes uniform strain; an upper bound.
+    - **Reuss** — assumes uniform stress; a lower bound. Requires inverting C.
+    - **Hill** — the arithmetic mean of Voigt and Reuss. This is the standard
+      estimate for an untextured polycrystal, which is what a random supercell
+      represents and what experimental K and G are measured on. Prefer it for
+      reporting, and for any Pugh-ratio comparison (Pugh's 1.75 threshold was
+      calibrated on experimental polycrystal moduli).
 
     Parameters
     ----------
@@ -210,45 +241,134 @@ def compute_elastic_moduli(C_voigt: np.ndarray) -> Dict[str, float]:
     Returns
     -------
     moduli : dict
-        Dictionary containing:
-        - 'bulk_modulus_GPa': Bulk modulus K (resistance to volume change)
-        - 'shear_modulus_GPa': Shear modulus G (resistance to shear)
-        - 'youngs_modulus_GPa': Young's modulus E (stiffness in tension)
-        - 'poisson_ratio': Poisson's ratio ν (lateral strain ratio)
+        Voigt values under both the unqualified legacy keys
+        (``bulk_modulus_GPa`` etc.) and explicit ``*_voigt_GPa`` keys, plus
+        ``*_reuss_GPa`` and ``*_hill_GPa``. The unqualified keys are Voigt for
+        backward compatibility — rows written before this function grew the
+        Reuss/Hill keys carry Voigt values under those same names, so their
+        meaning must not change.
+
+        Reuss and Hill entries are ``None`` when C is singular (an invalid
+        tensor), so callers must handle that rather than assume floats.
+        ``reuss_available`` is a bool flag for convenient branching.
 
     Notes
     -----
-    Voigt averaging formulas:
-    - K = (C11 + C22 + C33 + 2(C12 + C13 + C23)) / 9
-    - G = ((C11 + C22 + C33) - (C12 + C13 + C23) + 3(C44 + C55 + C66)) / 15
-    - E = 9KG / (3K + G)
-    - ν = (3K - 2G) / (6K + 2G)
+    Voigt averaging:
+    - K_V = (C11 + C22 + C33 + 2(C12 + C13 + C23)) / 9
+    - G_V = ((C11 + C22 + C33) - (C12 + C13 + C23) + 3(C44 + C55 + C66)) / 15
+
+    Reuss averaging, from the compliance S = C^-1:
+    - K_R = 1 / (S11 + S22 + S33 + 2(S12 + S13 + S23))
+    - G_R = 15 / (4(S11 + S22 + S33) - 4(S12 + S13 + S23) + 3(S44 + S55 + S66))
+
+    Then E = 9KG / (3K + G) and nu = (3K - 2G) / (6K + 2G) for each convention.
 
     Examples
     --------
     >>> moduli = compute_elastic_moduli(C_voigt)
-    >>> print(f"Bulk modulus: {moduli['bulk_modulus_GPa']:.1f} GPa")
+    >>> print(f"Bulk modulus (Hill): {moduli['bulk_modulus_hill_GPa']:.1f} GPa")
     """
-    # Extract diagonal and off-diagonal components
+    # --- Voigt (uniform strain, upper bound) ---
     C11, C22, C33 = C_voigt[0, 0], C_voigt[1, 1], C_voigt[2, 2]
     C12, C13, C23 = C_voigt[0, 1], C_voigt[0, 2], C_voigt[1, 2]
     C44, C55, C66 = C_voigt[3, 3], C_voigt[4, 4], C_voigt[5, 5]
 
-    # Voigt bulk modulus
-    K = (C11 + C22 + C33 + 2 * (C12 + C13 + C23)) / 9.0
+    K_V = (C11 + C22 + C33 + 2 * (C12 + C13 + C23)) / 9.0
+    G_V = ((C11 + C22 + C33) - (C12 + C13 + C23) + 3 * (C44 + C55 + C66)) / 15.0
+    voigt = _moduli_from_K_G(K_V, G_V)
 
-    # Voigt shear modulus
-    G = ((C11 + C22 + C33) - (C12 + C13 + C23) + 3 * (C44 + C55 + C66)) / 15.0
-
-    # Young's modulus
-    E = 9 * K * G / (3 * K + G)
-
-    # Poisson's ratio
-    nu = (3 * K - 2 * G) / (6 * K + 2 * G)
-
-    return {
-        'bulk_modulus_GPa': float(K),
-        'shear_modulus_GPa': float(G),
-        'youngs_modulus_GPa': float(E),
-        'poisson_ratio': float(nu)
+    moduli: Dict[str, Any] = {
+        # Legacy unqualified keys — Voigt, unchanged meaning for backward compatibility
+        'bulk_modulus_GPa': float(K_V),
+        'shear_modulus_GPa': float(G_V),
+        'youngs_modulus_GPa': voigt['youngs'],
+        'poisson_ratio': voigt['poisson'],
+        # Explicit Voigt
+        'bulk_modulus_voigt_GPa': float(K_V),
+        'shear_modulus_voigt_GPa': float(G_V),
+        'youngs_modulus_voigt_GPa': voigt['youngs'],
+        'poisson_ratio_voigt': voigt['poisson'],
     }
+
+    # --- Reuss (uniform stress, lower bound) — needs the compliance tensor ---
+    # Reuss is only physically meaningful for a positive-definite C. A tensor that
+    # fails the Born stability criterion is still invertible, but S = C^-1 then
+    # produces wild or negative K_R/G_R, which would poison the Hill average and
+    # the headline moduli. Refuse Reuss/Hill in that case and let callers fall
+    # back to Voigt, which stays a well-defined arithmetic combination.
+    C_arr = np.asarray(C_voigt, dtype=float)
+    C_sym = 0.5 * (C_arr + C_arr.T)
+    try:
+        positive_definite = bool(np.min(np.linalg.eigvalsh(C_sym)) > 0)
+    except np.linalg.LinAlgError:
+        positive_definite = False
+
+    S = None
+    if positive_definite:
+        try:
+            S = np.linalg.inv(C_arr)
+        except np.linalg.LinAlgError:
+            S = None
+
+    if S is None or not np.all(np.isfinite(S)):
+        moduli.update({
+            'reuss_available': False,
+            'bulk_modulus_reuss_GPa': None, 'shear_modulus_reuss_GPa': None,
+            'youngs_modulus_reuss_GPa': None, 'poisson_ratio_reuss': None,
+            'bulk_modulus_hill_GPa': None, 'shear_modulus_hill_GPa': None,
+            'youngs_modulus_hill_GPa': None, 'poisson_ratio_hill': None,
+        })
+        return moduli
+
+    S_diag_normal = S[0, 0] + S[1, 1] + S[2, 2]
+    S_off_normal = S[0, 1] + S[0, 2] + S[1, 2]
+    S_shear = S[3, 3] + S[4, 4] + S[5, 5]
+
+    denom_K_R = S_diag_normal + 2 * S_off_normal
+    denom_G_R = 4 * S_diag_normal - 4 * S_off_normal + 3 * S_shear
+
+    if denom_K_R == 0 or denom_G_R == 0:
+        moduli.update({
+            'reuss_available': False,
+            'bulk_modulus_reuss_GPa': None, 'shear_modulus_reuss_GPa': None,
+            'youngs_modulus_reuss_GPa': None, 'poisson_ratio_reuss': None,
+            'bulk_modulus_hill_GPa': None, 'shear_modulus_hill_GPa': None,
+            'youngs_modulus_hill_GPa': None, 'poisson_ratio_hill': None,
+        })
+        return moduli
+
+    K_R = 1.0 / denom_K_R
+    G_R = 15.0 / denom_G_R
+
+    # Defensive: a positive-definite C should always give positive bounds. If it
+    # somehow does not, treat Reuss as unavailable rather than emitting nonsense.
+    if not (np.isfinite(K_R) and np.isfinite(G_R) and K_R > 0 and G_R > 0):
+        moduli.update({
+            'reuss_available': False,
+            'bulk_modulus_reuss_GPa': None, 'shear_modulus_reuss_GPa': None,
+            'youngs_modulus_reuss_GPa': None, 'poisson_ratio_reuss': None,
+            'bulk_modulus_hill_GPa': None, 'shear_modulus_hill_GPa': None,
+            'youngs_modulus_hill_GPa': None, 'poisson_ratio_hill': None,
+        })
+        return moduli
+
+    reuss = _moduli_from_K_G(K_R, G_R)
+
+    # --- Hill (arithmetic mean of the two bounds) ---
+    K_H = 0.5 * (K_V + K_R)
+    G_H = 0.5 * (G_V + G_R)
+    hill = _moduli_from_K_G(K_H, G_H)
+
+    moduli.update({
+        'reuss_available': True,
+        'bulk_modulus_reuss_GPa': float(K_R),
+        'shear_modulus_reuss_GPa': float(G_R),
+        'youngs_modulus_reuss_GPa': reuss['youngs'],
+        'poisson_ratio_reuss': reuss['poisson'],
+        'bulk_modulus_hill_GPa': float(K_H),
+        'shear_modulus_hill_GPa': float(G_H),
+        'youngs_modulus_hill_GPa': hill['youngs'],
+        'poisson_ratio_hill': hill['poisson'],
+    })
+    return moduli

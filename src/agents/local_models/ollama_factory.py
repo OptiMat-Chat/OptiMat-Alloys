@@ -6,10 +6,17 @@ following the same pattern as model_factory.py for OpenAI models.
 
 Requires:
     - Ollama installed and running: https://ollama.com
-    - autogen-ext[ollama] package: pip install autogen-ext[ollama]
+
+The client talks to the Ollama daemon's OpenAI-compatible endpoint
+({host}/v1). The daemon itself proxies cloud models (e.g.
+gpt-oss:120b-cloud) and handles their authentication via OLLAMA_API_KEY
+or the saved device key, so one client class covers local AND cloud models.
 """
 
-from typing import Any, Optional
+import os
+from typing import Any
+
+from agent_framework.openai import OpenAIChatCompletionClient
 
 from .ollama_config import (
     OLLAMA_MODELS,
@@ -21,14 +28,12 @@ from .ollama_config import (
 def create_ollama_client(
     model_name: str = DEFAULT_OLLAMA_MODEL,
     host: str = DEFAULT_OLLAMA_HOST,
-    temperature: float = 0.0,
-    options: Optional[dict] = None,
 ) -> Any:
     """
     Create Ollama model client.
 
-    This function creates an OllamaChatCompletionClient configured for
-    the specified model. Requires Ollama to be running locally.
+    Creates an Agent Framework OpenAI-compatible chat client pointed at the
+    Ollama daemon. Requires Ollama to be running locally.
 
     Args:
         model_name: Ollama model identifier. Supported models:
@@ -42,69 +47,47 @@ def create_ollama_client(
             - qwen2.5:14b: Good balance (~8GB VRAM)
 
         host: Ollama server URL. Default: http://localhost:11434
-        temperature: Sampling temperature for response generation.
-            - 0.0: Deterministic (default, recommended for scientific tasks)
-            - 0.0-2.0: More creative/random responses
-        options: Additional Ollama options (num_ctx, num_gpu, etc.)
 
     Returns:
-        OllamaChatCompletionClient configured for the specified model
-
-    Raises:
-        ImportError: If autogen-ext[ollama] is not installed
-        ConnectionError: If Ollama server is not running
+        OpenAIChatCompletionClient configured for the specified model
 
     Examples:
-        >>> # Create default client (qwen2.5:14b)
+        >>> # Create default client
         >>> client = create_ollama_client()
 
         >>> # Create client for specific model
         >>> client = create_ollama_client("mistral-small:24b")
 
-        >>> # Create client with custom options
-        >>> client = create_ollama_client(
-        ...     "qwen2.5:32b",
-        ...     options={"num_ctx": 8192}
-        ... )
-
     Notes:
-        - Ollama must be running: `ollama serve`
-        - Model must be pulled: `ollama pull <model_name>`
-        - No API key required (local inference)
+        - Local models: Ollama must be running (`ollama serve`) and the
+          model pulled (`ollama pull <model_name>`). No API key is needed;
+          the OpenAI SDK requires a non-empty value, so "ollama" is used as
+          the documented placeholder.
+        - Cloud models WITH an OLLAMA_API_KEY: requests go directly to
+          ollama.com's OpenAI-compatible endpoint. (The local daemon
+          authenticates cloud proxying with a device key from
+          `ollama signin`, not the env API key — an API-key-only setup hit
+          a runtime 401 through the daemon, in the AutoGen era too.)
+        - Cloud models WITHOUT a key: the daemon proxy path is preserved
+          for device-authorized (`ollama signin`) setups.
+        - Context length is configured daemon-side (OLLAMA_CONTEXT_LENGTH).
     """
-    try:
-        from autogen_ext.models.ollama import OllamaChatCompletionClient
-    except ImportError as e:
-        raise ImportError(
-            "Ollama support requires autogen-ext[ollama]. "
-            "Install with: pip install 'autogen-ext[ollama]'"
-        ) from e
-
-    # Merge default options with provided options
-    client_options = options or {}
-
-    # Always provide model_info — same approach as OpenRouter and Xiaomi clients.
-    # AutoGen's built-in registry only covers OpenAI/Anthropic/Google/Meta models,
-    # so all Ollama models need explicit model_info.
-    # Vision support is auto-detected from model name patterns (e.g., "-vl", "vision").
-    name_lower = model_name.lower()
-    is_vision = any(tag in name_lower for tag in ["-vl", "vision", "-visual"])
-    family = model_name.split(":")[0] if ":" in model_name else model_name
-
-    client = OllamaChatCompletionClient(
+    api_key = os.getenv("OLLAMA_API_KEY")
+    is_cloud_model = OLLAMA_MODELS.get(model_name, {}).get("cloud", False)
+    if is_cloud_model and api_key:
+        return OpenAIChatCompletionClient(
+            model=model_name,
+            base_url="https://ollama.com/v1",
+            api_key=api_key,
+        )
+    base = host.rstrip("/")
+    if not base.endswith("/v1"):
+        base = f"{base}/v1"
+    return OpenAIChatCompletionClient(
         model=model_name,
-        host=host,
-        options=client_options,
-        model_info={
-            "vision": is_vision,
-            "function_calling": True,
-            "json_output": True,
-            "family": family,
-            "structured_output": True,
-        },
+        base_url=base,
+        api_key=api_key or "ollama",
     )
-
-    return client
 
 
 def get_ollama_model_info(model_name: str) -> str:

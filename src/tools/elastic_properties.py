@@ -22,7 +22,11 @@ from datetime import datetime
 
 # Core modules
 from src.core.calculator_service import get_calculator_service
-from src.core.elasticity import compute_elastic_stiffness_tensor, compute_elastic_moduli
+from src.core.calculators import get_checkpoint_identifier
+from src.core.elasticity import (
+    compute_elastic_stiffness_tensor, compute_elastic_moduli,
+    EPSILON_MIN, EPSILON_MAX,
+)
 from src.core.elate_analysis import ElasticAnisotropyAnalyzer
 from src.core.elasticity_validation import validate_elastic_tensor, validate_elate_results
 from src.core.cancellation import ComputationCancelledException
@@ -42,13 +46,44 @@ from src.storage.database import create_structure_database
 from src.utils.session_state import SessionState
 
 
+def _convention_keys(moduli: Dict) -> Dict:
+    """Explicit Voigt/Reuss/Hill keys for the DB, skipping any that are unavailable.
+
+    The unqualified keys (``bulk_modulus_GPa`` etc.) are written separately and
+    carry the headline convention; these qualified keys let a reader tell the
+    conventions apart without inferring anything. Rows written before this
+    existed have only the unqualified keys, and those are Voigt.
+    """
+    out = {}
+    for prop in ("bulk_modulus", "shear_modulus", "youngs_modulus"):
+        for conv in ("voigt", "reuss", "hill"):
+            key = f"{prop}_{conv}_GPa"
+            if moduli.get(key) is not None:
+                out[key] = float(moduli[key])
+    for conv in ("voigt", "reuss", "hill"):
+        key = f"poisson_ratio_{conv}"
+        if moduli.get(key) is not None:
+            out[key] = float(moduli[key])
+    return out
+
+
 @cl.step(type="tool")  # type: ignore
 async def calculate_elastic_properties(
     structure_ref: Annotated[Union[int, str], "Structure ID (local) or UUID (global)"],
-    epsilon: Annotated[float, "Strain magnitude (default 1%, min 1%)"] = 1e-2
+    epsilon: Annotated[float, "Strain magnitude as a FRACTION (not percent). Default 0.01 = 1%. Valid range: 0.01–0.02. Do NOT pass values ≥0.1 — this is a strain applied to the cell for finite differences, not a percentage."] = 1e-2
 ) -> Annotated[Dict, "Elastic moduli, stiffness tensor, and anisotropy analysis."]:
     """Calculate elastic stiffness tensor, moduli (K, G, E, ν), and ELATE anisotropy analysis."""
     from datetime import datetime
+
+    if not (EPSILON_MIN <= epsilon <= EPSILON_MAX):
+        await cl.Message(content=(
+            f"❌ Invalid epsilon={epsilon}. `epsilon` is a strain FRACTION "
+            f"({EPSILON_MIN} = {EPSILON_MIN * 100:g}%), not a percentage. "
+            f"Valid range is [{EPSILON_MIN}, {EPSILON_MAX}] — use the default "
+            f"{EPSILON_MIN} unless you know why you're changing it. "
+            "Values ≥0.1 give degenerate cells and cause 'Singular matrix' errors."
+        )).send()
+        return {"error": f"epsilon={epsilon} out of valid range [{EPSILON_MIN}, {EPSILON_MAX}]"}
 
     # Create task list for progress tracking
     task_list = cl.TaskList()
@@ -110,13 +145,31 @@ async def calculate_elastic_properties(
         await cl.Message(content=f"⚠️ Warning: Structure has residual forces ({max_force:.4f} eV/Å). Recommend regenerating structure with fmax ≤ 0.005 eV/Å for accurate elastic constants.").send()
 
     # Read calculator settings from database
-    calculator_name = kvp.get('calculator_name', 'orb-v3-direct-20-omat')
+    calculator_name = kvp.get('calculator_name', 'orb-v3-conservative-inf-omat')
     device_type = kvp.get('device_type', 'cpu')
     # Sanitize legacy "cuda+cpu" strings from batch scripts
     if '+' in device_type:
         device_type = device_type.split('+')[0]
 
     await cl.Message(content=f"Using calculator: **{calculator_name}** (device: {device_type})").send()
+
+    # This method fits elastic constants to ENERGY differences, so it requires a
+    # conservative potential (forces = -dE/dx). ORB "direct" models predict forces
+    # from a separate head, so their energy surface is not consistent with their
+    # forces: a structure relaxed to zero predicted force is not at an energy
+    # minimum, and the fitted constants come out several times too large.
+    # Measured on Cu50Ni50 (32-atom fcc, structure 131): the direct model gives
+    # C11 = 1057 GPa where the conservative model gives 228 GPa (literature ~200).
+    if 'direct' in calculator_name.lower():
+        await cl.Message(content=(
+            f"⚠️ **{calculator_name} is a non-conservative (direct-force) model.**\n\n"
+            f"Elastic constants here are fitted to energy differences, which requires "
+            f"forces to be the gradient of the energy. Direct models violate that, and "
+            f"in testing produced bulk moduli several times too large.\n\n"
+            f"**Recommended**: use `recompute_structure` with "
+            f"`orb-v3-conservative-inf-omat` first, then compute elastic properties "
+            f"on the recomputed structure."
+        )).send()
 
     # Load calculator (supports ORB/MACE/NequIP via calculator_service)
     try:
@@ -223,12 +276,22 @@ async def calculate_elastic_properties(
 
         try:
             moduli = compute_elastic_moduli(C_voigt)
-            K = moduli['bulk_modulus_GPa']
-            G = moduli['shear_modulus_GPa']
-            E = moduli['youngs_modulus_GPa']
-            nu = moduli['poisson_ratio']
+            if moduli.get('reuss_available'):
+                convention = 'Hill'
+                K = moduli['bulk_modulus_hill_GPa']
+                G = moduli['shear_modulus_hill_GPa']
+                E = moduli['youngs_modulus_hill_GPa']
+                nu = moduli['poisson_ratio_hill']
+            else:
+                convention = 'Voigt'
+                K = moduli['bulk_modulus_voigt_GPa']
+                G = moduli['shear_modulus_voigt_GPa']
+                E = moduli['youngs_modulus_voigt_GPa']
+                nu = moduli['poisson_ratio_voigt']
         except Exception as e:
             await cl.Message(content=f"⚠️ Warning: Could not compute derived moduli: {e}").send()
+            moduli = {}
+            convention = 'unavailable'
             K = G = E = nu = 0.0
 
         task3.status = cl.TaskStatus.DONE
@@ -253,8 +316,11 @@ async def calculate_elastic_properties(
                 "shear_modulus_GPa": float(G),
                 "youngs_modulus_GPa": float(E),
                 "poisson_ratio": float(nu),
+                "elastic_averaging_convention": convention,
+                **_convention_keys(moduli),
                 "elastic_calculation_timestamp": datetime.now().isoformat(),
                 "elastic_calculator_used": calculator_name,
+                "elastic_calculator_checkpoint": get_checkpoint_identifier(calculator_name, device_type),
                 "elastic_tensor_validation_failed": True,
                 "elastic_tensor_eigenvalues": eigenvalues_list,
                 "elastic_tensor_validation_errors": validation_result.errors,
@@ -296,6 +362,7 @@ async def calculate_elastic_properties(
             "eigenvalues": eigenvalues_list,
             "errors": validation_result.errors,
             "elastic_moduli": {
+                "averaging_convention": convention,
                 "bulk_modulus_GPa": K,
                 "shear_modulus_GPa": G,
                 "youngs_modulus_GPa": E,
@@ -326,12 +393,25 @@ async def calculate_elastic_properties(
 
     try:
         moduli = compute_elastic_moduli(C_voigt)
-        K = moduli['bulk_modulus_GPa']
-        G = moduli['shear_modulus_GPa']
-        E = moduli['youngs_modulus_GPa']
-        nu = moduli['poisson_ratio']
+        # Headline uses Hill — the standard estimate for an untextured polycrystal,
+        # which is what these random supercells are and what experiment measures.
+        # Falls back to Voigt only when C is singular and Reuss/Hill are unavailable.
+        if moduli.get('reuss_available'):
+            convention = 'Hill'
+            K = moduli['bulk_modulus_hill_GPa']
+            G = moduli['shear_modulus_hill_GPa']
+            E = moduli['youngs_modulus_hill_GPa']
+            nu = moduli['poisson_ratio_hill']
+        else:
+            convention = 'Voigt'
+            K = moduli['bulk_modulus_voigt_GPa']
+            G = moduli['shear_modulus_voigt_GPa']
+            E = moduli['youngs_modulus_voigt_GPa']
+            nu = moduli['poisson_ratio_voigt']
     except Exception as e:
         await cl.Message(content=f"⚠️ Warning: Could not compute derived moduli: {e}").send()
+        moduli = {}
+        convention = 'unavailable'
         K = G = E = nu = 0.0
 
     task3.status = cl.TaskStatus.DONE
@@ -343,10 +423,10 @@ async def calculate_elastic_properties(
 
 **Elastic Properties**
 
-**Bulk modulus**: {K:.1f} GPa
-**Shear modulus**: {G:.1f} GPa
-**Young's modulus**: {E:.1f} GPa
-**Poisson's ratio**: {nu:.3f}
+**Bulk modulus** ({convention}): {K:.1f} GPa
+**Shear modulus** ({convention}): {G:.1f} GPa
+**Young's modulus** ({convention}): {E:.1f} GPa
+**Poisson's ratio** ({convention}): {nu:.3f}
 
 **Strain magnitude (ε)**: {epsilon:.0e}
 **Calculator**: {calculator_name}
@@ -439,8 +519,11 @@ async def calculate_elastic_properties(
             "shear_modulus_GPa": float(G),
             "youngs_modulus_GPa": float(E),
             "poisson_ratio": float(nu),
+            "elastic_averaging_convention": convention,
+            **_convention_keys(moduli),
             "elastic_calculation_timestamp": datetime.now().isoformat(),
             "elastic_calculator_used": calculator_name,
+                "elastic_calculator_checkpoint": get_checkpoint_identifier(calculator_name, device_type),
             # Elastic stability assessment
             "elastic_stability_assessment": {
                 "born_criterion_satisfied": is_elastically_stable_valid,
@@ -486,6 +569,7 @@ async def calculate_elastic_properties(
     result = {
         "structure_uuid": structure_uuid,
         "elastic_moduli": {
+            "averaging_convention": convention,
             "bulk_modulus_GPa": float(K),
             "shear_modulus_GPa": float(G),
             "youngs_modulus_GPa": float(E),

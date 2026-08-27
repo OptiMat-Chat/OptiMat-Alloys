@@ -11,9 +11,11 @@ Supports:
 """
 
 import os
-from autogen_core.models import ChatCompletionClient, ModelInfo
-from autogen_ext.models.openai import OpenAIChatCompletionClient
 from typing import Any, Literal, Optional
+
+from agent_framework.openai import OpenAIChatCompletionClient
+
+from src.agents.middleware import openrouter_rate_limit
 
 
 # Free models available via OpenRouter (prefix with "free:" in UI)
@@ -41,91 +43,49 @@ def is_free_model(model_name: str) -> bool:
     )
 
 
-class RateLimitedOpenAIChatCompletionClient(OpenAIChatCompletionClient):
-    """OpenAI-compatible client with per-request rate limiting for OpenRouter.
-
-    Adds a 3-second delay before every create() and create_stream() call
-    to prevent hitting OpenRouter's 20 req/min rate limit during multi-turn
-    agent reasoning (tool calls, follow-ups within a single user message).
-    """
-
-    async def create(self, messages, *, tools=[], tool_choice="auto",
-                     json_output=None, extra_create_args={},
-                     cancellation_token=None):
-        from src.core.openrouter_client import wait_before_openrouter_request
-        await wait_before_openrouter_request()
-        return await super().create(
-            messages, tools=tools, tool_choice=tool_choice,
-            json_output=json_output, extra_create_args=extra_create_args,
-            cancellation_token=cancellation_token,
-        )
-
-    async def create_stream(self, messages, *, tools=[], tool_choice="auto",
-                           json_output=None, extra_create_args={},
-                           cancellation_token=None,
-                           max_consecutive_empty_chunk_tolerance=0,
-                           include_usage=None):
-        from src.core.openrouter_client import wait_before_openrouter_request
-        await wait_before_openrouter_request()
-        async for chunk in super().create_stream(
-            messages, tools=tools, tool_choice=tool_choice,
-            json_output=json_output, extra_create_args=extra_create_args,
-            cancellation_token=cancellation_token,
-            max_consecutive_empty_chunk_tolerance=max_consecutive_empty_chunk_tolerance,
-            include_usage=include_usage,
-        ):
-            yield chunk
-
-
 def _create_openrouter_client(
     model_id: str,
     api_key: str,
-    temperature: float = 0.0
-) -> RateLimitedOpenAIChatCompletionClient:
+) -> OpenAIChatCompletionClient:
     """
     Create a rate-limited OpenAI-compatible client pointing to OpenRouter.
 
-    Uses RateLimitedOpenAIChatCompletionClient to enforce a 3-second delay
-    between ALL API calls (not just per user message), preventing 429 errors
-    during multi-turn agent reasoning.
+    The openrouter_rate_limit chat middleware enforces a 3-second delay
+    before ALL model calls (including every tool-loop iteration), preventing
+    429 errors during multi-turn agent reasoning — same pacing the AutoGen-era
+    RateLimitedOpenAIChatCompletionClient subclass provided.
+
+    Note: sampling temperature is no longer a client-level setting; it is
+    applied via the Agent's default_options (see AgentFactory).
 
     Args:
         model_id: OpenRouter model ID (e.g., "openai/gpt-oss-120b:free")
         api_key: OpenRouter API key
-        temperature: Sampling temperature
 
     Returns:
-        RateLimitedOpenAIChatCompletionClient configured for OpenRouter
+        OpenAIChatCompletionClient configured for OpenRouter
     """
     from src.core.openrouter_client import OPENROUTER_BASE_URL
 
-    return RateLimitedOpenAIChatCompletionClient(
+    return OpenAIChatCompletionClient(
         model=model_id,
         base_url=OPENROUTER_BASE_URL,
         api_key=api_key,
-        temperature=temperature,
-        model_info=ModelInfo(
-            vision=False,
-            function_calling=True,
-            json_output=True,
-            family="unknown",
-        ),
-        extra_headers={
+        default_headers={
             "HTTP-Referer": "https://github.com/OptiMat-Chat/OptiMat-Alloys",
             "X-Title": "OptiMat Alloys",
-        }
+        },
+        middleware=[openrouter_rate_limit],
     )
 
 
 async def create_free_model_client(
-    temperature: float = 0.0,
     model_id: str = "z-ai/glm-4.5-air:free"
 ) -> tuple[Any, str]:
     """
     Create a model client for a specific free OpenRouter model.
 
     Args:
-        temperature: Sampling temperature
         model_id: Specific OpenRouter model ID to use
 
     Returns:
@@ -147,7 +107,7 @@ async def create_free_model_client(
     print(f"✓ Using free model: {get_model_display_name(model_id)}", flush=True)
 
     # Create client for the specified model
-    client = _create_openrouter_client(model_id, api_key, temperature)
+    client = _create_openrouter_client(model_id, api_key)
 
     return client, model_id
 
@@ -180,6 +140,9 @@ MODEL_INFO = {
 
 # List of free model IDs for easy reference (ordered by recommendation)
 # Used as fallback when dynamic discovery fails
+# Cap how many OpenRouter free models reach the dropdown (discovery can return dozens).
+MAX_OPENROUTER_MODELS = 8
+
 FREE_MODELS = [
     "z-ai/glm-4.5-air:free",       # Excellent (10/10) - 106B MoE, great tool calling
     "openai/gpt-oss-120b:free",    # Recommended (9/10)
@@ -237,14 +200,38 @@ def get_model_display_options() -> dict[str, str]:
     }
 
 
-def has_openrouter_key() -> bool:
+def has_valid_api_key(env_var: str) -> bool:
     """
-    Check if OpenRouter API key is configured.
+    Check whether an API key environment variable holds a usable value.
+
+    A key is NOT usable if it is missing, empty, whitespace, or still the
+    ``your-...`` placeholder shipped in .env.example. The Docker entrypoint
+    copies .env.example to .env on first run, so the placeholder is present
+    in the environment on every fresh container — a bare truthiness check
+    would treat it as a real key.
+
+    This is the single source of truth: run_chat.py's key prompts and the
+    model-dropdown construction both use it, so they cannot disagree about
+    whether a key exists.
+
+    Args:
+        env_var: Environment variable name, e.g. "OPENROUTER_API_KEY"
 
     Returns:
-        True if OPENROUTER_API_KEY environment variable is set
+        True only if the variable holds a real-looking key
     """
-    return bool(os.environ.get("OPENROUTER_API_KEY"))
+    value = (os.environ.get(env_var) or "").strip()
+    return bool(value) and not value.startswith("your-")
+
+
+def has_openrouter_key() -> bool:
+    """
+    Check if a usable OpenRouter API key is configured.
+
+    Returns:
+        True if OPENROUTER_API_KEY holds a real key (not the placeholder)
+    """
+    return has_valid_api_key("OPENROUTER_API_KEY")
 
 
 async def validate_free_models(api_key: Optional[str] = None) -> list[str]:
@@ -294,7 +281,6 @@ async def validate_free_models(api_key: Optional[str] = None) -> list[str]:
 def create_unified_model_client(
     provider: Literal["openrouter", "ollama"],
     model_name: str,
-    temperature: float = 0.0,
     **kwargs: Any,
 ) -> Any:
     """
@@ -307,29 +293,33 @@ def create_unified_model_client(
         model_name: Model identifier appropriate for the provider:
             - OpenRouter: "openai/gpt-oss-120b:free", etc.
             - Ollama: "qwen2.5:14b", "gpt-oss:120b-cloud", etc.
-        temperature: Sampling temperature (0.0 = deterministic)
         **kwargs: Additional provider-specific options (e.g., Ollama host)
 
     Returns:
-        ChatCompletionClient configured for the specified provider/model
+        Agent Framework chat client configured for the specified provider/model
 
     Raises:
         ValueError: If provider is not recognized
     """
     if provider == "openrouter":
+        if kwargs:
+            # Fail loudly on stale call sites (e.g. the removed temperature
+            # kwarg) instead of silently dropping request parameters.
+            raise TypeError(
+                f"Unexpected arguments for provider 'openrouter': {sorted(kwargs)}"
+            )
         api_key = os.environ.get("OPENROUTER_API_KEY")
         if not api_key:
             raise ValueError(
                 "OPENROUTER_API_KEY environment variable not set. "
                 "Get your free API key from: https://openrouter.ai/keys"
             )
-        return _create_openrouter_client(model_name, api_key, temperature)
+        return _create_openrouter_client(model_name, api_key)
 
     elif provider == "ollama":
         from src.agents.local_models.ollama_factory import create_ollama_client
         return create_ollama_client(
             model_name=model_name,
-            temperature=temperature,
             **kwargs
         )
 
@@ -387,7 +377,7 @@ async def get_all_available_models() -> list[dict]:
         PREFERRED_OLLAMA_MODEL,
         OLLAMA_MODELS,
     )
-    from src.core.openrouter_client import discover_free_models
+    from src.core.openrouter_client import discover_free_models, get_discovered_models_data
 
     models = []
 
@@ -436,27 +426,45 @@ async def get_all_available_models() -> list[dict]:
                 "is_installed": False,
             })
 
-    # 2. Add free OpenRouter models (fallback — may hit provider rate limits)
-    if has_openrouter_key():
-        discovered_ids = set(await discover_free_models(
-            api_key=os.environ.get("OPENROUTER_API_KEY")
-        ))
+    # 2. Add free OpenRouter models (fallback — may hit provider rate limits).
+    #
+    # Deliberately NOT gated on having a key. Model *listing* needs no key
+    # (see discover_free_models), and gating here created a chicken-and-egg:
+    # the "paste your OpenRouter key" prompt only fires when the user selects
+    # an OpenRouter model, but no such model reached the dropdown without a
+    # key — and the dropdown is built once per session and never rebuilt.
+    # Listing them unconditionally lets that prompt do its job.
+    discovered = await discover_free_models(
+        # Only send a real key; a placeholder would just 401 the listing.
+        api_key=os.environ.get("OPENROUTER_API_KEY") if has_openrouter_key() else None
+    )
 
-        for model_id in FREE_MODELS:
-            if model_id not in discovered_ids:
-                continue  # Skip models no longer on OpenRouter
-            info = MODEL_INFO.get(model_id, {})
-            display_name = info.get("name", model_id)
-            description = info.get("description", "Free model via OpenRouter")
+    # Discovery is the source of truth, not the hardcoded FREE_MODELS list.
+    # discover_free_models already enforces everything the list was curating by
+    # hand — free pricing, text in/out, and "tools" in supported_parameters —
+    # and ranks by preference. Using FREE_MODELS as a hard filter meant that
+    # once OpenRouter retired those model IDs the intersection went empty and
+    # NO free models appeared at all (observed 2026-08-26: all 4 curated IDs
+    # gone, 18 live models discovered, 0 offered). FREE_MODELS now only boosts
+    # curated models to the top when they are still available.
+    curated = [m for m in FREE_MODELS if m in discovered]
+    ordered = curated + [m for m in discovered if m not in set(curated)]
 
-            models.append({
-                "id": f"{model_id} (OpenRouter Free)",
-                "provider": "openrouter",
-                "model_name": model_id,
-                "display_name": f"{display_name} (OpenRouter Free)",
-                "description": description,
-                "is_installed": True,
-            })
+    discovered_meta = get_discovered_models_data()
+    for model_id in ordered[:MAX_OPENROUTER_MODELS]:
+        info = MODEL_INFO.get(model_id, {})
+        live = discovered_meta.get(model_id, {})
+        display_name = info.get("name") or live.get("name") or model_id
+        description = info.get("description") or live.get("description") or "Free model via OpenRouter"
+
+        models.append({
+            "id": f"{model_id} (OpenRouter Free)",
+            "provider": "openrouter",
+            "model_name": model_id,
+            "display_name": f"{display_name} (OpenRouter Free)",
+            "description": description[:200],
+            "is_installed": True,
+        })
 
     return models
 

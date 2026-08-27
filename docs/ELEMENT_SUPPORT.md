@@ -8,7 +8,7 @@ OptiMat Alloys can theoretically work with any element in the periodic table, bu
 
 ## Pre-Computed Test Results
 
-> **Note:** The element-testing harness (`scripts/test_element_support.py`) has been removed from this repo. The pre-computed results below are checked into `data/element_support/` and remain canonical. To regenerate, recover the script from git history (`git log --diff-filter=D --name-only -- scripts/test_element_support.py`).
+> **Note:** The pre-computed results below are checked into `data/element_support/` and remain canonical — you do not need to rerun the sweep to use OptiMat Alloys. To regenerate or to cover a calculator that has no results yet, run `python scripts/test_element_support.py --calculator <name>` (2-4 h on GPU; see [MAINTENANCE.md](MAINTENANCE.md#regenerate-reference-data)).
 
 For each element (H through Og), the harness creates a simple FCC/BCC/SC unit cell with a radii-based lattice constant, attempts a single-point energy calculation, and records success/failure. Each calculator is tested across all 118 elements × 3 structures.
 

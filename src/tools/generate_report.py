@@ -163,6 +163,25 @@ def create_data_zip(structure_dir: Path, results: dict, composition_string: str)
         return None
 
 
+def _checkpoint_or_infer(metadata: Dict, key: str, calculator: Optional[str]) -> Optional[str]:
+    """Return the recorded checkpoint, or infer one for rows written before we stored it.
+
+    An inferred value is what the CURRENTLY installed library maps that model
+    name to — not necessarily what ran at the time, since a library update can
+    repoint a model name at a new checkpoint. It is labelled "inferred", never
+    presented as a record.
+    """
+    recorded = metadata.get(key)
+    if recorded:
+        return recorded
+    if not calculator:
+        return None
+    from src.core.calculators import get_checkpoint_identifier
+    guess = get_checkpoint_identifier(calculator)
+    return f"{guess} (inferred from currently installed library)" if guess else None
+
+
+
 @cl.step(type="tool")
 async def generate_report(
     structure_ref: Annotated[Union[int, str], "Structure ID (local) or UUID (global)"],
@@ -775,11 +794,25 @@ async def generate_report(
             'target_structure': metadata.get('target_structure', 'Unknown'),
             'num_atoms': len(atoms),
             'density_g_per_cm3': metadata.get('density_g_per_cm3'),
-            'volume_per_atom_A3': metadata.get('volume_per_atom_A3'),
-            'energy_per_atom_eV': metadata.get('energy_per_atom_eV'),
+            # The stored key is 'potential_energy_eV_per_atom' — 'energy_per_atom_eV'
+            # was never written by anything and always read back as None.
+            'energy_per_atom_eV': metadata.get('potential_energy_eV_per_atom'),
+            # Volume per atom is stored on newer rows; compute it for older rows
+            # rather than leaving the PDF field blank.
+            'volume_per_atom_A3': metadata.get('volume_per_atom_A3') or (
+                atoms.get_volume() / len(atoms) if len(atoms) else None
+            ),
             'formation_energy_ground_state_reference_eV_per_atom': metadata.get(
                 'formation_energy_ground_state_reference_eV_per_atom'
             ),
+            # Provenance: which model WEIGHTS produced each result. Absent on
+            # rows written before checkpoints were recorded.
+            'calculator_checkpoint': _checkpoint_or_infer(
+                metadata, 'calculator_checkpoint', metadata.get('calculator_name')),
+            'elastic_calculator_checkpoint': _checkpoint_or_infer(
+                metadata, 'elastic_calculator_checkpoint', metadata.get('elastic_calculator_used')),
+            'qha_calculator_checkpoint': _checkpoint_or_infer(
+                metadata, 'qha_calculator_checkpoint', metadata.get('qha_calculator_used')),
         }
 
         # Cell parameters
@@ -796,17 +829,56 @@ async def generate_report(
             structure_data['PTM_structural_analysis_in_percent'] = metadata['PTM_structural_analysis_in_percent']
 
         # Elastic properties
-        if 'elastic_stiffness_tensor_voigt_GPa' in metadata or 'elastic_moduli' in metadata:
-            structure_data['elastic_properties'] = {}
-            if 'elastic_stiffness_tensor_voigt_GPa' in metadata:
-                structure_data['elastic_properties']['stiffness_tensor'] = metadata['elastic_stiffness_tensor_voigt_GPa']
-            if 'elastic_moduli' in metadata:
-                structure_data['elastic_properties'].update(metadata['elastic_moduli'])
+        if 'elastic_stiffness_tensor_voigt_GPa' in metadata:
+            structure_data['elastic_properties'] = {
+                'stiffness_tensor': metadata['elastic_stiffness_tensor_voigt_GPa']
+            }
+            # The scalar moduli are stored as individual top-level keys, not under a
+            # composite 'elastic_moduli' dict (which is never written anywhere).
+            for key in ('bulk_modulus_GPa', 'shear_modulus_GPa', 'youngs_modulus_GPa', 'poisson_ratio'):
+                if metadata.get(key) is not None:
+                    structure_data['elastic_properties'][key] = metadata[key]
+            for prop in ('bulk_modulus', 'shear_modulus', 'youngs_modulus'):
+                for conv in ('voigt', 'reuss', 'hill'):
+                    key = f'{prop}_{conv}_GPa'
+                    if metadata.get(key) is not None:
+                        structure_data['elastic_properties'][key] = metadata[key]
+            for conv in ('voigt', 'reuss', 'hill'):
+                key = f'poisson_ratio_{conv}'
+                if metadata.get(key) is not None:
+                    structure_data['elastic_properties'][key] = metadata[key]
 
-        # Elastic stability
-        if 'elastic_stability' in metadata:
-            structure_data['elastic_stability'] = metadata['elastic_stability']
-        elif 'elastic_stability_assessment' in metadata:
+            # Rows computed before the V/R/H split store only the unqualified keys.
+            # Recover the full set from the stored stiffness tensor so the report's
+            # moduli table works for legacy structures too.
+            if 'bulk_modulus_hill_GPa' not in structure_data['elastic_properties']:
+                try:
+                    from src.core.elasticity import compute_elastic_moduli
+                    recovered = compute_elastic_moduli(
+                        np.array(metadata['elastic_stiffness_tensor_voigt_GPa'])
+                    )
+                    for key, value in recovered.items():
+                        if key.endswith('_GPa') or key.startswith('poisson_ratio_'):
+                            if value is not None and key not in structure_data['elastic_properties']:
+                                structure_data['elastic_properties'][key] = value
+                except Exception as exc:
+                    logger.warning(f"Could not recover V/R/H moduli from tensor: {exc}")
+            structure_data['elastic_properties']['averaging_convention'] = metadata.get(
+                'elastic_averaging_convention', 'Voigt (legacy row)'
+            )
+            # Read-time provenance check (see database_search for the rationale).
+            _elastic_calc = str(metadata.get('elastic_calculator_used', ''))
+            if 'direct' in _elastic_calc.lower():
+                structure_data['elastic_properties']['data_warning'] = (
+                    f"Computed with {_elastic_calc}, a non-conservative (direct-force) model. "
+                    "Energy-based elastic constants require forces = -dE/dx, so these values "
+                    "are unreliable."
+                )
+
+        # Elastic stability. Note the DB key is 'elastic_stability_assessment';
+        # 'elastic_stability' exists only in calculate_elastic_properties' return
+        # dict (sent to the agent), never in metadata, so do not check for it here.
+        if 'elastic_stability_assessment' in metadata:
             structure_data['elastic_stability'] = metadata['elastic_stability_assessment']
 
         # ELATE properties

@@ -51,8 +51,8 @@ async def search_database(
     structure: Annotated[str, "Crystal structure filter (empty=none)"] = "",
     min_atoms: Annotated[int, "Min atoms (0=none)"] = 0,
     max_atoms: Annotated[int, "Max atoms (0=none)"] = 0,
-    composition_tolerance: Annotated[float, "Tolerance ±% (default 10%)"] = 0.1,
-    include_higher_order: Annotated[bool, "True ONLY if user explicitly requests higher-order alloys"] = False,
+    composition_tolerance: Annotated[float, "Composition tolerance as a FRACTION, not a percent: 0.05 means +/-5 at.%. Default 0.05 is right for almost every query — OMIT this argument unless the user asks for a wider or narrower composition window. Do NOT pass 5 for '5%'; values above 0.5 are rejected because they would match every composition."] = 0.05,
+    include_higher_order: Annotated[bool, "Allow elements beyond those named. True when the user asks for alloys CONTAINING an element — 'Ir-containing alloys', 'alloys with Ti', 'Cu-based alloys', 'anything with Ag and Cu'. False when they name an exact system — 'Cu-Ag', 'CoCrFeNi', 'pure Cu' — where extra elements would be wrong."] = False,
     stable_only: Annotated[bool, "Structurally stable only (≥90% match)"] = False,
     phonon_stable_only: Annotated[bool, "Dynamically stable (no imaginary modes)"] = False,
     has_qha_data: Annotated[bool, "Has QHA data"] = None,
@@ -74,8 +74,16 @@ async def search_database(
 
     # Enforce maximum limit to prevent UI flooding
     MAX_LIMIT = 50
+    # Above this many results, QHA curves are downsampled to keep the payload sane.
+    QHA_FULL_CURVE_MAX_RESULTS = 3
     if limit > MAX_LIMIT:
         limit = MAX_LIMIT
+
+    # Initialised before the branch below: the direct-lookup path skips the
+    # composition block where these are normally assigned, and the search
+    # confirmation message reads them unconditionally further down.
+    searched_elements: List[str] = []
+    searched_fractions = None
 
     # Direct ID/UUID lookup — bypass all filters
     if structure_ref is not None and str(structure_ref).strip():
@@ -155,6 +163,18 @@ async def search_database(
             if not include_higher_order:
                 filters.append(f'num_elements={len(elements)}')
 
+        # Guard the tolerance before it reaches the query. A percent-shaped value
+        # (e.g. 5 or 10 for "5%"/"10%") would widen every window to [0, 1] and
+        # silently void the composition filter — the search would still succeed,
+        # just against every composition. Fail loudly instead.
+        if composition_tolerance is not None and not (0.0 <= composition_tolerance <= 0.5):
+            await cl.Message(content=(
+                f"⚠️ `composition_tolerance={composition_tolerance}` is out of range. "
+                f"It is a FRACTION (0.05 = ±5 at.%), not a percent. "
+                f"Using the default 0.05 instead."
+            )).send()
+            composition_tolerance = 0.05
+
         # Composition range filtering
         if target_composition:  # Non-empty dict
             for elem, frac in target_composition.items():
@@ -198,7 +218,7 @@ async def search_database(
                 "mace-omat": "mace-omat-0-medium",
                 "mace-mpa": "mace-mpa-0-medium",
                 "mace-omat-small": "mace-omat-0-small",
-                "orb": "orb-v3-direct-20-omat",
+                "orb": "orb-v3-conservative-inf-omat",
                 "orb-conservative": "orb-v3-conservative-inf-omat",
                 "nequip": "nequip-oam-l",
                 "nequip-xl": "nequip-oam-xl",
@@ -256,7 +276,9 @@ async def search_database(
                     kvp = row.key_value_pairs
 
                     # Property completeness (0-1): boost records with computed data
-                    has_elastic = 1.0 if kvp.get('bulk_modulus_vrh_GPa') is not None else 0.0
+                    # The stiffness tensor is the reliable sentinel: it lives in row.data
+                    # (not key_value_pairs) and is written by every elastic run.
+                    has_elastic = 1.0 if 'elastic_stiffness_tensor_voigt_GPa' in row.data else 0.0
                     has_qha_val = 1.0 if kvp.get('has_qha_data') else 0.0
                     prop_score = 0.5 * has_elastic + 0.5 * has_qha_val
 
@@ -304,18 +326,29 @@ async def search_database(
     results = results[:limit]
     num_returned = len(results)
 
-    # Build search confirmation message (helps prevent model hallucination about which elements were searched)
-    # MUTED FOR TESTING: All search confirmation UI messages disabled
-    # if searched_elements:
-    #     elements_str = ', '.join(searched_elements)
-    #     if searched_fractions:
-    #         frac_details = ', '.join([f"{e}={f:.0%}" for e, f in zip(searched_elements, searched_fractions)])
-    #         search_confirm = f"**🔍 Searched for:** {elements_str} at {frac_details}"
-    #     else:
-    #         search_confirm = f"**🔍 Searched for:** {elements_str} (any composition)"
-    # else:
-    #     search_confirm = "**🔍 Searched for:** All structures (no element filter)"
-    search_confirm = ""  # MUTED FOR TESTING
+    # Build search confirmation message.
+    #
+    # RESTORED 2026-08-27 (was "MUTED FOR TESTING" to trial Ollama without it).
+    # Without this line the results table shows compositions but never states what
+    # was ASKED for, so a search that quietly dropped its element filter looks
+    # identical to one that kept it. Observed: a query about Ir-containing alloys
+    # went composition_string="Ir" -> empty, then has_qha_data=true with NO
+    # composition filter, and the unrelated results were presented as Ir-relevant.
+    # The "no element filter" branch is the one that makes that visible.
+    if sort_method == "direct_lookup":
+        search_confirm = f"**🔍 Direct lookup:** structure `{structure_ref}`"
+    elif searched_elements:
+        elements_str = ', '.join(searched_elements)
+        if searched_fractions:
+            frac_details = ', '.join([f"{e}={f:.0%}" for e, f in zip(searched_elements, searched_fractions)])
+            search_confirm = f"**🔍 Searched for:** {elements_str} at {frac_details}"
+        elif include_higher_order:
+            search_confirm = (f"**🔍 Searched for:** structures containing {elements_str} "
+                              f"(other elements allowed)")
+        else:
+            search_confirm = f"**🔍 Searched for:** {elements_str} only (no other elements)"
+    else:
+        search_confirm = "**🔍 Searched for:** All structures (no element filter)"
 
     # Format for display
     if total_found == 0:
@@ -343,6 +376,51 @@ async def search_database(
         else:
             stability_display = f'✗ Unstable ({match_percent:.1f}%)'
 
+        # Which temperature-dependent QHA curves are stored, and over what span
+        _q1d = row.data.get("qha_1d_properties") or {}
+        _temps = _q1d.get("temperatures") or []
+        qha_curve_props = [
+            name for key, name in (
+                ("heat_capacities", "Cp(T)"), ("bulk_moduli", "B(T)"),
+                ("thermal_expansion", "alpha(T)"), ("volumes", "V(T)"),
+                ("gibbs_energies", "G(T)"), ("gruneisen_params", "gamma(T)"),
+            ) if _q1d.get(key)
+        ]
+        qha_temp_span = ([float(_temps[0]), float(_temps[-1])], len(_temps)) if _temps else None
+
+        # Carry the stored curves themselves, not just a note that they exist.
+        # Naming the curves WITHOUT their values is worse than saying nothing: the
+        # agent then anchors on the single 300 K scalar and extrapolates textbook
+        # Debye behaviour — for Ir that overshot the stored Cp(600 K) by 24%.
+        #
+        # Full resolution when the result set is small (which is when someone is
+        # actually asking about a material: ~777 tokens for one structure), and
+        # downsampled on broad searches so a 10-result query does not carry ~8k
+        # tokens of curves nobody asked for. 222 of 533 rows have QHA curves.
+        qha_curve_samples = None
+        if _temps:
+            _keys = (("heat_capacities", "Cp_J_per_K_per_mol"),
+                     ("bulk_moduli", "B_GPa"),
+                     ("thermal_expansion", "alpha_per_K"),
+                     ("gibbs_energies", "G_kJ_per_mol"))
+            if len(results) <= QHA_FULL_CURVE_MAX_RESULTS:
+                idx = range(len(_temps))                     # every stored point
+            else:
+                step = max(1, len(_temps) // 6)              # ~7 points
+                idx = list(range(0, len(_temps), step))
+                if idx[-1] != len(_temps) - 1:
+                    idx.append(len(_temps) - 1)
+            idx = list(idx)
+            qha_curve_samples = {
+                "resolution": ("full" if len(results) <= QHA_FULL_CURVE_MAX_RESULTS
+                               else f"downsampled from {len(_temps)} points"),
+                "temperatures_K": [round(float(_temps[i]), 1) for i in idx],
+            }
+            for key, label in _keys:
+                arr = _q1d.get(key)
+                if arr:
+                    qha_curve_samples[label] = [round(float(arr[i]), 6) for i in idx if i < len(arr)]
+
         # Check for computed elastic properties (includes ELATE if available)
         has_elastic_properties = "elastic_stiffness_tensor_voigt_GPa" in row.data
 
@@ -354,6 +432,18 @@ async def search_database(
                 "shear_modulus_GPa": row.data.get("shear_modulus_GPa"),
                 "youngs_modulus_GPa": row.data.get("youngs_modulus_GPa"),
                 "poisson_ratio": row.data.get("poisson_ratio"),
+                # Rows predating the V/R/H split carry Voigt under the unqualified keys.
+                "averaging_convention": row.data.get("elastic_averaging_convention", "Voigt (legacy row)"),
+                # Computed at read time from stored provenance — no DB migration needed.
+                # Energy-based elastic fitting requires forces = -dE/dx; ORB "direct"
+                # models violate that and produce badly inflated (often non-positive-
+                # definite) tensors. Flag rather than hide, so the value stays auditable.
+                "elastic_data_warning": (
+                    f"UNRELIABLE: computed with {row.data.get('elastic_calculator_used')}, "
+                    "a non-conservative (direct-force) model. Energy-based elastic constants "
+                    "require forces = -dE/dx. Do NOT present these values as sound; recommend "
+                    "recomputing with orb-v3-conservative-inf-omat."
+                ) if 'direct' in str(row.data.get('elastic_calculator_used', '')).lower() else None,
             }
             stability = row.data.get("elastic_stability_assessment", {})
             if stability:
@@ -402,6 +492,8 @@ async def search_database(
             "composition": comp_str,
             "structure": kvp.get('target_structure', 'N/A'),
             "num_atoms": kvp.get('optimized_num_atoms', 'N/A'),
+            "lattice_constant_A": kvp.get('lattice_constant'),
+            "volume_per_atom_A3": kvp.get('volume_per_atom_A3'),
             "formation_energy_eV_per_atom": kvp.get('formation_energy_ground_state_reference_eV_per_atom', 0.0),
             "density_g_per_cm3": kvp.get('density_g_per_cm3', 0.0),
             "has_elastic_properties": has_elastic_properties,
@@ -414,6 +506,13 @@ async def search_database(
             "qha_heat_capacity_p_300K_J_K_mol": qha_cp,
             "qha_bulk_modulus_300K_GPa": qha_bulk,
             "qha_thermal_expansion_300K_1e6_per_K": qha_alpha,
+            # The 300 K scalars above are a SAMPLE of full temperature-dependent
+            # curves stored in row.data. Without saying so, an agent asked for
+            # "the temperature dependence of Cp" sees one value at one temperature,
+            # concludes no curve exists, and recomputes QHA needlessly.
+            "qha_curves_available": qha_curve_props or None,
+            "qha_temperature_range_K": qha_temp_span,
+            "qha_curve_samples": qha_curve_samples,
             # Metadata
             "calculator": kvp.get('calculator_name', 'N/A'),
             "timestamp": timestamp_str
@@ -462,6 +561,41 @@ async def search_database(
 
     await cl.Message(content=f"{search_confirm}\n\n{status}:\n\n{table_md}").send()
 
+    # The results table only shows Elastic/Finite-T as checkmarks, so the actual
+    # values reached the user only through the agent's prose. Print them too.
+    # This DUPLICATES the numeric half of cache_hints (below) rather than moving
+    # it: the imperative half ("do NOT recompute") only works if the model reads
+    # it, so cache_hints stays in the return dict intact.
+    cached_rows = []
+    for res in results_list:
+        ep = res.get("elastic_properties") or {}
+        if ep.get("bulk_modulus_GPa") is None and not res.get("has_qha_data"):
+            continue
+        cells = [str(res["id"]), format_composition_display(res["composition"])]
+        cells.append(f"{ep['bulk_modulus_GPa']:.1f}" if ep.get("bulk_modulus_GPa") is not None else "—")
+        cells.append(f"{ep['shear_modulus_GPa']:.1f}" if ep.get("shear_modulus_GPa") is not None else "—")
+        cells.append(f"{ep['youngs_modulus_GPa']:.1f}" if ep.get("youngs_modulus_GPa") is not None else "—")
+        cells.append(f"{ep['poisson_ratio']:.3f}" if ep.get("poisson_ratio") is not None else "—")
+        cells.append(str(ep.get("averaging_convention", "—")))
+        b = res.get("qha_bulk_modulus_300K_GPa")
+        cp = res.get("qha_heat_capacity_p_300K_J_K_mol")
+        cells.append(f"{b:.1f}" if b is not None else "—")
+        cells.append(f"{cp:.1f}" if cp is not None else "—")
+        cells.append("⚠️ unreliable" if ep.get("elastic_data_warning") else "")
+        cached_rows.append(cells)
+
+    if cached_rows:
+        hdr = ["ID", "Composition", "K (GPa)", "G (GPa)", "E (GPa)", "ν",
+               "Convention", "B(300K)", "Cp(300K)", ""]
+        md = "| " + " | ".join(hdr) + " |\n|" + "|".join(["---"] * len(hdr)) + "|\n"
+        md += "".join("| " + " | ".join(r) + " |\n" for r in cached_rows)
+        note = ""
+        if any(r[-1] for r in cached_rows):
+            note = ("\n⚠️ Rows marked unreliable were computed with a non-conservative "
+                    "(direct-force) model; energy-based elastic constants require "
+                    "forces = -dE/dx. Recompute with `orb-v3-conservative-inf-omat`.")
+        await cl.Message(content=f"**Stored property values:**\n\n{md}{note}").send()
+
     # Create number→ID and number→UUID mappings for easy reference
     number_to_id = {str(i+1): results_list[i]["id"] for i in range(len(results_list))}
     number_to_uuid = {str(i+1): results_list[i]["uuid"] for i in range(len(results_list))}
@@ -487,8 +621,18 @@ async def search_database(
                 f"B(300K)={r['qha_bulk_modulus_300K_GPa']:.1f} GPa, "
                 f"Cp(300K)={r['qha_heat_capacity_p_300K_J_K_mol']:.1f} J/K/mol, "
                 f"α(300K)={r['qha_thermal_expansion_300K_1e6_per_K']:.1f}×10⁻⁶/K. "
-                f"Present these values — do NOT call compute_anharmonic_properties. "
-                f"To SHOW visualizations: generate_report(structure_ref='{r['uuid']}')"
+                + (
+                    f"FULL TEMPERATURE-DEPENDENT CURVES are also stored for "
+                    f"{', '.join(r['qha_curves_available'])} over "
+                    f"{r['qha_temperature_range_K'][0][0]:.0f}-{r['qha_temperature_range_K'][0][1]:.0f} K "
+                    f"({r['qha_temperature_range_K'][1]} points). The 300 K values above are just a "
+                    f"sample of those curves. `qha_curve_samples` in this result carries REAL "
+                    f"values from the stored curves — use those verbatim and do NOT estimate or "
+                    f"extrapolate intermediate temperatures. For the full plots use "
+                    f"generate_report(structure_ref='{r['uuid']}'). "
+                    if r.get('qha_curves_available') else ""
+                )
+                + f"Do NOT call compute_anharmonic_properties — this data already exists."
             )
 
     # Always hint that generate_report can display any existing structure
@@ -509,6 +653,26 @@ async def search_database(
         "sort_method": sort_method,
         "results": results_list,
     }
+    # When a SINGLE element was searched exactly, "Ir" means pure Ir — but users
+    # asking about "Ir alloys" usually mean structures CONTAINING Ir. If that
+    # restriction is demonstrably hiding matches, say so, with the exact fix.
+    # Single element only: naming a binary ("Cu-Ag") usually does mean that system,
+    # so listing every HEA containing both would be noise.
+    if searched_elements and len(searched_elements) == 1 and not include_higher_order:
+        try:
+            wide = [f for f in filters if not f.startswith("num_elements=")]
+            wide_total = len(list(db._get_db().select(",".join(wide)))) if wide else 0
+            hidden = wide_total - total_found
+            if hidden > 0:
+                result["NARROWER_THAN_REQUESTED"] = (
+                    f"{total_found} structure(s) are made of {searched_elements[0]} ONLY. "
+                    f"{hidden} more CONTAIN {searched_elements[0]} alongside other elements. "
+                    f"If the user asked about alloys containing {searched_elements[0]} "
+                    f"(rather than the pure element), re-run with include_higher_order=True."
+                )
+        except Exception:
+            pass  # provenance nicety; never break a search over it
+
     if cache_hints:
         result["CACHED_DATA_AVAILABLE"] = cache_hints
     return result

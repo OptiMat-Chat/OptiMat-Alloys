@@ -514,75 +514,6 @@ def _build_title_page(
     return elements
 
 
-def _build_methods_section(
-    calculation_types: List[str],
-    structure_data: Dict[str, Any],
-    styles: Dict,
-    ref_tracker: 'ReferenceTracker',
-) -> List:
-    """Build computational methods section.
-
-    Returns:
-        List of reportlab elements
-    """
-    elements = []
-    elements.append(PageBreak())
-    elements.append(Paragraph("4. Computational Methods", styles['Heading1']))
-
-    calculator_name = structure_data.get('calculator_name', None)
-    all_methods = []
-    for calc_type in calculation_types:
-        methods = get_methods_for_calculation(calc_type, calculator_name=calculator_name)
-        for method in methods:
-            if method.name not in [m.name for m in all_methods]:
-                all_methods.append(method)
-
-    for method in all_methods:
-        elements.append(Paragraph(method.name, styles['Heading2']))
-        inline_cite = ref_tracker.cite(method.references) if method.references else ""
-        description_with_cite = f"{method.description} {inline_cite}" if inline_cite else method.description
-        elements.append(Paragraph(description_with_cite, styles['Body']))
-
-        if method.parameters:
-            param_data = [['Parameter', 'Value']]
-            is_calculator_entry = method.name.endswith(('Potential', 'Potentials'))
-            if is_calculator_entry and calculator_name:
-                param_data.append([
-                    Paragraph('<b>Model used</b>', styles['ParamCell']),
-                    Paragraph(f'<b>{calculator_name}</b>', styles['ParamCell']),
-                ])
-            for param, value in method.parameters.items():
-                param_data.append([
-                    Paragraph(param.replace('_', ' ').title(), styles['ParamCell']),
-                    Paragraph(str(value), styles['ParamCell']),
-                ])
-
-            param_table = Table(param_data, colWidths=[1.9 * inch, 5.1 * inch])
-            param_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#95a5a6')),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ('FONTNAME', (0, 0), (-1, 0), _TABLE_FONT_BOLD),
-                ('FONTSIZE', (0, 0), (-1, -1), 8),
-                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-                ('LEFTPADDING', (0, 0), (-1, -1), 5),
-                ('RIGHTPADDING', (0, 0), (-1, -1), 5),
-                ('TOPPADDING', (0, 0), (-1, -1), 3),
-                ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
-            ]))
-            elements.append(param_table)
-            elements.append(Spacer(1, 0.2 * inch))
-
-    # Software versions
-    elements.append(Paragraph("Software Versions", styles['Heading2']))
-    versions = get_software_versions()
-    version_text = ", ".join([f"{pkg}: {ver}" for pkg, ver in versions.items()])
-    elements.append(Paragraph(version_text, styles['Body']))
-
-    return elements
-
-
 def _build_references_section(
     styles: Dict,
     ref_tracker: 'ReferenceTracker',
@@ -877,6 +808,48 @@ def generate_structure_report(
                 ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
             ]))
             elements.append(tensor_table)
+            elements.append(Spacer(1, 0.3 * inch))
+
+        # Polycrystalline moduli. ELATE renders a fuller V/R/H table further down,
+        # but it only runs when density is available — this table is computed from
+        # the stiffness tensor alone, so density-less structures still get moduli.
+        moduli_rows = []
+        for label, base in (("Bulk Modulus (K)", "bulk_modulus"),
+                            ("Shear Modulus (G)", "shear_modulus"),
+                            ("Young's Modulus (E)", "youngs_modulus")):
+            v = elastic.get(f"{base}_voigt_GPa")
+            r = elastic.get(f"{base}_reuss_GPa")
+            h = elastic.get(f"{base}_hill_GPa")
+            if v is None and r is None and h is None:
+                continue
+            moduli_rows.append([label] + [f"{x:.2f}" if isinstance(x, (int, float)) else "-"
+                                          for x in (v, r, h)] + ["GPa"])
+        nu = [elastic.get(f"poisson_ratio_{c}") for c in ("voigt", "reuss", "hill")]
+        if any(x is not None for x in nu):
+            moduli_rows.append(["Poisson's Ratio (v)"] + [f"{x:.4f}" if isinstance(x, (int, float)) else "-"
+                                                          for x in nu] + [""])
+
+        if moduli_rows:
+            elements.append(Paragraph("Polycrystalline Moduli", styles['Heading2']))
+            convention = elastic.get('averaging_convention', 'Hill')
+            elements.append(Paragraph(
+                f"Reported headline convention: <b>{convention}</b>. Hill (the mean of the "
+                f"Voigt and Reuss bounds) is the standard estimate for an untextured "
+                f"polycrystal and is what experimental K and G are measured on.",
+                styles['Body']
+            ))
+            elements.append(Spacer(1, 0.1 * inch))
+            moduli_data = [['Property', 'Voigt', 'Reuss', 'Hill', 'Unit']] + moduli_rows
+            moduli_table = Table(moduli_data, colWidths=[1.9 * inch, 1.1 * inch, 1.1 * inch, 1.1 * inch, 0.7 * inch])
+            moduli_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#9b59b6')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('ALIGN', (1, 0), (-1, -1), 'CENTER'),
+                ('FONTNAME', (0, 0), (-1, 0), _TABLE_FONT_BOLD),
+                ('FONTSIZE', (0, 0), (-1, -1), 8),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+            ]))
+            elements.append(moduli_table)
             elements.append(Spacer(1, 0.3 * inch))
 
         # Elastic Stability (Born Criterion)
@@ -1412,6 +1385,24 @@ def generate_structure_report(
     versions = get_software_versions()
     version_text = ", ".join([f"{pkg}: {ver}" for pkg, ver in versions.items()])
     elements.append(Paragraph(version_text, styles['Body']))
+
+    # A library version does not identify the calculator weights — orb-models v0.5.5
+    # alone ships 19 distinct checkpoints, and a later release can repoint the
+    # same model name at a different one. Print the checkpoint so the report is
+    # self-describing rather than requiring a version-to-weights lookup.
+    _ckpts = []
+    for _label, _key in (("Structure", "calculator_checkpoint"),
+                         ("Elastic", "elastic_calculator_checkpoint"),
+                         ("QHA", "qha_calculator_checkpoint")):
+        _v = structure_data.get(_key)
+        if _v:
+            _ckpts.append(f"{_label}: {_v}")
+    if _ckpts:
+        elements.append(Spacer(1, 0.08 * inch))
+        elements.append(Paragraph(
+            "<b>Calculator checkpoints</b> (the actual weights used): " + "; ".join(_ckpts),
+            styles['Body']
+        ))
 
     # ===== REFERENCES =====
     elements.append(PageBreak())

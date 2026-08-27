@@ -118,14 +118,14 @@ def update_env_variable(key: str, value: str) -> Tuple[bool, str]:
     - Works cross-platform (Linux/Windows)
 
     Args:
-        key: Environment variable name (e.g., 'OPENAI_API_KEY')
-        value: Environment variable value (e.g., 'sk-...')
+        key: Environment variable name (e.g., 'OLLAMA_API_KEY')
+        value: Environment variable value (e.g., 'sk-or-...' for OPENROUTER_API_KEY)
 
     Returns:
         Tuple[bool, str]: (success, message)
 
     Example:
-        success, message = update_env_variable('OPENAI_API_KEY', 'sk-...')
+        success, message = update_env_variable('OLLAMA_API_KEY', '...')
         if success:
             print(f"Success: {message}")
         else:

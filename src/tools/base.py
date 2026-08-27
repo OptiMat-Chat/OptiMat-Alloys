@@ -145,7 +145,7 @@ class ToolRegistry:
 
     def get_tool_functions(self) -> list:
         """
-        Get all tools as callable functions for AutoGen.
+        Get all tools as callable functions for the agent.
 
         Returns:
             List of tool functions ready for AssistantAgent

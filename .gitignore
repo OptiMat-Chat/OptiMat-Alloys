@@ -273,3 +273,9 @@ data/models/
 # Test artifacts and one-time migration scripts
 tests/model_evaluation/
 scripts/migrate_*.py
+
+# LAMMPS MC/MD reference material — downloaded papers, vendored VCSGC package,
+# upstream LAMMPS sources. All redownloadable; only our own input deck is tracked.
+mcmd/*
+mcmd/USER-VCSGC/
+!mcmd/lmp_mcnpt_Mubassira2025.in

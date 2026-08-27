@@ -28,7 +28,6 @@ services:
       # chat UI at startup):
       - OLLAMA_API_KEY=${OLLAMA_API_KEY:-}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     deploy:
       resources:
         reservations:

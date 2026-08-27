@@ -26,6 +26,7 @@ from src.core.structure_builder import (
 )
 from src.core.optimization import StructureOptimizer
 from src.core.calculator_service import get_calculator_service
+from src.core.calculators import get_checkpoint_identifier
 from src.core.sqs import SQSGenerator
 from src.core.analysis import structural_analysis, compute_density, compute_coordination_rdf, reorder_partial_rdf
 from src.core.formation_energy import formation_energy_per_atom
@@ -251,6 +252,7 @@ async def generate_alloy_supercell(
         "derived_from": "scratch",
         # Calculator info
         "calculator_name": calculator_name,
+        "calculator_checkpoint": get_checkpoint_identifier(calculator_name),
         "device_type": device_type,
         # Structure
         "target_structure": structure,
@@ -341,6 +343,7 @@ async def generate_alloy_supercell(
 
         # Structure
         "lattice_constant": float(lattice_constant),
+        "volume_per_atom_A3": float(volume_per_atom),
 
         # Composition (CRITICAL: per-element fractions for search)
         "num_elements": len(elements),
@@ -471,11 +474,26 @@ async def generate_alloy_supercell(
 
     # Display both ID and UUID prominently for user reference (helps with follow-up queries)
     # Note: Use generic descriptions to avoid triggering tool execution by quantized models
+    # Print the headline numbers ourselves rather than relying on the agent to
+    # relay them. Values rendered here are stable artifacts — identical on every
+    # screenshot and rerun, independent of which LLM the user selected. The same
+    # numbers still go to the agent in the return dict so it can compare and rank.
+    _converged = max_force_magnitude <= fmax
     await cl.Message(
         content=(
             f"📋 **Structure Reference**\n\n"
             f"**ID:** `{structure_id}`\n"
             f"**UUID:** `{supercell_uuid}`\n\n"
+            f"**Composition:** {composition_string} · {num_atoms} atoms · {structure.upper()}\n"
+            f"**Formation energy:** {formation_energy:.4f} eV/atom\n"
+            f"**Mixing energy:** {mixing_energy:.4f} eV/atom\n"
+            f"**Density:** {density:.3f} g/cm³\n"
+            f"**Lattice constant:** {lattice_constant:.4f} Å\n"
+            f"**Max residual force:** {max_force_magnitude:.4f} eV/Å "
+            f"({'converged' if _converged else f'NOT converged, target {fmax}'})\n"
+            f"**Structure match:** {structural_match_percent:.1f}% {structure.upper()} "
+            f"({'stable' if is_structurally_stable else 'below ' + str(int(STRUCTURAL_STABILITY_THRESHOLD)) + '% threshold'})\n"
+            f"**Calculator:** {calculator_name}\n\n"
             f"Use either ID or UUID for follow-up queries such as:\n"
             f"• Elastic properties calculation\n"
             f"• Structure report generation\n"

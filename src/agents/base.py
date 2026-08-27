@@ -9,8 +9,6 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Any, Callable
 from abc import ABC, abstractmethod
 
-from autogen_core.model_context import ChatCompletionContext
-
 
 @dataclass
 class AgentConfig:
@@ -19,25 +17,24 @@ class AgentConfig:
 
     Attributes:
         name: Agent identifier
-        system_message: Instructions defining agent behavior
+        system_message: Instructions defining agent behavior. NOTE: the
+            Agent Framework agent is constructed WITHOUT instructions; this
+            text is delivered per run (optionally prefixed with session
+            context) so it stays the sole system message while conversation
+            history lives in the AgentSession.
         tools: List of tool functions the agent can call
-        model_client: LLM client for the agent
-        model_client_stream: Enable token streaming
-        reflect_on_tool_use: Enable reflection after tool usage
-        temperature: Sampling temperature (0-2)
-        max_tokens: Maximum response length
-        model_context: Optional ChatCompletionContext to preserve conversation
-            history across agent recreation (e.g., on system-message updates).
+        model_client: Agent Framework chat client for the agent
+        temperature: Sampling temperature (0-2), applied via the agent's
+            default_options
+        max_tokens: Maximum response length (reserved; not currently
+            applied — parity with the AutoGen-era behavior)
     """
     name: str
     system_message: str
     tools: List[Callable] = field(default_factory=list)
     model_client: Optional[Any] = None
-    model_client_stream: bool = True
-    reflect_on_tool_use: bool = True
     temperature: float = 0.0
     max_tokens: Optional[int] = None
-    model_context: Optional[ChatCompletionContext] = None
 
 
 class BaseAgent(ABC):
@@ -64,7 +61,7 @@ class BaseAgent(ABC):
         Create the underlying agent instance.
 
         Returns:
-            Agent instance (e.g., AutoGen AssistantAgent)
+            Agent instance (agent_framework.Agent)
 
         Raises:
             NotImplementedError: Must be implemented by subclasses
@@ -91,6 +88,9 @@ class BaseAgent(ABC):
         """
         Update the tools available to this agent.
 
+        Conversation history is unaffected: it lives in the AgentSession,
+        not the agent instance, so recreation is safe.
+
         Args:
             tools: New list of tool functions
 
@@ -99,14 +99,14 @@ class BaseAgent(ABC):
         """
         self.config.tools = tools
         if self._agent_instance is not None:
-            # Preserve conversation history across recreation by re-using the
-            # existing ChatCompletionContext via the public constructor path.
-            self.config.model_context = self._agent_instance._model_context
             self._agent_instance = self.create_agent()
 
     def update_system_message(self, message: str) -> None:
         """
         Update the agent's system message.
+
+        The agent instance does not hold instructions (they are delivered
+        per run from this config), so no recreation is needed.
 
         Args:
             message: New system message
@@ -115,8 +115,3 @@ class BaseAgent(ABC):
             >>> agent.update_system_message("You are a helpful assistant")  # doctest: +SKIP
         """
         self.config.system_message = message
-        if self._agent_instance is not None:
-            # Preserve conversation history across recreation by re-using the
-            # existing ChatCompletionContext via the public constructor path.
-            self.config.model_context = self._agent_instance._model_context
-            self._agent_instance = self.create_agent()

@@ -1,5 +1,5 @@
 # Standard library imports
-from typing import List, cast, Annotated, Dict, Literal, Any, Optional
+from typing import List, Annotated, Dict, Literal, Any, Optional
 import asyncio
 import threading
 import logging
@@ -12,9 +12,9 @@ from pathlib import Path
 # LOGGING CONFIGURATION
 #######################
 
-# Configure logging verbosity for AutoGen and other libraries
-# IMPORTANT: Must be configured BEFORE importing AutoGen/Chainlit to take effect
-# By default, suppress verbose DEBUG/INFO output from AutoGen's internal loggers
+# Configure logging verbosity for Agent Framework and other libraries
+# IMPORTANT: Must be configured BEFORE importing Agent Framework/Chainlit to take effect
+# By default, suppress verbose DEBUG/INFO output from the framework's internal loggers
 # Set LOG_LEVEL=DEBUG in .env to enable verbose logging for debugging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "WARNING").upper()
 
@@ -25,28 +25,18 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Suppress verbose AutoGen loggers by name (before importing)
-# These loggers output message publishing, serialization, and agent response details
-logging.getLogger("autogen_agentchat").setLevel(getattr(logging, LOG_LEVEL, logging.WARNING))
-logging.getLogger("autogen_agentchat.events").setLevel(getattr(logging, LOG_LEVEL, logging.WARNING))
-logging.getLogger("autogen_core").setLevel(getattr(logging, LOG_LEVEL, logging.WARNING))
-logging.getLogger("autogen").setLevel(getattr(logging, LOG_LEVEL, logging.WARNING))
+# Suppress verbose Agent Framework loggers by name (before importing)
+logging.getLogger("agent_framework").setLevel(getattr(logging, LOG_LEVEL, logging.WARNING))
 
 # Suppress other noisy loggers
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logging.getLogger("httpcore").setLevel(logging.WARNING)
+logging.getLogger("openai").setLevel(logging.WARNING)
 
 # Third-party imports (after logging configuration)
 import chainlit as cl
 from chainlit.input_widget import Select,Slider,Switch,Tags,TextInput
 
-from autogen_agentchat.agents import AssistantAgent
-from autogen_agentchat.base import TaskResult
-from autogen_agentchat.conditions import TextMentionTermination
-from autogen_agentchat.messages import ModelClientStreamingChunkEvent, TextMessage
-from autogen_agentchat.teams import RoundRobinGroupChat
-from autogen_core import CancellationToken
-from autogen_core.models import ChatCompletionClient
 
 ####################
 # GLOBAL VARIABLES #
@@ -101,8 +91,9 @@ from src.visualization.database_charts import (
 from src.storage.database import StructureDatabase, create_structure_database
 from src.storage.cache import ReferenceDataCache, get_reference_cache
 
-# Import agent modules (refactored in Phase 3)
+# Import agent modules (refactored in Phase 3; Agent Framework runner)
 from src.agents.factory import AgentFactory
+from src.agents.runner import run_until_question
 
 # Import tool modules (refactored in Phase 7)
 from src.tools import (
@@ -143,6 +134,7 @@ from src.agents.model_factory import (
     get_all_available_models,
     parse_model_selection,
     has_openrouter_key,
+    has_valid_api_key,
     is_free_model,
 )
 
@@ -200,7 +192,7 @@ async def start_chat() -> None:
     # Check for existing Ollama API key (needed for cloud models — the default)
     existing_ollama_key = os.getenv("OLLAMA_API_KEY", "").strip()
 
-    if not existing_ollama_key or existing_ollama_key.startswith("your-"):
+    if not has_valid_api_key("OLLAMA_API_KEY"):
         # Prompt user for Ollama API key (required for cloud model — the default)
         res = await cl.AskUserMessage(
             content=(
@@ -505,7 +497,7 @@ async def start_chat() -> None:
     cl.user_session.set("current_model", model_name)
 
     # Create model client using unified factory
-    model_client = create_unified_model_client(provider, model_name, temperature=0.0)
+    model_client = create_unified_model_client(provider, model_name)
 
     # Now show welcome messages with correct provider/model info
     # Create welcome image element
@@ -606,9 +598,9 @@ async def start_chat() -> None:
             )
         ).send()
 
-    # Create the Scientist agent using AgentFactory
-    # Note: reflect_on_tool_use=False to avoid AutoGen bug (issue #6328)
-    # Tool result interpretation is achieved through enhanced system message
+    # Create the Scientist agent using AgentFactory.
+    # The runner delivers the system message per run and re-invokes the
+    # agent until it asks the user a question — see src/agents/runner.py.
 
     # Tools available to the agent
     tools_list = [
@@ -621,40 +613,19 @@ async def start_chat() -> None:
         recompute_structure,  # Recompute existing structure with different calculator
     ]
 
-    # Store the base system message for dynamic context injection
-    base_system_message = AgentFactory.get_default_scientist_message()
-    cl.user_session.set("base_system_message", base_system_message)
-
     scientist_agent = AgentFactory.create_scientist(
         model_client=model_client,
         tools=tools_list,
         name="Scientist",
-        model_client_stream=True,
-        reflect_on_tool_use=False,  # Use prompt engineering for reflection
     )
-    scientist = scientist_agent.get_agent()
 
-    # Store the scientist agent wrapper for dynamic system message updates
+    # Store the scientist agent wrapper for the runner (and settings updates)
     cl.user_session.set("scientist_agent_wrapper", scientist_agent)
 
-    # Define a custom termination condition:
-    # Terminate the group chat if any message from Scientist includes a "?".
-    termination = TextMentionTermination("?", sources=["Scientist"])
-
-    # Chain the Scientist using RoundRobinGroupChat.
-    group_chat = RoundRobinGroupChat(
-        [scientist],
-        max_turns=10,  # Prevent infinite reasoning loops
-        termination_condition=termination
-    )
-
-    # Set up the user session with the group chat.
-    cl.user_session.set("prompt_history", "")  # type: ignore
-    cl.user_session.set("team", group_chat)      # type: ignore
-
-    # Create cancellation token for stop button (AutoGen agent-level cancellation)
-    cancellation_token = CancellationToken()
-    cl.user_session.set("cancellation_token", cancellation_token)  # type: ignore
+    # Conversation history lives in the AgentSession (one per chat session;
+    # replaced on model switch, which intentionally clears history).
+    agent_session = scientist_agent.get_agent().create_session()
+    cl.user_session.set("agent_session", agent_session)
 
     # Create computation cancellation event for stop button (computation-level cancellation)
     # This event is used for cooperative cancellation of long-running computations
@@ -745,7 +716,7 @@ async def on_settings_update(settings: Dict[str, Any]) -> None:
                 # Handle OpenRouter model: check for API key
                 if new_provider == "openrouter":
                     existing_or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
-                    if not existing_or_key or existing_or_key.startswith("your-"):
+                    if not has_valid_api_key("OPENROUTER_API_KEY"):
                         res = await cl.AskUserMessage(
                             content=(
                                 "🔑 **OpenRouter API Key Required**\n\n"
@@ -883,7 +854,7 @@ async def on_settings_update(settings: Dict[str, Any]) -> None:
                                 return
 
                 # Create new model client
-                model_client = create_unified_model_client(new_provider, new_model, temperature=0.0)
+                model_client = create_unified_model_client(new_provider, new_model)
 
                 # Rebuild tools list (consistent with initialization)
                 tools_list = [
@@ -901,23 +872,17 @@ async def on_settings_update(settings: Dict[str, Any]) -> None:
                     model_client=model_client,
                     tools=tools_list,
                     name="Scientist",
-                    model_client_stream=True,
-                    reflect_on_tool_use=False
                 )
-                scientist = scientist_agent.get_agent()
 
-                # Recreate team with new agent
-                termination = TextMentionTermination("?", sources=["Scientist"])
-                group_chat = RoundRobinGroupChat(
-                    [scientist],
-                    max_turns=10,
-                    termination_condition=termination
-                )
+                # Fresh session for the new model: history is intentionally
+                # cleared (tool-call messages from the previous provider
+                # would confuse the new one — same policy as before).
+                agent_session = scientist_agent.get_agent().create_session()
 
                 # Update session (including scientist wrapper for memory layer)
                 cl.user_session.set("current_provider", new_provider)  # type: ignore
                 cl.user_session.set("current_model", new_model)  # type: ignore
-                cl.user_session.set("team", group_chat)  # type: ignore
+                cl.user_session.set("agent_session", agent_session)  # type: ignore
                 cl.user_session.set("scientist_agent_wrapper", scientist_agent)  # type: ignore
 
                 # Build notification message
@@ -1036,9 +1001,9 @@ def _get_provider_error_reason(error_str: str) -> str:
 @cl.on_message  # type: ignore
 async def chat(message: cl.Message) -> None:
     try:
-        # Retrieve the group chat team from the user session.
-        team = cast(RoundRobinGroupChat, cl.user_session.get("team"))  # type: ignore
-        cancellation_token = cl.user_session.get("cancellation_token")  # type: ignore
+        # Retrieve the agent wrapper and conversation session.
+        scientist_wrapper = cl.user_session.get("scientist_agent_wrapper")  # type: ignore
+        agent_session = cl.user_session.get("agent_session")  # type: ignore
 
         # Clear computation cancellation event at the start of each new message
         # This ensures that previous stop button clicks don't affect new computations
@@ -1047,58 +1012,41 @@ async def chat(message: cl.Message) -> None:
             computation_event.clear()
             print("Cleared computation cancellation event for new message")
 
-        streaming_response: cl.Message | None = None
-
-        # Inject session context into agent's system message (memory layer)
+        # Session context (memory layer): the runner prefixes it to the base
+        # system message per run — history in the session is untouched.
+        context_block = None
         session_state = cl.user_session.get("session_state")  # type: ignore
         if session_state:
-            context_block = session_state.generate_context_block()
-            if context_block:
-                base_system_message = cl.user_session.get("base_system_message")  # type: ignore
-                scientist_wrapper = cl.user_session.get("scientist_agent_wrapper")  # type: ignore
-                if base_system_message and scientist_wrapper:
-                    dynamic_message = AgentFactory.build_dynamic_system_message(
-                        base_system_message, context_block
-                    )
-                    # Update the agent's system message
-                    scientist_wrapper.update_system_message(dynamic_message)
-                    scientist = scientist_wrapper.get_agent()
+            context_block = session_state.generate_context_block() or None
 
-                    # Rebuild team with updated agent
-                    termination = TextMentionTermination("?", sources=["Scientist"])
-                    team = RoundRobinGroupChat(
-                        [scientist],
-                        max_turns=10,
-                        termination_condition=termination
-                    )
-                    cl.user_session.set("team", team)
+        # Rate limiting for OpenRouter is handled per model call by the
+        # openrouter_rate_limit chat middleware (see src/agents/middleware.py)
 
-        # Rate limiting for OpenRouter is now handled per-request inside
-        # RateLimitedOpenAIChatCompletionClient (see model_factory.py)
+        # Stream the agent's response token-by-token into Chainlit messages.
+        streaming_response: cl.Message | None = None
 
-        # Stream responses from the group chat.
-        async for msg in team.run_stream(
-            task=[TextMessage(content=message.content, source="user")],
-            cancellation_token=cancellation_token,
-        ):
-            if isinstance(msg, ModelClientStreamingChunkEvent):
-                # Stream model client responses token-by-token.
-                if streaming_response is None:
-                    streaming_response = cl.Message(content="", author=msg.source)
-                await streaming_response.stream_token(msg.content)
-            elif streaming_response is not None:
-                # Finish streaming and send the complete message.
+        async def on_token(text: str, author: str) -> None:
+            nonlocal streaming_response
+            if streaming_response is None:
+                streaming_response = cl.Message(content="", author=author)
+            await streaming_response.stream_token(text)
+
+        async def on_segment_end() -> None:
+            # Finish streaming and send the complete message (no-op when
+            # no message is open — boundaries can repeat).
+            nonlocal streaming_response
+            if streaming_response is not None:
                 await streaming_response.send()
                 streaming_response = None
-            elif isinstance(msg, TaskResult):
-                # If task termination is reached, send a final message.
-                final_message = "Task terminated."
-                if msg.stop_reason:
-                    final_message += msg.stop_reason
-                # await cl.Message(content=final_message).send()
-            else:
-                # Ignore other message types.
-                pass
+
+        await run_until_question(
+            scientist_wrapper,
+            agent_session,
+            message.content,
+            context_block=context_block,
+            on_token=on_token,
+            on_segment_end=on_segment_end,
+        )
     except Exception as e:
         import datetime
         import traceback
@@ -1205,20 +1153,21 @@ async def on_stop() -> None:
     Handle stop button - cancel long-running computations only.
 
     This handler signals ongoing computations (like elastic tensor calculations)
-    to stop gracefully at the next checkpoint. It does NOT cancel the agent itself
-    to avoid putting the team in an inconsistent state (per AutoGen docs).
+    to stop gracefully at the next checkpoint. It does NOT cancel the agent itself —
+    interrupting a run mid-flight would discard the turn from session history
+    (Agent Framework persists history on successful run finalization).
 
     The computation cancellation is cooperative - tools check the event periodically
     and raise ComputationCancelledException when set, then return a proper result
     indicating cancellation.
 
     **Design Choice**: Stop button only works during tool execution, not during
-    agent streaming. This preserves conversational history and prevents team state
-    corruption. Agent streaming is fast anyway, and max_turns=10 guardrail prevents
-    infinite loops.
+    agent streaming. This preserves conversational history. Agent streaming is
+    fast anyway, and the runner's MAX_ROUNDS/MAX_TOOL_ITERATIONS guardrails
+    prevent infinite loops.
     """
-    # DON'T cancel AutoGen agent task - causes inconsistent state per AutoGen docs
-    # Let the agent finish its current turn to maintain clean team state
+    # DON'T cancel the agent run task — the turn would be lost from session
+    # history. Let the agent finish its current run to keep state clean.
 
     # Signal ongoing computations to stop (cooperative cancellation)
     computation_event = cl.user_session.get("computation_cancellation_event")  # type: ignore

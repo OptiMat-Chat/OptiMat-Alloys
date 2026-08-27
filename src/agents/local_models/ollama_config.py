@@ -11,7 +11,7 @@ Models are selected based on:
 """
 
 # Ollama model definitions
-# Models tested and validated for tool calling with AutoGen
+# Models tested and validated for tool calling with the agent framework
 OLLAMA_MODELS = {
     # ==========================================================================
     # Cloud-hosted models (no local VRAM needed)

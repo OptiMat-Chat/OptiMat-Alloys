@@ -8,9 +8,9 @@ dependencies:
   - pip:
     - chainlit>=2.2.0
     - pyyaml
-    - autogen-agentchat
-    - autogen-ext[openai]
-    - autogen-ext[ollama]  # Local model support via Ollama
+    - agent-framework-openai>=1.8.1  # Microsoft Agent Framework (AutoGen's successor)
+    - pytest  # dev: containerized unit suite
+    - pytest-asyncio
     - ase>=3.24.0
     - numpy>=1.26.4
     - scipy>=1.15.1

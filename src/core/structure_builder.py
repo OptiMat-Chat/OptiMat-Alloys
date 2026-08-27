@@ -95,7 +95,7 @@ def estimate_alloy_lattice_constant_vegard(
     structure: Literal['sc', 'bcc', 'fcc', 'hcp', 'diamond'],
     elements: List[str],
     fractions: List[float],
-    calculator: str = "orb-v3-direct-20-omat",
+    calculator: str = "orb-v3-conservative-inf-omat",
     bowing_parameter: float = 0.0
 ) -> float:
     """
