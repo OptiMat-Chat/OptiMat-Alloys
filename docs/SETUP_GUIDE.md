@@ -580,8 +580,8 @@ pip install -r requirements.txt
 ls data/reference/
 # Should see lattice_constants_*.json and energies_per_atom_*.json
 
-# If empty, regenerate (takes several hours):
-python scripts/run_precompute.py
+# If empty, regenerate (~15-25 min per calculator on a GPU):
+python scripts/run_precompute.py --calculator orb-v3-direct-20-omat
 ```
 
 ### App Won't Start (Docker)

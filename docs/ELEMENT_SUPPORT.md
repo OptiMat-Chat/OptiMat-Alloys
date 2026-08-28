@@ -325,7 +325,7 @@ precompute_and_save(
 )
 ```
 
-**Performance**: ~5 structures × 100–500 optimization steps per element, ~8–16 hours for 117 elements. Run overnight on GPU.
+**Performance**: ~5 structures × 100–500 optimization steps per element. Measured on a laptop GPU (2026-08-29): 89 elements took ~17 minutes for MACE — 445 relaxations.
 
 If precomputation fails for an element, check that the element is marked supported in the relevant `data/element_support/element_support_*.json` file and that the radii database (`data/radii/atomic_radii.json`) includes it.
 

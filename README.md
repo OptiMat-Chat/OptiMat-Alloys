@@ -74,7 +74,7 @@ docker run --gpus all -p 8000:8000 \
 
 ### Good to know
 
-- **First run**: the system precomputes reference data for 117 elements on first launch — this takes **several hours** (faster with GPU) and happens **once per calculator**; subsequent launches are instant.
+- **First run**: no setup wait. Reference data for all eight calculators ships with the app, so the first launch uses it immediately and precomputes nothing.
 - **Your data persists** in named Docker volumes (`alloy-data` for structures, `ollama-models` for local LLM weights) and survives container restarts and updates.
 - **Update**: `docker compose -f docker-compose-cpu.yml pull` then `up`.
 - **Remove**: `docker compose -f docker-compose-cpu.yml down` (add `-v` to also delete your data volumes).

@@ -116,7 +116,7 @@ The `ReferenceDataCache` in `src/storage/cache.py` handles versioning:
 
 Reference data is computed on-demand:
 - First time a calculator is used, reference data is generated
-- Generation can take hours (117 elements × 5 structures, ~8-16 hours per calculator)
+- Rarely runs: reference data ships for all eight calculators. When it does, 89 elements × 5 structures took ~17 min on a laptop GPU (measured)
 - Progress displayed to user during generation
 - Subsequent uses load cached data instantly
 

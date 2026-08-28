@@ -401,9 +401,13 @@ rm data/reference/lattice_constants_orb_v3_conservative_inf_omat.json
 chainlit run run_chat.py
 ```
 
-**Warning**: Regeneration is expensive — ~8–16 hours per calculator on a single
-GPU for stage 2, plus 2–4 hours for stage 1. If you have a backup, restore it
-instead.
+**Measured timings** (laptop GPU, MACE, 2026-08-29): the element sweep takes about
+a minute, and precomputing 89 elements × 5 structures about 17 minutes. Earlier
+estimates of 2–4 h and 8–16 h were never measured.
+
+Reference data also **ships with the app**, so users never run either stage. These
+are maintainer tools: for extending element coverage, adding a calculator, or
+regenerating after a checkpoint change.
 
 **NequIP is not covered by either script.** Both load calculators through
 `load_calculator()`, which serves the main environment only; NequIP models run
