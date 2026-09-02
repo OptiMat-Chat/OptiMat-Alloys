@@ -451,7 +451,7 @@ Click the **gear icon** (Settings) near the chat input.
 |-------|------|-------------|-------------|
 | **gpt-oss:120b-cloud** | Ollama Cloud | No | Default. Best reliability, runs remotely |
 | **gpt-oss:20b** | Ollama Local | **Yes — 12 GB VRAM required** | Runs on your GPU. Private, no internet needed for AI. Will load on CPU but generates ~1–2 tokens/sec — unusable in practice. |
-| **GLM-4.5-Air, GPT-OSS** | OpenRouter Free | No | Free cloud models. May hit rate limits |
+| *(varies)* | OpenRouter Free | No | Discovered at startup and ranked by measured tool-calling ability. Not a fixed list — providers retire free model IDs without notice. Capped at 20 requests/minute and 50/day (1000 with 10+ credits purchased). |
 
 ### Supercell Size
 

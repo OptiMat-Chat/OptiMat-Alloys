@@ -160,7 +160,9 @@ RadiiDatabase.save_database("data/radii/atomic_radii.json")
 
 Comprehensive testing of all 118 elements (H through Og) reveals extensive ORB model support:
 
-- **Total Validated**: 117/118 elements (99.2%)
+- **Accepted**: 117/118 elements (99.2%) — the model runs without error
+- **Usable**: 115 on `orb-v3-direct-20-omat`, **96** on `orb-v3-conservative-inf-omat` — a reference energy survived the quality guards
+- **The two variants are NOT equivalent.** They accept the same 117, but conservative-inf loses all 21 elements from Bk (Z=97) to Ts (Z=117): 13 give no valid reference in any structure, and 8 relax to about +34 eV/atom, which is positive and therefore not a cohesive energy.
 - **Both calculators show identical support** (orb-v3-direct-20-omat and orb-v3-conservative-inf-omat)
 - **Only unsupported**: Oganesson (Og, Z=118) - fails with "Class values must be smaller than num_classes"
 
@@ -200,6 +202,16 @@ Comprehensive testing of all 118 elements (H through Og) reveals extensive ORB m
 3. **Radioactive elements work**: Tc, Pm, Po, At, Fr, Ra, Ac all supported
 4. **Transuranium elements work**: U, Np, Pu, Am and heavier actinides all validated
 5. **Superheavy elements work**: Transactinides Rf through Ts (Z=104-117) all validated
+
+> ⚠️ **"Validated" here means the sweep, not the reference data.** These findings record that a
+> *single-point energy calculation runs without error*. They do not mean the element has a usable
+> reference energy, which needs a *relaxation* that converges to a physically sensible value.
+>
+> The two diverge sharply at the top of the table. Every transactinide passes the sweep, yet on
+> `orb-v3-conservative-inf-omat` none of the 21 elements from Bk (Z=97) to Ts (Z=117) has a usable
+> reference: 13 produce nothing valid in any structure and 8 relax to about +34 eV/atom. On
+> `orb-v3-direct-20-omat` they return numbers, but the 23 elements from Am (Z=95) upward share only
+> **5 distinct** values between them — the model is not distinguishing them.
 6. **Only Oganesson fails**: Z=118 not in ORB training data (model limitation)
 
 ### Why Previous Predictions Were Wrong
@@ -220,16 +232,19 @@ OptiMat Alloys supports three universal ML potential families with varying eleme
 
 | Calculator Family | Supported Elements | Coverage | Source |
 |-------------------|-------------------|----------|--------|
-| **ORB** (Orbital Materials) | 117/118 | 99.2% | Internal testing (Oct 2025) |
+| **ORB** v3 direct-20 | 117/118 | **115 usable** | Measured from shipped reference data (Sep 2026) |
+| **ORB** v3 conservative-inf | 117/118 | **96 usable** | Measured from shipped reference data (Sep 2026) |
 | **MACE** (Foundation) | 89/118 | 75.4% | **Internal testing (Jan 2026)** |
-| **NequIP** (Foundation) | 86 | 72.9% | nequip.net documentation |
+| **NequIP** (all three) | 89/118 | **89 usable** | Measured from shipped reference data (Sep 2026) |
 
 ### ORB Models (117 elements)
 
-ORB models trained on OMat24 (100M+ DFT calculations) support nearly all elements:
-- **Supported**: H (Z=1) through Ts (Z=117)
-- **Unsupported**: Only Oganesson (Og, Z=118)
-- **Notable**: Includes all lanthanides, actinides, and superheavy elements (Rf-Ts)
+ORB models trained on OMat24 (100M+ DFT calculations) *accept* nearly all elements:
+- **Accepted**: H (Z=1) through Ts (Z=117)
+- **Not accepted**: Only Oganesson (Og, Z=118)
+- **Unique to ORB**: the 23 elements from Am (Z=95) to Ts (Z=117). MACE and NequIP accept **none** of them, so ORB is the only way to build a structure containing one at all.
+
+> **Accepting an element is not the same as modelling it.** On `orb-v3-conservative-inf-omat`, all 21 elements from Bk (Z=97) to Ts (Z=117) have **no usable reference energy**: 13 produce nothing valid in any structure, and 8 relax to about +34 eV/atom, which is positive and so not a cohesive energy. On `orb-v3-direct-20-omat` they do return numbers, but the 23 elements from Am (Z=95) upward share only **5 distinct** reference energies between them. Build and visualise these structures freely; do not use their energies quantitatively.
 
 ### MACE Models (89 elements) ✓ Validated
 
@@ -261,7 +276,7 @@ Ac, Ag, Al, Ar, As, Au, B, Ba, Be, Bi, Br, C, Ca, Cd, Ce, Cl, Co, Cr, Cs, Cu, Dy
 - [MACE Docs](https://mace-docs.readthedocs.io/en/latest/guide/foundation_models.html) - States "89 elements"
 - [Matbench Discovery MPtrj](https://matbench-discovery.materialsproject.org/data/mptrj) - Training data element counts
 
-### NequIP Models (86 elements)
+### NequIP Models (89 elements)
 
 NequIP foundation models from [nequip.net](https://nequip.net) cover elements H through Pu:
 

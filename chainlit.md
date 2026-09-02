@@ -16,13 +16,30 @@ The agent reasons about your request, selects the right tools, and executes simu
 
 ![Interaction schema](/public/Interaction_schema2.png)
 
-The potentials are trained on datasets spanning the entire periodic table, sampled far from equilibrium:
+The potentials are trained on datasets that reach across the periodic table, sampled far from equilibrium — though the coverage is very uneven:
 
 ![OMat24 dataset](/public/OMat24.png)
 
-Currently supported elements for alloy design:
+How well each element is represented in that training data:
 
-![Supported elements](/public/Elements.png)
+![Elemental representation in the OMat24 dataset](/public/Elements.png)
+
+**Colour** is the element's fraction of the dataset (log scale) — pale cells are
+barely present, black cells essentially absent. **Blue outlines** mark the metals
+this app is built for; those are the elements to reach for.
+
+Coverage is not the same as accuracy. A calculator will happily run on an element
+it hardly saw in training, and return a number that looks ordinary — the reference
+energies for the elements past Pu come back positive, which is not a cohesive
+energy at all. In practice, treat **Z ≤ 96** as the limit on
+`orb-v3-conservative-inf-omat`, and **Z ≤ 94** on MACE and NequIP. Build and
+visualise anything you like; be careful quoting energies outside those ranges.
+
+Light non-metals (H, He, N, O, F, Ne, Cl, Ar) have reference energies computed
+with atoms held on their lattice sites, since they would otherwise relax into
+molecules. Those are valid for **mixing energy**; a formation energy against them
+is not comparable with the usual convention, which references H₂ rather than a
+hydrogen crystal.
 
 ---
 
@@ -50,28 +67,76 @@ Click the **gear icon** (⚙️) near the chat input to adjust settings.
 
 | Model | Type | Description |
 |-------|------|-------------|
-| **gpt-oss:120b-cloud** | Ollama Cloud | Default. 120B parameter model, runs remotely. No GPU needed. |
+| **gpt-oss:120b-cloud** | Ollama Cloud | Default. 120B parameters, runs remotely. No GPU needed. |
 | **gpt-oss:20b** | Ollama Local | Runs on your GPU (12GB VRAM recommended). Private, no internet needed for AI. |
-| **GLM-4.5-Air** | OpenRouter Free | 106B MoE model via OpenRouter. Free, may hit rate limits. |
-| **GPT-OSS 120B/20B** | OpenRouter Free | OpenAI open-source models via OpenRouter. Free. |
-| **Qwen3-Coder** | OpenRouter Free | 480B MoE coder model via OpenRouter. Free, 50 req/day limit. |
+| *(varies)* | OpenRouter Free | Discovered at startup — see below |
 
-**OpenRouter rate limits:** Free models may hit provider rate limits (50 requests/day without credits). To unlock unlimited rate limits:
-1. Deposit $10+ on your OpenRouter account — this will **not** be spent on free models, it just removes the rate limit cap
-2. Optionally, provide your own API key via the BYOK (Bring Your Own Key) settings at https://openrouter.ai/settings/integrations for dedicated rate limits
+The OpenRouter entries are **not a fixed list**. Providers retire free model IDs
+without notice, so the app queries OpenRouter each session for models that are
+free and support tool calling, then orders them by measured ability on this
+app's own tools: a suite that drives all seven tools through the real agent and
+scores whether each was called correctly. Best-measured models appear first, and
+the dropdown is capped at eight.
+
+The Ollama Cloud default is first for a reason — it is the one option with no
+provider rate limit and no retirement risk. Prefer it for long sessions.
+
+**OpenRouter rate limits.** Free models are capped at **20 requests per minute**
+and, per UTC day, **50 requests** if you have purchased under 10 credits or
+**1000** at 10 or more. Depositing $10 raises the daily cap; it is not spent on
+free models, and it does not lift the per-minute limit. You can also supply your
+own provider keys via BYOK at https://openrouter.ai/settings/integrations.
+
+If a model becomes unavailable mid-session the app says so and suggests
+switching, rather than failing silently.
 
 ### Force Field Calculator
 
 | Calculator | Accuracy | Speed | Best For |
 |-----------|----------|-------|----------|
 | **ORB v3 Conservative** | High | Fast | Default — good balance for most alloys |
-| **ORB v3 Direct** | High | Fast | Alternative ORB variant |
-| **MACE-OMAT Medium** | Very High | Medium | High-accuracy studies, phonons |
-| **MACE-MPA Medium** | Very High | Medium | Materials Project-trained variant |
+| **ORB v3 Direct** | High | Fast | Structures and energies only — **not elastic constants** (see below) |
 | **NequIP OAM-L** | High | Slow | Equivariant neural network potential |
 | **NequIP OAM-XL** | Highest | Slowest | Best accuracy, most compute-intensive |
+| **NequIP MP-L** | Moderate | Slow | Materials Project training data only |
+| **MACE-MPA Medium** | Very High | Medium | Materials Project-trained variant |
+| **MACE-OMAT Medium** | Very High | Medium | High-accuracy studies, phonons |
+| **MACE-OMAT Small** | High | Fast | Faster MACE-OMAT variant |
 
 All calculators use the same workflow (SQS → relaxation → analysis) but differ in accuracy and speed. Results from different calculators can be compared using the Recompute tool.
+
+**Independent benchmarks.** [Matbench Discovery](https://matbench-discovery.materialsproject.org)
+ranks universal potentials on materials discovery, geometry optimisation and phonons:
+
+| Calculator | Benchmark page |
+|---|---|
+| ORB v3 Conservative / Direct | *not linked — see note* |
+| NequIP OAM-L | [nequip-oam-l-0.1](https://matbench-discovery.materialsproject.org/models/nequip-oam-l-0.1) |
+| NequIP OAM-XL | [nequip-oam-xl-0.1](https://matbench-discovery.materialsproject.org/models/nequip-oam-xl-0.1) |
+| NequIP MP-L | [nequip-mp-l-0.1](https://matbench-discovery.materialsproject.org/models/nequip-mp-l-0.1) |
+| MACE-MPA Medium | [mace-mpa-0](https://matbench-discovery.materialsproject.org/models/mace-mpa-0) |
+| MACE-OMAT Medium / Small | *not benchmarked there* |
+
+Two calculators are deliberately left unlinked, because no page there measures
+what we ship:
+
+- **ORB v3.** The leaderboard entry benchmarks
+  `orb-v3-conservative-inf-mpa-20250404.ckpt`; this app ships the `-omat-`
+  checkpoint — same date and formulation, different training set. The **Direct**
+  variant is not benchmarked at all. Citing those numbers for our ORB results
+  would attribute someone else's checkpoint to them.
+- **MACE-OMAT** has no entry there in either size.
+
+The NequIP entries and MACE-MPA-0 do correspond to the checkpoints used here.
+
+**⚠️ ORB v3 Direct and elastic constants.** The elastic tensor is obtained from
+the energy response to strain, which assumes forces are the exact energy gradient.
+ORB's "direct" models predict forces from a separate head, so their energy surface
+is not quadratic in strain and the fitted constants come out several times too
+large — measured on a 32-atom fcc Cu50Ni50: C₁₁ = 1057 GPa against 228 GPa from
+the conservative model, with literature near 200. The app warns you before
+computing elastic properties with such a model. Use **ORB v3 Conservative**,
+MACE or NequIP for elasticity.
 
 **Note:** NequIP calculators cannot handle structures larger than ~500 atoms due to memory constraints (tested on NVIDIA RTX 5000 Ada, 16GB VRAM, 64GB RAM). May work on more powerful workstations with higher RAM. Use ORB or MACE for large supercells.
 

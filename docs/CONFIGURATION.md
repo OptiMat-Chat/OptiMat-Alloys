@@ -139,7 +139,7 @@ Under the hood, `calculator_name` is stored in each row's ASE `key_value_pairs` 
 
 ## Model Configuration
 
-Model selection happens at runtime via the Chainlit settings dropdown rather than a static config file. The available models are declared in `OLLAMA_MODELS` (defined in `src/agents/local_models/ollama_config.py`, imported by `run_chat.py`), and the active selection is parsed by `parse_model_selection()` in `run_chat.py`. The default fallback is `gpt-oss:120b-cloud`. OpenRouter free-tier models (`z-ai/glm-4.5-air:free`, `openai/gpt-oss-120b:free`, `openai/gpt-oss-20b:free`, `qwen/qwen3-coder:free`) are listed in `src/core/openrouter_client.py`. Users can switch models mid-session.
+Model selection happens at runtime via the Chainlit settings dropdown rather than a static config file. The available models are declared in `OLLAMA_MODELS` (defined in `src/agents/local_models/ollama_config.py`, imported by `run_chat.py`), and the active selection is parsed by `parse_model_selection()` in `run_chat.py`. The default fallback is `gpt-oss:120b-cloud`. OpenRouter free-tier models are **discovered at runtime** by `discover_free_models()` in `src/core/openrouter_client.py`, which queries the provider for models that are free and support tool calling, then ranks them. There is no hardcoded list to maintain: every free model ID this project has named by hand has since been retired by the provider. Users can switch models mid-session.
 
 API keys are taken from environment variables (`OLLAMA_API_KEY`, `OPENROUTER_API_KEY`) or entered through the in-app prompts and saved to `.env` (which is in `.gitignore`). See "Environment Variables" below for which key is needed when.
 
