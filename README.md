@@ -267,17 +267,40 @@ Currently supports calculations from 0-600K.
 
 ## 🧪 Supported Elements
 
-Element support varies by calculator family:
+Two numbers matter, and they differ. An element is **accepted** if the calculator will run on it, and **usable** if its reference relaxation produced an energy that survives the quality guards. Formation and mixing energies need the second.
 
-| Calculator Family | Elements | Coverage |
-|-------------------|----------|----------|
-| **ORB** (Orbital Materials) | 117/118 | 99.2% - All elements except Og |
-| **MACE** (Foundation) | 89/118 | 75.4% - H-Pu, excludes late actinides |
-| **NequIP** (Foundation) | 86 | H through Pu (Z=1-94) |
+| Calculator | Accepted | Usable | Highest usable Z |
+|---|---|---|---|
+| **ORB** v3 direct-20 | 117 | **115** | 117 |
+| **ORB** v3 conservative-inf | 117 | **96** | 96 |
+| **MACE** (all three) | 89 | **89** | 94 (Pu) |
+| **NequIP** (all three) | 89 | **89** | 94 (Pu) |
 
-**ORB Full Support**: All transition metals, lanthanides, actinides, nonmetals (H, C, N, O, etc.), noble gases, superheavy elements (Rf-Ts).
+**MACE/NequIP**: H–Pu (Z=1–94), all transition metals and lanthanides. Every element they accept is usable.
 
-**MACE/NequIP**: Most main group elements, all transition metals, lanthanides (La-Lu). See docs for full list.
+**ORB** accepts the whole periodic table bar Og, but acceptance is not support:
+
+- On **conservative-inf**, all 21 elements from **Bk (Z=97) to Ts (Z=117)** are unusable — 13 give no valid reference in any structure, and the other 8 relax to about +34 eV/atom, a positive value and therefore not a cohesive energy. Treat **Z ≤ 96** as the honest limit.
+- On **direct-20**, those elements do return usable-looking numbers, but they are not element-specific: the 23 elements from Am (Z=95) upward share just **5 distinct** reference energies between them, spanning −3.24 to −2.80 eV/atom.
+
+Build and visualise structures with these elements freely; do not use their energies quantitatively.
+
+**Non-metals** (H, He, N, O, F, Ne, Cl, Ar) are relaxed with atoms pinned to their lattice sites. Without that constraint they leave the lattice and form molecules — H ends with neighbours 0.743 Å apart, the H₂ bond length, inside a cell still recorded as "fcc". The constrained values are the correct reference for **mixing energy** (`same_structure` mode); they are *not* the right reference for formation energy, whose convention is the element's stable phase — H₂ for hydrogen, not a hydrogen crystal.
+
+### Independent benchmarks
+
+[Matbench Discovery](https://matbench-discovery.materialsproject.org) ranks universal ML potentials on materials discovery, geometry optimisation and phonon transport:
+
+| Calculator | Benchmark page |
+|---|---|
+| ORB v3 Conservative / Direct | *not linked — see note* |
+| NequIP OAM-L | [nequip-oam-l-0.1](https://matbench-discovery.materialsproject.org/models/nequip-oam-l-0.1) |
+| NequIP OAM-XL | [nequip-oam-xl-0.1](https://matbench-discovery.materialsproject.org/models/nequip-oam-xl-0.1) |
+| NequIP MP-L | [nequip-mp-l-0.1](https://matbench-discovery.materialsproject.org/models/nequip-mp-l-0.1) |
+| MACE-MPA Medium | [mace-mpa-0](https://matbench-discovery.materialsproject.org/models/mace-mpa-0) |
+| MACE-OMAT Medium / Small | *not benchmarked there* |
+
+**Why ORB and MACE-OMAT are unlinked.** The ORB leaderboard entry benchmarks `orb-v3-conservative-inf-mpa-20250404.ckpt`, while this app ships the `-omat-` checkpoint — the same date and the same energy-conserving formulation, but a different training set. The **direct** variant is not benchmarked there at all, so pointing at that page would attribute another checkpoint's metrics to our results. MACE-OMAT has no entry in either size. The NequIP pages and MACE-MPA-0 do correspond to the checkpoints used here.
 
 See [`docs/ELEMENT_SUPPORT.md`](docs/ELEMENT_SUPPORT.md) for detailed testing results.
 
