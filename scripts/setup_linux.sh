@@ -117,52 +117,6 @@ if [[ "$gpu_choice" == "y" || "$gpu_choice" == "Y" ]]; then
         fi
     fi
 
-    # Ask about cuML for large systems
-    echo ""
-    echo "Will you simulate large systems? (5000+ atoms PBC or 30000+ atoms non-PBC)"
-    echo "cuML can provide 2-10x faster graph creation and 2-100x better GPU memory efficiency"
-    read -p "Install cuML optimization? (y/n): " cuml_choice
-
-    if [[ "$cuml_choice" == "y" || "$cuml_choice" == "Y" ]]; then
-        echo ""
-        echo "Select cuML version based on your CUDA:"
-        echo "  1. cuML for CUDA 11.x (CUDA 11.4-11.8)"
-        echo "  2. cuML for CUDA 12.x/13.x (CUDA 12.0-13.x)"
-        echo "  3. Skip cuML installation"
-        echo ""
-        read -p "Enter choice (1/2/3): " cuml_ver
-
-        case $cuml_ver in
-            1)
-                echo "Installing cuML for CUDA 11.x..."
-                pip install --extra-index-url=https://pypi.nvidia.com "cuml-cu11==25.2.*"
-                if [ $? -ne 0 ]; then
-                    echo "WARNING: cuML installation failed - continuing without it"
-                    echo "You can install it later with:"
-                    echo "  pip install --extra-index-url=https://pypi.nvidia.com \"cuml-cu11==25.2.*\""
-                else
-                    echo "cuML installed successfully!"
-                fi
-                ;;
-            2)
-                echo "Installing cuML for CUDA 12.x/13.x..."
-                pip install --extra-index-url=https://pypi.nvidia.com "cuml-cu12==25.2.*"
-                if [ $? -ne 0 ]; then
-                    echo "WARNING: cuML installation failed - continuing without it"
-                    echo "You can install it later with:"
-                    echo "  pip install --extra-index-url=https://pypi.nvidia.com \"cuml-cu12==25.2.*\""
-                else
-                    echo "cuML installed successfully!"
-                fi
-                ;;
-            3)
-                echo "Skipping cuML installation."
-                ;;
-            *)
-                echo "Invalid choice. Skipping cuML."
-                ;;
-        esac
-    fi
 else
     echo ""
     echo "Installing PyTorch (CPU-only)..."

@@ -108,7 +108,6 @@ bash scripts/setup_linux.sh
 # - Create the optimat-alloys conda environment with Python 3.11
 # - Install all dependencies
 # - Optionally configure CUDA support
-# - Optionally install cuML for large systems (5k+ atoms)
 # (NequIP calculators need a second env — see docs/SETUP_GUIDE.md#nequip-support-optional)
 
 # 3. Set your API key
