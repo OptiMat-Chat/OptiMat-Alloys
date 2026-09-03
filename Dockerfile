@@ -79,7 +79,17 @@ RUN chmod +x /app/docker-entrypoint.sh
 EXPOSE 8000
 
 # 10. Persistent data volumes
-VOLUME ["/app/structures", "/app/cache/nequip", "/root/.ollama"]
+#     - /app/structures     : user data (structures, calculations, plots)
+#     - /app/cache/nequip   : compiled NequIP models (device- and version-specific)
+#     - /root/.cache/mace   : downloaded MACE checkpoints (mace_mp default)
+#     - /root/.cache/cached_path : downloaded ORB checkpoints (orb-models default,
+#                                  content-addressed)
+#     - /root/.ollama       : Ollama server data (models, keys, blobs)
+#
+# The calculator caches are declared VOLUMEs so a `docker run` without a named
+# mount does not silently accumulate anonymous volumes on each run. The compose
+# templates name all five so they persist across container recreation.
+VOLUME ["/app/structures", "/app/cache/nequip", "/root/.cache/mace", "/root/.cache/cached_path", "/root/.ollama"]
 
 # 11. Entrypoint with tini for proper signal handling and zombie reaping
 ENTRYPOINT ["tini", "--", "/app/docker-entrypoint.sh"]

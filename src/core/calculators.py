@@ -163,13 +163,17 @@ def get_checkpoint_identifier(model: str, device: str = "cuda") -> Optional[str]
             return f"mace_mp:{tag}"
 
         if model.startswith("nequip-"):
-            # NequIP caches a compiled artifact per model AND per device.
+            # NequIP caches a compiled artifact per model, version, and device.
+            # Filename shape must match nequip_worker.load_calculator.
             hub = {
                 "nequip-oam-l": "mir-group/NequIP-OAM-L:0.1",
                 "nequip-oam-xl": "mir-group/NequIP-OAM-XL:0.1",
                 "nequip-mp-l": "mir-group/NequIP-MP-L:0.1",
             }.get(model)
-            return f"{hub} -> {model}_{device}.nequip.pth" if hub else None
+            if not hub:
+                return None
+            version = hub.rsplit(":", 1)[1]
+            return f"{hub} -> {model}_{version}_{device}.nequip.pth"
     except Exception:
         # Provenance is best-effort: never break a calculation over it.
         return None

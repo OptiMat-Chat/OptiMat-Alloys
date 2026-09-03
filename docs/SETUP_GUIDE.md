@@ -375,16 +375,21 @@ Then open **http://localhost:8000** in your browser.
 
 #### Where is my data actually stored?
 
-The compose files declare two **named volumes** that Docker manages outside the container:
+The compose files declare five **named volumes** that Docker manages outside the container:
 
-| Volume | Holds | Mounted at (inside container) |
-|--------|-------|-------------------------------|
-| `alloy-data` | Your generated structures and SQLite database | `/app/structures` |
-| `ollama-models` | Pulled Ollama models (~12 GB if you pull `gpt-oss:20b`) | `/root/.ollama` |
+| Volume | Holds | Mounted at (inside container) | Typical size |
+|--------|-------|-------------------------------|--------------|
+| `alloy-data` | **Your generated structures and SQLite database** — the only truly irreplaceable data | `/app/structures` | few MB, grows with use |
+| `ollama-models` | Pulled Ollama models | `/root/.ollama` | ~12 GB per model pulled |
+| `nequip-cache` | Downloaded + compiled NequIP checkpoints (per device, per version) | `/app/cache/nequip` | ~500 MB |
+| `mace-cache` | Downloaded MACE checkpoints | `/root/.cache/mace` | ~400 MB |
+| `orb-cache` | Downloaded ORB checkpoints (content-addressed) | `/root/.cache/cached_path` | ~200 MB |
+
+The four calculator/LLM volumes are **caches**: everything in them is regenerable — the models redownload from their upstream sources (nequip.net / Hugging Face / S3 / Ollama library) if the volume is gone. They exist because a redownload is slow (~1 GB for calculators, more for LLMs), not because deleting them loses work.
 
 Find them on your host:
 
-- **Docker Desktop GUI:** **Volumes** tab → click `alloy-data` or `ollama-models` → see "Stored on disk" path and browse contents.
+- **Docker Desktop GUI:** **Volumes** tab → click any of the five names → see "Stored on disk" path and browse contents.
 - **PowerShell / CLI:**
   ```powershell
   docker volume ls                          # list all volumes
@@ -397,7 +402,32 @@ The actual on-disk location depends on your platform:
 - **macOS (Docker Desktop):** Inside the Docker Desktop VM disk image — not directly browsable from Finder; use the Docker Desktop **Volumes** tab.
 - **Linux (native Docker):** `/var/lib/docker/volumes/<project>_alloy-data/_data/` (typically requires `sudo`).
 
-> Volumes survive `docker compose down` and even container deletion. They are only removed by `docker compose down -v`, `docker volume rm`, or the **Volumes** tab → Delete in Docker Desktop. To back up: copy the folder above, or use `docker run --rm -v alloy-data:/data -v ${PWD}:/backup alpine tar czf /backup/alloy-data.tgz /data`.
+> Volumes survive `docker compose down` and even container deletion. They are only removed by `docker compose down -v`, `docker volume rm`, or the **Volumes** tab → Delete in Docker Desktop. To back up `alloy-data` (the one that holds real work): copy the folder above, or use `docker run --rm -v alloy-data:/data -v ${PWD}:/backup alpine tar czf /backup/alloy-data.tgz /data`.
+
+#### Reclaiming disk from the caches
+
+The four cache volumes hold nothing you cannot regenerate — but they can add up to 13 GB or more once every LLM you have tried is pulled. Delete safely:
+
+```bash
+# The safe ones (regenerable — first use after deletion re-downloads):
+docker volume rm optimat-alloys_nequip-cache     # ~500 MB
+docker volume rm optimat-alloys_mace-cache       # ~400 MB
+docker volume rm optimat-alloys_orb-cache        # ~200 MB
+docker volume rm optimat-alloys_ollama-models    # ~12 GB per pulled model
+```
+
+> **Do NOT delete `optimat-alloys_alloy-data`.** That is the only volume that holds work you cannot recreate — every structure you generated, every calculation you ran. If you also want it gone (moving machines, starting fresh), back it up first (see the backup command above), then delete it.
+
+The `optimat-alloys_` prefix comes from the compose project name (the directory holding the `.yml` file, unless you passed `-p`). Adjust to yours if you renamed the directory. In Docker Desktop the same volumes are shown by their bare names on the **Volumes** tab — Delete does the same thing.
+
+To wipe every cache in one go while keeping your structures:
+
+```bash
+docker volume rm optimat-alloys_nequip-cache optimat-alloys_mace-cache \
+                 optimat-alloys_orb-cache optimat-alloys_ollama-models
+```
+
+Container needs to be stopped first (`docker compose stop`); a volume in use by a running container cannot be removed.
 
 ### Paths B/C: Conda Environment
 
