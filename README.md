@@ -75,7 +75,8 @@ docker run --gpus all -p 8000:8000 \
 ### Good to know
 
 - **First run**: no setup wait. Reference data for all eight calculators ships with the app, so the first launch uses it immediately and precomputes nothing.
-- **Your data persists** in named Docker volumes (`alloy-data` for structures, `ollama-models` for local LLM weights) and survives container restarts and updates.
+- **Your data persists** in named Docker volumes (`alloy-data` for structures, `ollama-models` for local LLM weights, `nequip-cache` for compiled NequIP models) and survives container restarts and updates.
+- **Stop it with `stop`, not `down`.** `down` deletes the container, and the MACE and ORB weights are downloaded into it on first use — so the next start fetches several hundred MB again. Use `stop` to pause and `start` to resume. In Docker Desktop, the **Stop** button is the safe one; **Delete** behaves like `down`. Your data survives either way (see above).
 - **Update**: `docker compose -f docker-compose-cpu.yml pull` then `up`.
 - **Remove**: `docker compose -f docker-compose-cpu.yml down` (add `-v` to also delete your data volumes).
 - **Step-by-step Windows walkthrough** (Docker Desktop, WSL2 backend, GPU passthrough): [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md).

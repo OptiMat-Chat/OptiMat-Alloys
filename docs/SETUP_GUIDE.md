@@ -136,11 +136,25 @@ The first run pulls the ~12 GB image — give it a few minutes. When you see `Yo
 ```powershell
 # Stop (in the running terminal): press Ctrl-C
 # Or from another PowerShell window:
-docker compose -f docker-compose-gpu.yml down
+docker compose -f docker-compose-gpu.yml stop
 
 # Restart later:
-docker compose -f docker-compose-gpu.yml up
+docker compose -f docker-compose-gpu.yml start
 ```
+
+> ⚠️ **Use `stop`/`start`, not `down`/`up`.** The MACE and ORB model weights are
+> downloaded on first use into the container itself. `down` deletes the
+> container, so the next start downloads them again — several hundred MB, and
+> your first calculation waits for it. `stop` keeps the container, so the
+> download happens once. Ctrl-C is also only a stop, and is safe.
+>
+> Use `down` when you genuinely want the container removed, such as before
+> pulling a new image version. Nothing you have computed is lost either way —
+> your structures database, Ollama models and compiled NequIP models live in
+> named volumes that survive `down`.
+>
+> In Docker Desktop the **Stop** and **Start** buttons match the commands above
+> and are safe. **Deleting** the container there is the equivalent of `down`.
 
 > ℹ️ **Why PowerShell instead of the GUI?** The Docker Desktop GUI's "Run" dialog launches single images and doesn't read compose files at all — there's no way to point it at a `.yml` file and start it. The `docker compose` CLI is the only way to use these files. Once the container is running, it will appear in Docker Desktop's **Containers** tab grouped under the project name (`optimat-alloys`), and you can stop/restart it from the GUI from then on.
 
@@ -351,7 +365,7 @@ cd C:\OptiMat-Alloys
 docker compose -f docker-compose-gpu.yml up    # or -cpu.yml
 ```
 
-To stop: press Ctrl-C, or `docker compose -f docker-compose-gpu.yml down` from another window.
+To stop: press Ctrl-C, or `docker compose -f docker-compose-gpu.yml stop` from another window. Resume with `start`. Avoid `down` unless you want the container removed — it is the CLI equivalent of **Delete** below, and the MACE and ORB weights are downloaded again on the next start.
 
 **If you used Option 1 (Docker Desktop GUI):** Containers tab → find OptiMat Alloys → click **Start** (play icon). To stop: click **Stop** (square icon).
 
@@ -654,8 +668,10 @@ rm -rf ~/OptiMat-Alloys
 | Change AI model | Gear icon → AI Model dropdown |
 | Change supercell size | Gear icon → Default Supercell Size |
 | Export database | Click "Download Database" button |
-| Start the app (Docker) | `docker compose -f docker-compose-gpu.yml up` (or `-cpu.yml`) |
-| Stop the app (Docker) | Ctrl-C, or `docker compose -f docker-compose-gpu.yml down` |
+| Start the app (Docker), first time | `docker compose -f docker-compose-gpu.yml up` (or `-cpu.yml`) |
+| Stop the app (Docker) | Ctrl-C, or `docker compose -f docker-compose-gpu.yml stop` |
+| Resume the app (Docker) | `docker compose -f docker-compose-gpu.yml start` |
+| Remove the container (re-downloads weights next start) | `docker compose -f docker-compose-gpu.yml down` |
 | Stop the app (Paths B/C) | Ctrl-C in terminal, or `pkill -f "chainlit run"` |
 
 ---
