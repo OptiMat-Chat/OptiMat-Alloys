@@ -9,12 +9,28 @@
 #   3. Pull the image and start the container:
 #        docker compose -f docker-compose-gpu.yml up
 #   4. Open http://localhost:8000 in your browser
-#   5. To stop: press Ctrl-C, or run `docker compose -f docker-compose-gpu.yml down`
+#   5. To stop:   docker compose -f docker-compose-gpu.yml stop
+#      To resume: docker compose -f docker-compose-gpu.yml start
+#
+# Prefer `stop`/`start` over `down`/`up`. The MACE and ORB weights are
+# downloaded on first use into the container itself, so deleting the container
+# discards them and the next start downloads them again — several hundred MB,
+# and the first calculation waits for it. `stop` keeps the container, so the
+# download happens once. Pressing Ctrl-C in the terminal running `up` is also
+# only a stop, and is safe.
+#
+# Use `down` when you actually want the container gone, e.g. before pulling a
+# new image version. Nothing you have computed is lost either way: the
+# structures database, the Ollama models and the compiled NequIP models are all
+# in named volumes, which survive `down`.
 #
 # Note: The Docker Desktop GUI's "Run" dialog launches single images and
 # does not read compose files at all. To use this file you MUST use the
 # `docker compose -f docker-compose-gpu.yml ...` CLI. The running container
-# will then appear in Docker Desktop's Containers tab for stop/restart.
+# will then appear in Docker Desktop's Containers tab, where the stop and start
+# buttons behave exactly like the commands above and are safe to use. Deleting
+# the container there is the equivalent of `down` — the same re-download
+# applies.
 #
 services:
   optimat-alloys:
@@ -38,7 +54,23 @@ services:
     volumes:
       - alloy-data:/app/structures
       - ollama-models:/root/.ollama
+      # Calculator caches. The image declares each of these paths as a VOLUME,
+      # so without naming them here Docker creates fresh anonymous volumes on
+      # every run: the models are re-downloaded (and NequIP recompiled) at
+      # first use, and the previous run's copies are left behind as orphans.
+      # Named here, they survive `docker compose down` and the next `up`
+      # reuses them. The compiled artifact is device-specific, so the GPU and
+      # CPU builds coexist in nequip-cache rather than overwriting each other.
+      # Total ~1 GB on disk once populated. To delete: `docker volume rm <name>`,
+      # or `docker compose down -v`. See SETUP_GUIDE.md section
+      # "Cached data on disk" for sizes and safe-to-remove notes.
+      - nequip-cache:/app/cache/nequip
+      - mace-cache:/root/.cache/mace
+      - orb-cache:/root/.cache/cached_path
 
 volumes:
   alloy-data:
   ollama-models:
+  nequip-cache:
+  mace-cache:
+  orb-cache:

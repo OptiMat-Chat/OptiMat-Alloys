@@ -136,11 +136,25 @@ The first run pulls the ~12 GB image — give it a few minutes. When you see `Yo
 ```powershell
 # Stop (in the running terminal): press Ctrl-C
 # Or from another PowerShell window:
-docker compose -f docker-compose-gpu.yml down
+docker compose -f docker-compose-gpu.yml stop
 
 # Restart later:
-docker compose -f docker-compose-gpu.yml up
+docker compose -f docker-compose-gpu.yml start
 ```
+
+> ⚠️ **Use `stop`/`start`, not `down`/`up`.** The MACE and ORB model weights are
+> downloaded on first use into the container itself. `down` deletes the
+> container, so the next start downloads them again — several hundred MB, and
+> your first calculation waits for it. `stop` keeps the container, so the
+> download happens once. Ctrl-C is also only a stop, and is safe.
+>
+> Use `down` when you genuinely want the container removed, such as before
+> pulling a new image version. Nothing you have computed is lost either way —
+> your structures database, Ollama models and compiled NequIP models live in
+> named volumes that survive `down`.
+>
+> In Docker Desktop the **Stop** and **Start** buttons match the commands above
+> and are safe. **Deleting** the container there is the equivalent of `down`.
 
 > ℹ️ **Why PowerShell instead of the GUI?** The Docker Desktop GUI's "Run" dialog launches single images and doesn't read compose files at all — there's no way to point it at a `.yml` file and start it. The `docker compose` CLI is the only way to use these files. Once the container is running, it will appear in Docker Desktop's **Containers** tab grouped under the project name (`optimat-alloys`), and you can stop/restart it from the GUI from then on.
 
@@ -351,7 +365,7 @@ cd C:\OptiMat-Alloys
 docker compose -f docker-compose-gpu.yml up    # or -cpu.yml
 ```
 
-To stop: press Ctrl-C, or `docker compose -f docker-compose-gpu.yml down` from another window.
+To stop: press Ctrl-C, or `docker compose -f docker-compose-gpu.yml stop` from another window. Resume with `start`. Avoid `down` unless you want the container removed — it is the CLI equivalent of **Delete** below, and the MACE and ORB weights are downloaded again on the next start.
 
 **If you used Option 1 (Docker Desktop GUI):** Containers tab → find OptiMat Alloys → click **Start** (play icon). To stop: click **Stop** (square icon).
 
@@ -361,16 +375,21 @@ Then open **http://localhost:8000** in your browser.
 
 #### Where is my data actually stored?
 
-The compose files declare two **named volumes** that Docker manages outside the container:
+The compose files declare five **named volumes** that Docker manages outside the container:
 
-| Volume | Holds | Mounted at (inside container) |
-|--------|-------|-------------------------------|
-| `alloy-data` | Your generated structures and SQLite database | `/app/structures` |
-| `ollama-models` | Pulled Ollama models (~12 GB if you pull `gpt-oss:20b`) | `/root/.ollama` |
+| Volume | Holds | Mounted at (inside container) | Typical size |
+|--------|-------|-------------------------------|--------------|
+| `alloy-data` | **Your generated structures and SQLite database** — the only truly irreplaceable data | `/app/structures` | few MB, grows with use |
+| `ollama-models` | Pulled Ollama models | `/root/.ollama` | ~12 GB per model pulled |
+| `nequip-cache` | Downloaded + compiled NequIP checkpoints (per device, per version) | `/app/cache/nequip` | ~500 MB |
+| `mace-cache` | Downloaded MACE checkpoints | `/root/.cache/mace` | ~400 MB |
+| `orb-cache` | Downloaded ORB checkpoints (content-addressed) | `/root/.cache/cached_path` | ~200 MB |
+
+The four calculator/LLM volumes are **caches**: everything in them is regenerable — the models redownload from their upstream sources (nequip.net / Hugging Face / S3 / Ollama library) if the volume is gone. They exist because a redownload is slow (~1 GB for calculators, more for LLMs), not because deleting them loses work.
 
 Find them on your host:
 
-- **Docker Desktop GUI:** **Volumes** tab → click `alloy-data` or `ollama-models` → see "Stored on disk" path and browse contents.
+- **Docker Desktop GUI:** **Volumes** tab → click any of the five names → see "Stored on disk" path and browse contents.
 - **PowerShell / CLI:**
   ```powershell
   docker volume ls                          # list all volumes
@@ -383,7 +402,68 @@ The actual on-disk location depends on your platform:
 - **macOS (Docker Desktop):** Inside the Docker Desktop VM disk image — not directly browsable from Finder; use the Docker Desktop **Volumes** tab.
 - **Linux (native Docker):** `/var/lib/docker/volumes/<project>_alloy-data/_data/` (typically requires `sudo`).
 
-> Volumes survive `docker compose down` and even container deletion. They are only removed by `docker compose down -v`, `docker volume rm`, or the **Volumes** tab → Delete in Docker Desktop. To back up: copy the folder above, or use `docker run --rm -v alloy-data:/data -v ${PWD}:/backup alpine tar czf /backup/alloy-data.tgz /data`.
+> Volumes survive `docker compose down` and even container deletion. They are only removed by `docker compose down -v`, `docker volume rm`, or the **Volumes** tab → Delete in Docker Desktop. To back up `alloy-data` (the one that holds real work): copy the folder above, or use `docker run --rm -v alloy-data:/data -v ${PWD}:/backup alpine tar czf /backup/alloy-data.tgz /data`.
+
+#### Reclaiming disk from the caches
+
+The four cache volumes hold nothing you cannot regenerate — but they can add up to 13 GB or more once every LLM you have tried is pulled. Below is how to remove any subset safely.
+
+> ⚠️ **DO NOT delete `optimat-alloys_alloy-data`.** That is the only volume that holds work you cannot recreate — every structure you generated, every calculation you ran. If you also want it gone (moving machines, starting fresh), back it up first (see the backup command above), then delete it. The other four are caches; delete freely.
+
+**First: stop the app.** A volume in use by a running container cannot be removed.
+
+```powershell
+docker compose -f docker-compose-gpu.yml stop     # or -cpu.yml
+```
+
+In Docker Desktop: **Containers** tab → find `optimat-alloys` → click **Stop** (square icon).
+
+**Then pick one of the three paths below.** The exact volume names below assume the compose file lives in a directory called `optimat-alloys`; if your directory is named differently, replace the `optimat-alloys_` prefix accordingly. To find your prefix: `docker volume ls | Select-String nequip-cache`.
+
+**Path 1: PowerShell (Windows)** — one command per line, no continuations:
+
+```powershell
+docker volume rm optimat-alloys_nequip-cache
+docker volume rm optimat-alloys_mace-cache
+docker volume rm optimat-alloys_orb-cache
+docker volume rm optimat-alloys_ollama-models
+```
+
+Or all four at once (PowerShell uses a space-separated list, no backslash):
+
+```powershell
+docker volume rm optimat-alloys_nequip-cache optimat-alloys_mace-cache optimat-alloys_orb-cache optimat-alloys_ollama-models
+```
+
+**Path 2: bash / zsh (macOS, Linux, WSL)** — the same, with `\` for line continuation:
+
+```bash
+docker volume rm \
+  optimat-alloys_nequip-cache \
+  optimat-alloys_mace-cache \
+  optimat-alloys_orb-cache \
+  optimat-alloys_ollama-models
+```
+
+**Path 3: Docker Desktop GUI (any OS)** — no terminal needed:
+
+1. Open Docker Desktop.
+2. Left sidebar → **Volumes**.
+3. In the list you will see five names beginning with `optimat-alloys_`. **Volumes are shown with the full project prefix, not the bare names.**
+4. Tick the box next to any cache you want to remove — `nequip-cache`, `mace-cache`, `orb-cache`, `ollama-models`. **Do NOT tick `alloy-data`.** The GUI will delete it with the same click and no separate warning.
+5. Click **Delete** at the top of the list (trash icon). Confirm the prompt.
+6. Storage is freed immediately.
+
+To free everything without touching the cache (or the GUI): `docker compose down -v` deletes the container **and every volume it declared** — including `alloy-data`. Only use it if you truly want a clean slate.
+
+**Sizes for reference**, so you know what you get back:
+
+| Volume | Reclaims | Cost of re-fetch on next start |
+|---|---|---|
+| `optimat-alloys_nequip-cache` | ~500 MB | 260 MB download + 30–60 s compile per model, per device |
+| `optimat-alloys_mace-cache` | ~400 MB | ~130 MB download per model requested |
+| `optimat-alloys_orb-cache` | ~200 MB | ~200 MB download on first ORB use |
+| `optimat-alloys_ollama-models` | up to 12 GB per LLM pulled | full LLM download on next use |
 
 ### Paths B/C: Conda Environment
 
@@ -654,8 +734,10 @@ rm -rf ~/OptiMat-Alloys
 | Change AI model | Gear icon → AI Model dropdown |
 | Change supercell size | Gear icon → Default Supercell Size |
 | Export database | Click "Download Database" button |
-| Start the app (Docker) | `docker compose -f docker-compose-gpu.yml up` (or `-cpu.yml`) |
-| Stop the app (Docker) | Ctrl-C, or `docker compose -f docker-compose-gpu.yml down` |
+| Start the app (Docker), first time | `docker compose -f docker-compose-gpu.yml up` (or `-cpu.yml`) |
+| Stop the app (Docker) | Ctrl-C, or `docker compose -f docker-compose-gpu.yml stop` |
+| Resume the app (Docker) | `docker compose -f docker-compose-gpu.yml start` |
+| Remove the container (re-downloads weights next start) | `docker compose -f docker-compose-gpu.yml down` |
 | Stop the app (Paths B/C) | Ctrl-C in terminal, or `pkill -f "chainlit run"` |
 
 ---

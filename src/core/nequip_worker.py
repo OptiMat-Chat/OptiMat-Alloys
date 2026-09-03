@@ -115,8 +115,13 @@ class NequIPWorker:
         cache_dir = Path(NEQUIP_CACHE_DIR)
         cache_dir.mkdir(parents=True, exist_ok=True)
 
-        # Compiled model path (device-specific)
-        compiled_path = cache_dir / f"{model}_{device}.nequip.pth"
+        # Compiled model path — device- AND version-specific. The version comes
+        # from the MODEL_MAP tag ('mir-group/NequIP-OAM-XL:0.1' -> '0.1'), so
+        # bumping the tag automatically invalidates any older compile of the
+        # same name. Without this, `if not compiled_path.exists()` would keep
+        # returning true for a stale 0.1 artifact after the map moved to 0.2.
+        model_version = nequip_model.rsplit(":", 1)[1] if ":" in nequip_model else "unversioned"
+        compiled_path = cache_dir / f"{model}_{model_version}_{device}.nequip.pth"
 
         # Compile if not cached
         if not compiled_path.exists():

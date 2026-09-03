@@ -66,7 +66,11 @@ Supported providers: `OLLAMA_API_KEY` (cloud models, default) and `OPENROUTER_AP
 
 ```bash
 docker run --gpus all -p 8000:8000 \
-  -v alloy-data:/app/structures -v ollama-models:/root/.ollama \
+  -v alloy-data:/app/structures \
+  -v ollama-models:/root/.ollama \
+  -v nequip-cache:/app/cache/nequip \
+  -v mace-cache:/root/.cache/mace \
+  -v orb-cache:/root/.cache/cached_path \
   ghcr.io/optimat-chat/optimat-alloys:latest
 ```
 
@@ -75,7 +79,8 @@ docker run --gpus all -p 8000:8000 \
 ### Good to know
 
 - **First run**: no setup wait. Reference data for all eight calculators ships with the app, so the first launch uses it immediately and precomputes nothing.
-- **Your data persists** in named Docker volumes (`alloy-data` for structures, `ollama-models` for local LLM weights) and survives container restarts and updates.
+- **Your data persists** in five named Docker volumes: `alloy-data` (your structures — the only irreplaceable one), `ollama-models` (~12 GB per LLM pulled), `nequip-cache` (~500 MB), `mace-cache` (~400 MB), `orb-cache` (~200 MB). All five survive container restarts, updates, and deletion. See [Reclaiming disk from the caches](docs/SETUP_GUIDE.md#reclaiming-disk-from-the-caches) for how to remove any subset safely.
+- **Stop it with `stop`, not `down`.** `down` deletes the container. Your data survives either way (it lives in the volumes), but `stop`/`start` keeps warmup work in the container's writable layer. In Docker Desktop, the **Stop** button is the safe one; **Delete** behaves like `down`.
 - **Update**: `docker compose -f docker-compose-cpu.yml pull` then `up`.
 - **Remove**: `docker compose -f docker-compose-cpu.yml down` (add `-v` to also delete your data volumes).
 - **Step-by-step Windows walkthrough** (Docker Desktop, WSL2 backend, GPU passthrough): [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md).
