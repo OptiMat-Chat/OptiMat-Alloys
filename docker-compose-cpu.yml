@@ -31,7 +31,13 @@ services:
     volumes:
       - alloy-data:/app/structures
       - ollama-models:/root/.ollama
+      # Compiled NequIP models. The image declares this path as a VOLUME, so
+      # without naming it here Docker creates a fresh anonymous volume on every
+      # run: each NequIP model is re-downloaded and recompiled for the device at
+      # first use, and the previous run's copy is left behind as an orphan.
+      - nequip-cache:/app/cache/nequip
 
 volumes:
   alloy-data:
   ollama-models:
+  nequip-cache:
