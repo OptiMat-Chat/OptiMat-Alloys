@@ -443,22 +443,50 @@ Benefits: 2-10x faster graph creation, 2-100x better GPU memory efficiency
 
 ### Global Structure Database
 
-All structures are stored in a centralized SQLite database:
+**`structures/database.db` is the source of truth.** Every structure, and every property computed from it, lives in that one SQLite file. The per-structure folders hold *exports* — files generated so you can open, cite or share the results outside the app. They are all derived and regenerated on demand, so deleting one costs recomputation, not data.
 
 ```
 structures/
-├── database.db                         # SQLite database (all structures)
-├── {uuid}/                             # Per-structure directory (UUID-based)
-│   ├── structure_elements.png         # Element-colored rendering
-│   ├── structure_analysis.png         # PTM-colored rendering
-│   ├── relaxation.traj                # Optimization trajectory
-│   ├── rdf_chart.json                 # RDF Plotly chart data
-│   └── elastic_tensor.json            # Elastic properties (if calculated)
+├── database.db                         # SQLite — the only file with no backup path
+└── {uuid}/                             # Per-structure exports (UUID-named)
+    ├── report.pdf                      # written on request by generate_report
+    ├── {composition}_data.zip          # everything below, bundled
+    ├── references.bib
+    ├── csv/                            # elastic tensor, ELATE (elate_*), QHA, RDF
+    ├── plots/                          # all PNGs: renders, elate_*, qha_*, rdf
+    └── geometry/                       # structure.cif, POSCAR, .xyz, .lammps
 ```
 
 **Example**: `structures/f1f24f2b5e584926ab47cb49ac2591d6/`
 
-In Docker, this directory lives in the `alloy-data` volume mounted at `/app/structures`.
+A folder only contains what has actually been computed — no elastic data means no `csv/elastic_stiffness_tensor.csv`. A structure that was generated but never reported holds just the two renderings in `plots/`.
+
+In Docker, this directory lives in the `alloy-data` volume mounted at `/app/structures`. See [Where is my data actually stored?](docs/SETUP_GUIDE.md#where-is-my-data-actually-stored) for the on-disk location on each platform.
+
+### What lives in the database rather than on disk
+
+The scientific data is stored on the database row, not as sidecar files:
+
+| Data | Where |
+|---|---|
+| Elastic stiffness tensor (6×6) | `row.data['elastic_stiffness_tensor_voigt_GPa']` |
+| ELATE directional properties | `row.data['elate_properties']` |
+| QHA curves — B(T), V(T), α(T), Cp(T), γ(T), Gibbs | `row.data['qha_1d_properties']` |
+| QHA surfaces — F(T,V), S(T,V), Cv(T,V) | `row.data['qha_2d_properties']` |
+| QHA inputs — temperature grid, mesh, volumes | `row.data['qha_temperature_range']`, … |
+| RDF | `row.data['rdf_data']` |
+| PTM structural analysis | `row.data['PTM_structural_analysis_in_percent']` |
+
+Note the distinction: `key_value_pairs` holds the scalars you can **search** on (300 K summaries, formation energy, density), while `data` holds the full arrays. Reading only the former will make you think a curve is missing when it is not.
+
+Relaxation trajectories are **not** saved.
+
+```python
+from ase.db import connect
+db = connect("structures/database.db")
+row = db.get(unique_id="f1f24f2b5e584926ab47cb49ac2591d6")
+row.data["qha_1d_properties"]["bulk_moduli"]   # B(T), one value per temperature
+```
 
 ### Reference Data
 
@@ -536,14 +564,44 @@ pip install --upgrade -r requirements.txt
 
 ## 🧹 Uninstalling
 
-**Docker:**
+**Docker.** Choose the level that matches what you actually want to remove; the app declares five named volumes and by default they survive `down`.
+
+**Level 1 — Remove the app, keep everything you generated** (recommended for a routine cleanup or before pulling a new version):
+
 ```bash
-docker compose -f docker-compose-cpu.yml down        # keep your data
-docker compose -f docker-compose-cpu.yml down -v     # delete data volumes too
+docker compose -f docker-compose-cpu.yml down        # or -gpu.yml
+docker rmi ghcr.io/optimat-chat/optimat-alloys:latest
+```
+
+Your five volumes (`alloy-data`, `ollama-models`, `nequip-cache`, `mace-cache`, `orb-cache`) remain. Reinstalling and running `docker compose up` will pick them up automatically — every structure, every calculation, and every downloaded model is still there.
+
+**Level 2 — Reclaim disk from the caches, keep your work.** The caches (`nequip-cache`, `mace-cache`, `orb-cache`, and `ollama-models`) redownload from upstream on demand; only `alloy-data` holds work you cannot recreate.
+
+```bash
+docker compose -f docker-compose-cpu.yml stop
+docker volume rm optimat-alloys_nequip-cache \
+                 optimat-alloys_mace-cache \
+                 optimat-alloys_orb-cache \
+                 optimat-alloys_ollama-models
+```
+
+Windows PowerShell users, and anyone who prefers the Docker Desktop **Volumes** tab, will find the same instructions in three explicit forms at [Reclaiming disk from the caches](docs/SETUP_GUIDE.md#reclaiming-disk-from-the-caches).
+
+> ⚠️ **DO NOT delete `optimat-alloys_alloy-data`.** That volume holds your generated structures and computed properties — regenerating them means rerunning every calculation.
+
+**Level 3 — Delete everything, including your structures.** For moving machines, freeing all space, or truly starting over. Back up first if you want to keep any of your work:
+
+```bash
+# Optional: back up the structures database first
+docker run --rm -v optimat-alloys_alloy-data:/data -v ${PWD}:/backup alpine \
+  tar czf /backup/alloy-data.tgz /data
+
+docker compose -f docker-compose-cpu.yml down -v      # deletes ALL five volumes
 docker rmi ghcr.io/optimat-chat/optimat-alloys:latest
 ```
 
 **Source install:**
+
 ```bash
 conda deactivate
 conda env remove -n optimat-alloys
