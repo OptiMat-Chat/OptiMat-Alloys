@@ -406,28 +406,64 @@ The actual on-disk location depends on your platform:
 
 #### Reclaiming disk from the caches
 
-The four cache volumes hold nothing you cannot regenerate — but they can add up to 13 GB or more once every LLM you have tried is pulled. Delete safely:
+The four cache volumes hold nothing you cannot regenerate — but they can add up to 13 GB or more once every LLM you have tried is pulled. Below is how to remove any subset safely.
 
-```bash
-# The safe ones (regenerable — first use after deletion re-downloads):
-docker volume rm optimat-alloys_nequip-cache     # ~500 MB
-docker volume rm optimat-alloys_mace-cache       # ~400 MB
-docker volume rm optimat-alloys_orb-cache        # ~200 MB
-docker volume rm optimat-alloys_ollama-models    # ~12 GB per pulled model
+> ⚠️ **DO NOT delete `optimat-alloys_alloy-data`.** That is the only volume that holds work you cannot recreate — every structure you generated, every calculation you ran. If you also want it gone (moving machines, starting fresh), back it up first (see the backup command above), then delete it. The other four are caches; delete freely.
+
+**First: stop the app.** A volume in use by a running container cannot be removed.
+
+```powershell
+docker compose -f docker-compose-gpu.yml stop     # or -cpu.yml
 ```
 
-> **Do NOT delete `optimat-alloys_alloy-data`.** That is the only volume that holds work you cannot recreate — every structure you generated, every calculation you ran. If you also want it gone (moving machines, starting fresh), back it up first (see the backup command above), then delete it.
+In Docker Desktop: **Containers** tab → find `optimat-alloys` → click **Stop** (square icon).
 
-The `optimat-alloys_` prefix comes from the compose project name (the directory holding the `.yml` file, unless you passed `-p`). Adjust to yours if you renamed the directory. In Docker Desktop the same volumes are shown by their bare names on the **Volumes** tab — Delete does the same thing.
+**Then pick one of the three paths below.** The exact volume names below assume the compose file lives in a directory called `optimat-alloys`; if your directory is named differently, replace the `optimat-alloys_` prefix accordingly. To find your prefix: `docker volume ls | Select-String nequip-cache`.
 
-To wipe every cache in one go while keeping your structures:
+**Path 1: PowerShell (Windows)** — one command per line, no continuations:
 
-```bash
-docker volume rm optimat-alloys_nequip-cache optimat-alloys_mace-cache \
-                 optimat-alloys_orb-cache optimat-alloys_ollama-models
+```powershell
+docker volume rm optimat-alloys_nequip-cache
+docker volume rm optimat-alloys_mace-cache
+docker volume rm optimat-alloys_orb-cache
+docker volume rm optimat-alloys_ollama-models
 ```
 
-Container needs to be stopped first (`docker compose stop`); a volume in use by a running container cannot be removed.
+Or all four at once (PowerShell uses a space-separated list, no backslash):
+
+```powershell
+docker volume rm optimat-alloys_nequip-cache optimat-alloys_mace-cache optimat-alloys_orb-cache optimat-alloys_ollama-models
+```
+
+**Path 2: bash / zsh (macOS, Linux, WSL)** — the same, with `\` for line continuation:
+
+```bash
+docker volume rm \
+  optimat-alloys_nequip-cache \
+  optimat-alloys_mace-cache \
+  optimat-alloys_orb-cache \
+  optimat-alloys_ollama-models
+```
+
+**Path 3: Docker Desktop GUI (any OS)** — no terminal needed:
+
+1. Open Docker Desktop.
+2. Left sidebar → **Volumes**.
+3. In the list you will see five names beginning with `optimat-alloys_`. **Volumes are shown with the full project prefix, not the bare names.**
+4. Tick the box next to any cache you want to remove — `nequip-cache`, `mace-cache`, `orb-cache`, `ollama-models`. **Do NOT tick `alloy-data`.** The GUI will delete it with the same click and no separate warning.
+5. Click **Delete** at the top of the list (trash icon). Confirm the prompt.
+6. Storage is freed immediately.
+
+To free everything without touching the cache (or the GUI): `docker compose down -v` deletes the container **and every volume it declared** — including `alloy-data`. Only use it if you truly want a clean slate.
+
+**Sizes for reference**, so you know what you get back:
+
+| Volume | Reclaims | Cost of re-fetch on next start |
+|---|---|---|
+| `optimat-alloys_nequip-cache` | ~500 MB | 260 MB download + 30–60 s compile per model, per device |
+| `optimat-alloys_mace-cache` | ~400 MB | ~130 MB download per model requested |
+| `optimat-alloys_orb-cache` | ~200 MB | ~200 MB download on first ORB use |
+| `optimat-alloys_ollama-models` | up to 12 GB per LLM pulled | full LLM download on next use |
 
 ### Paths B/C: Conda Environment
 
