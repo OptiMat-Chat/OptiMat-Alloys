@@ -411,22 +411,6 @@ python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 
 Simulations are **5-10x faster** with GPU.
 
-### Large Systems (5k+ atoms)
-
-For systems with ≥5000 atoms (PBC) or ≥30000 atoms (non-PBC), install cuML (source installs):
-
-```bash
-conda activate optimat-alloys
-
-# CUDA 11.4-11.8
-pip install --extra-index-url=https://pypi.nvidia.com "cuml-cu11==25.2.*"
-
-# CUDA 12.0+
-pip install --extra-index-url=https://pypi.nvidia.com "cuml-cu12==25.2.*"
-```
-
-Benefits: 2-10x faster graph creation, 2-100x better GPU memory efficiency
-
 ### File Performance (WSL2)
 
 **Always use the WSL2 native filesystem** (source installs):
@@ -530,8 +514,7 @@ bash scripts/launch_optimat_alloys.sh --port 8001
 
 ### CUDA Out of Memory
 - Close other GPU applications
-- Reduce `target_num_atoms` (try 256 instead of 512)
-- Install cuML for better memory efficiency
+- In Chainlit settings, choose a smaller **Supercell Size** — Medium (512 atoms) or Small (48 atoms) instead of Large (2048)
 
 ### Slow Performance
 - Verify you're on WSL2 native filesystem (`pwd` shows `/home/...`)
