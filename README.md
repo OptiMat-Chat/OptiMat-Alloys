@@ -193,7 +193,7 @@ src/
 ├── storage/          # Data persistence
 │   ├── global_database.py    # SQLite structure database
 │   └── cache.py              # Reference data caching
-├── agents/           # AutoGen agent system
+├── agents/           # Microsoft Agent Framework agent system
 │   ├── factory.py            # Agent creation
 │   └── scientist.py          # Scientist agent
 └── tools/            # Agent tool infrastructure
@@ -311,7 +311,7 @@ See [`docs/ELEMENT_SUPPORT.md`](docs/ELEMENT_SUPPORT.md) for detailed testing re
 
 ## 🔬 Technical Stack
 
-- **AI Framework**: AutoGen (multi-agent orchestration)
+- **AI Framework**: Microsoft Agent Framework (agent orchestration)
 - **Web Interface**: Chainlit (interactive chat UI)
 - **Atomistic Simulation**: ASE (Atomic Simulation Environment)
 - **Neural Network Potentials**: ORB, MACE, NequIP (universal ML potentials)
@@ -647,7 +647,7 @@ If you use OptiMat Alloys in your research, please cite the preprint:
 - **Phonopy**: Atsushi Togo (QHA implementation)
 - **ASE**: Atomic Simulation Environment team
 - **OVITO**: Alexander Stukowski
-- **AutoGen**: Microsoft Research
+- **Microsoft Agent Framework**: Microsoft Research (formerly AutoGen)
 - **Chainlit**: Chainlit team
 
 ---
